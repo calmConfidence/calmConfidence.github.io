@@ -1,29 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2024/07/16/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<h3 id="这里是中文字体测试"><a href="#这里是中文字体测试" class="headerlink" title="这里是中文字体测试"></a>这里是中文字体测试</h3><p>你好，世界！</p>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+    <title>How to use git and github?</title>
+    <url>/2024/08/01/How-to-use-git-and-github/</url>
+    <content><![CDATA[<h2 id="Basic-Concepts">Basic Concepts</h2>
+<p><strong>repository</strong>：One project corresponds to one repository.The repository stores all the project codes.</p>
+<p><strong>star:</strong> If you think that project is useful or interesting, you can star it.On the one hand, that project will be more and more popular, on the other hand it’s more convenient for you to find the project.</p>
+<p><strong>fork:</strong> It means copy the project’s code in your repository which will have a mark “forked from xxxx”</p>
+<p><strong>Pull Request:</strong> Someone forked your code and add something new, they want to add their changes into your raw projects.Then they will send a <strong>PR</strong>(pull request) to you.You should review their code and do some tests, if you think there is no problem, you can merge all codes.</p>
+<p><strong>Issue:</strong> If you find some bugs or problems, you can raise in issue.</p>
+<h2 id="Basic-Operation">Basic Operation</h2>
+<p><strong>add file、change file、delete file、search file(t):</strong> excute correspond operation and commit changes.You can find all the commits in the upper right corner.</p>
+<p><strong>new a repository、delete a repository(in the setting)、fork a repository.</strong> You can also propose a pull request or raise a issue to participate contributions.</p>
+<h2 id="Git-Operation">Git Operation</h2>
+<p><strong>Git working space:</strong> repository、staging area、working directory</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>The reason why we need staging area instead of only repository is that we need somewhere to choose which file we want to track which not,like some logs file or compiled file(.o file) etc.</code></p>
+</li>
+</ul>
+<h3 id="Command">Command</h3>
+<h4 id="Basic-command">Basic command</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>git help <command>: you can get some help on specific command.</p>
+</li>
+<li class="lvl-2">
+<p>git log --all --graph --decorate: you can get all the commits in a beautiful format.</p>
+</li>
+<li class="lvl-2">
+<p>config: git config --global <a href="http://user.name">user.name</a> “xxx”、git config --global user.email “<a href="mailto:xxx@email.com">xxx@email.com</a>”</p>
+<ul class="lvl-2">
+<li class="lvl-6">With this configuration, github will display the information when you commit sth.</li>
+<li class="lvl-6">git config --list: get all the configuration informations.</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>git init: init a local repository with a .git file.After that you will get a (master) branch.</p>
+</li>
+<li class="lvl-2">
+<p>git add xxx.txt: Add some files.Pushing the xxx.txt into staging area.</p>
+</li>
+<li class="lvl-2">
+<p>git status: view current status.</p>
+</li>
+<li class="lvl-2">
+<p>git commit -m “some explainations”: commit the files in staging area to repository.</p>
+</li>
+<li class="lvl-2">
+<p>git rm xxx.txt: remove the xxx.txt from repository.</p>
+</li>
+<li class="lvl-2">
+<p>git checkout file.txt: drop the changes in your  work directory.</p>
+<ul class="lvl-2">
+<li class="lvl-6">git checkout <code>hash value</code>: switch the Head pointer.</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>git diff: you can get the differences between current directory and the commit version.</p>
+</li>
+<li class="lvl-2">
+<p>git cat-file -p <code>hash value</code>: look at the detail of the object.</p>
+</li>
+</ul>
+<h4 id="Branch-related">Branch related</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>git branch: list all your branches.</p>
+<ul class="lvl-2">
+<li class="lvl-6">git branch -vv: list more details.</li>
+<li class="lvl-6">git checkout -d “branch name”: build a new branch and switch into that branch.</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>git checkout master; git merge “other branch”: merge the branches and deal with conflicts.</p>
+</li>
+</ul>
+<h4 id="Remote-repository">Remote repository</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>git remote</p>
+</li>
+</ul>
+<h2 id="Git-underlevel">Git underlevel</h2>
+<blockquote>
+<h1>What’s Git?</h1>
+<p>Git is a sort of version control system.With git, you can track all your <a href="http://changes.At">changes.At</a> the same time you can cooperate with others in coding a same project.The basic unit is a snapshot which has tree and blobs.The whole git is composed of directed acyclic graph which is a number of snapshots.What we operate is all the references and objects.😄</p>
+<p><code>The core of understanding git.First you should know every commit is a snapshot which consists of code 1. Second you should know what you operate is the object which consists of code 2. At last you should know how can we save all the snapshots effectively which consists of code 3.Building the relation of reference and objects.</code></p>
+<figure class="highlight plaintext"><figcaption><span>1</span></figcaption><table><tr><td class="code"><pre><span class="line">&lt;root&gt; (tree)</span><br><span class="line">|</span><br><span class="line">+- foo (tree) map&lt;tree, tree |  blob&gt;</span><br><span class="line">|  |</span><br><span class="line">|  + bar.txt (blob, contents = &quot;hello world&quot;)</span><br><span class="line">|</span><br><span class="line">+- baz.txt (blob, contents = &quot;git is wonderful&quot;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">o &lt;-- o &lt;-- o &lt;-- o &lt;------- o</span><br><span class="line">          ^               /</span><br><span class="line">            \           v</span><br><span class="line">              -- o &lt;-- o</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><figcaption><span>2</span></figcaption><table><tr><td class="code"><pre><span class="line">Git的数据模型</span><br><span class="line">// 文件就是一组数据</span><br><span class="line">type blob = array&lt;byte&gt;</span><br><span class="line"></span><br><span class="line">// 一个包含文件和目录的目录</span><br><span class="line">type tree = map&lt;string, tree | blob&gt;</span><br><span class="line"></span><br><span class="line">// 每个提交都包含一个父辈，元数据和顶层树</span><br><span class="line">type commit = struct &#123;</span><br><span class="line"> parent: array&lt;commit&gt;</span><br><span class="line"> author: string</span><br><span class="line"> message: string</span><br><span class="line"> snapshot: tree</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Git中的对象object = blob | tree | commit</code></p>
+<figure class="highlight plaintext"><figcaption><span>3</span></figcaption><table><tr><td class="code"><pre><span class="line">//  git在存储对象时，所有的对象都会基于他们的SHA-1哈希进行寻址</span><br><span class="line">objects = map&lt;string, object&gt;</span><br><span class="line"></span><br><span class="line">def store(object):</span><br><span class="line"> id = sha1(object)</span><br><span class="line"> objects[id] = object</span><br><span class="line"></span><br><span class="line">def load(id):</span><br><span class="line"> return objects[id]</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>e-book: <a href="https://git-scm.com/book/zh/v2">Pro Git - Book (git-scm.com)</a></strong></p>
+<p><strong>lecture: <a href="https://missing-semester-cn.github.io/2020/version-control/">版本控制(Git) · the missing semester of your cs education (missing-semester-cn.github.io)</a></strong></p>
 ]]></content>
+      <categories>
+        <category>Pure English</category>
+        <category>Learning note</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>github</tag>
+      </tags>
   </entry>
   <entry>
-    <title>test</title>
-    <url>/2024/07/23/test/</url>
-    <content><![CDATA[<h2 id="你好Miss-蕾"><a href="#你好Miss-蕾" class="headerlink" title="你好Miss 蕾"></a>你好Miss 蕾</h2><p>这是一篇测试文章，看看你能不能正常访问:smile::smile:</p>
-<h2 id="文章"><a href="#文章" class="headerlink" title="文章"></a>文章</h2><p>风雪压我两三年，我笑风轻雪又棉。</p>
+    <title>利用hexo和butterfly搭建静态博客</title>
+    <url>/2024/08/01/%E5%88%A9%E7%94%A8hexo%E5%92%8Cbutterfly%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h2 id="安装Hexo并进行博客配置">安装Hexo并进行博客配置</h2>
+<ol>
+<li class="lvl-3">
+<p><code>npm install hexo-cli -g</code> <strong>全局安装hexo博客框架，就类似vue的脚手架一样</strong></p>
+</li>
+<li class="lvl-3">
+<p>初始化博客： <code>hexo init &lt;directory&gt;</code> or <code>cd &lt;directory&gt;;hexo init</code></p>
+</li>
+<li class="lvl-3">
+<p>预览博客：<code>hexo server</code></p>
+</li>
+<li class="lvl-3">
+<p>更换主题：</p>
+<ol>
+<li class="lvl-7"><a href="https://hexo.io/themes/">所有主题</a></li>
+<li class="lvl-7">将主题代码拷贝到本地themes文件夹下<code>git clone &lt;url&gt; themes/&lt;file&gt;</code></li>
+<li class="lvl-7">修改Blog文件下的_config.yml文件，<code>theme: &lt;file&gt;</code></li>
+<li class="lvl-7">运行hexo server</li>
+</ol>
+</li>
+<li class="lvl-5">
+<p>利用GitHub Pages来部署博客：</p>
+<ol>
+<li class="lvl-9">
+<p>新建一个&lt;<a href="http://userName.github.io">userName.github.io</a>&gt;的仓库</p>
+</li>
+<li class="lvl-9">
+<p>配置ssh密钥</p>
+<ol>
+<li class="lvl-14">如果之前配置过别的ssh密钥，需要加一个config配置文件</li>
+</ol>
+  	<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> # github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_github</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li class="lvl-14">
+<p>没配置过，直接<code>ssh key-gen -t rsa  -C &quot;your_email@email.com&quot;</code>生成一个，将公钥复制到GitHub上即可😄</p>
+</li>
+</ol>
+</li>
+<li class="lvl-9">
+<p>输入<code>ssh -T git@github.com</code>测试ssh连接是否成功</p>
+</li>
+<li class="lvl-9">
+<p>修改配置文件，将remote repository的ssh链接复制</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">      type: git</span><br><span class="line">      repo: 你复制的地址</span><br><span class="line">      branch: main</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-9">
+<p>安装插件 Hexo Deployer Git <code>npm install hexo-deployer-git --save</code></p>
+</li>
+<li class="lvl-9">
+<p>运行hexo g -d生成静态文件并部署</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="Hexo-Deployer-Git介绍">Hexo Deployer Git介绍</h2>
+<h3 id="项目简介">项目简介</h3>
+<p><code>hexo-deployer-git</code> 是Hexo生态系统的一部分，它允许你在每次更新博客内容后，自动将生成的静态文件推送到如GitHub、GitLab或Bitbucket等支持Git的平台。</p>
+<h3 id="技术优势">技术优势</h3>
+<p>此项目的核心在于集成Git命令与Hexo的生命周期。当执行 hexo deploy 命令时，它会：</p>
+<ol>
+<li class="lvl-3">
+<p>构建 - 首先，Hexo会编译你的Markdown等内容成HTML。</p>
+</li>
+<li class="lvl-3">
+<p>添加 - 然后，将所有新的和已修改的文件添加到本地Git仓库中。</p>
+</li>
+<li class="lvl-3">
+<p>提交 - 创建一个新的提交，附带上自定义的提交信息。</p>
+</li>
+<li class="lvl-3">
+<p>推送 - 最后，将这些改动推送到你指定的远程仓库。</p>
+</li>
+</ol>
+<p>整个过程自动化处理，无需手动操作，减少了出错的可能性。</p>
+<h3 id="使用方法">使用方法</h3>
+<p>安装这个插件后，在_config.yml配置文件中添加deploy的相关配置信息。这样在运行hexo deploy的时候就会把静态文件推送到Github.</p>
+<h2 id="创建新的帖子和页面">创建新的帖子和页面</h2>
+<ol>
+<li class="lvl-3">
+<p>command: hexo new <layout> “title”(layout: post、drafts、page)</p>
+</li>
+<li class="lvl-3">
+<p>在/_post下找到创建的帖子，更新front-matter，比如cover、top_img、update_date等等</p>
+</li>
+<li class="lvl-3">
+<p>利用markdown尽情开始创作吧😎</p>
+</li>
+</ol>
 ]]></content>
+      <tags>
+        <tag>blog</tag>
+      </tags>
   </entry>
 </search>
