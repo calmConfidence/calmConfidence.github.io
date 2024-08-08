@@ -1,6 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>利用hexo和butterfly搭建静态博客</title>
+    <url>/2024/08/01/%E5%88%A9%E7%94%A8hexo%E5%92%8Cbutterfly%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h2 id="安装Hexo并进行博客配置">安装Hexo并进行博客配置</h2>
+<ol>
+<li class="lvl-3">
+<p><code>npm install hexo-cli -g</code> <strong>全局安装hexo博客框架，就类似vue的脚手架一样</strong></p>
+</li>
+<li class="lvl-3">
+<p>初始化博客： <code>hexo init &lt;directory&gt;</code> or <code>cd &lt;directory&gt;;hexo init</code></p>
+</li>
+<li class="lvl-3">
+<p>预览博客：<code>hexo server</code></p>
+</li>
+<li class="lvl-3">
+<p>更换主题：</p>
+<ol>
+<li class="lvl-7"><a href="https://hexo.io/themes/">所有主题</a></li>
+<li class="lvl-7">将主题代码拷贝到本地themes文件夹下<code>git clone &lt;url&gt; themes/&lt;file&gt;</code></li>
+<li class="lvl-7">修改Blog文件下的_config.yml文件，<code>theme: &lt;file&gt;</code></li>
+<li class="lvl-7">运行hexo server</li>
+</ol>
+</li>
+<li class="lvl-5">
+<p>利用GitHub Pages来部署博客：</p>
+<ol>
+<li class="lvl-9">
+<p>新建一个&lt;<a href="http://userName.github.io">userName.github.io</a>&gt;的仓库</p>
+</li>
+<li class="lvl-9">
+<p>配置ssh密钥</p>
+<ol>
+<li class="lvl-14">如果之前配置过别的ssh密钥，需要加一个config配置文件</li>
+</ol>
+  	<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> # github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_github</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li class="lvl-14">
+<p>没配置过，直接<code>ssh key-gen -t rsa  -C &quot;your_email@email.com&quot;</code>生成一个，将公钥复制到GitHub上即可😄</p>
+</li>
+</ol>
+</li>
+<li class="lvl-9">
+<p>输入<code>ssh -T git@github.com</code>测试ssh连接是否成功</p>
+</li>
+<li class="lvl-9">
+<p>修改配置文件，将remote repository的ssh链接复制</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">      type: git</span><br><span class="line">      repo: 你复制的地址</span><br><span class="line">      branch: main</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-9">
+<p>安装插件 Hexo Deployer Git <code>npm install hexo-deployer-git --save</code></p>
+</li>
+<li class="lvl-9">
+<p>运行hexo g -d生成静态文件并部署</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="Hexo-Deployer-Git介绍">Hexo Deployer Git介绍</h2>
+<h3 id="项目简介">项目简介</h3>
+<p><code>hexo-deployer-git</code> 是Hexo生态系统的一部分，它允许你在每次更新博客内容后，自动将生成的静态文件推送到如GitHub、GitLab或Bitbucket等支持Git的平台。</p>
+<h3 id="技术优势">技术优势</h3>
+<p>此项目的核心在于集成Git命令与Hexo的生命周期。当执行 hexo deploy 命令时，它会：</p>
+<ol>
+<li class="lvl-3">
+<p>构建 - 首先，Hexo会编译你的Markdown等内容成HTML。</p>
+</li>
+<li class="lvl-3">
+<p>添加 - 然后，将所有新的和已修改的文件添加到本地Git仓库中。</p>
+</li>
+<li class="lvl-3">
+<p>提交 - 创建一个新的提交，附带上自定义的提交信息。</p>
+</li>
+<li class="lvl-3">
+<p>推送 - 最后，将这些改动推送到你指定的远程仓库。</p>
+</li>
+</ol>
+<p>整个过程自动化处理，无需手动操作，减少了出错的可能性。</p>
+<h3 id="使用方法">使用方法</h3>
+<p>安装这个插件后，在_config.yml配置文件中添加deploy的相关配置信息。这样在运行hexo deploy的时候就会把静态文件推送到Github.</p>
+<h2 id="创建新的帖子和页面">创建新的帖子和页面</h2>
+<ol>
+<li class="lvl-3">
+<p>command: hexo new <layout> “title”(layout: post、drafts、page)</p>
+</li>
+<li class="lvl-3">
+<p>在/_post下找到创建的帖子，更新front-matter，比如cover、top_img、update_date等等</p>
+</li>
+<li class="lvl-3">
+<p>利用markdown尽情开始创作吧😎</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>How to use git and github?</title>
     <url>/2024/08/01/How-to-use-git-and-github/</url>
     <content><![CDATA[<h2 id="Basic-Concepts">Basic Concepts</h2>
@@ -106,102 +202,6 @@
       </tags>
   </entry>
   <entry>
-    <title>利用hexo和butterfly搭建静态博客</title>
-    <url>/2024/08/01/%E5%88%A9%E7%94%A8hexo%E5%92%8Cbutterfly%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h2 id="安装Hexo并进行博客配置">安装Hexo并进行博客配置</h2>
-<ol>
-<li class="lvl-3">
-<p><code>npm install hexo-cli -g</code> <strong>全局安装hexo博客框架，就类似vue的脚手架一样</strong></p>
-</li>
-<li class="lvl-3">
-<p>初始化博客： <code>hexo init &lt;directory&gt;</code> or <code>cd &lt;directory&gt;;hexo init</code></p>
-</li>
-<li class="lvl-3">
-<p>预览博客：<code>hexo server</code></p>
-</li>
-<li class="lvl-3">
-<p>更换主题：</p>
-<ol>
-<li class="lvl-7"><a href="https://hexo.io/themes/">所有主题</a></li>
-<li class="lvl-7">将主题代码拷贝到本地themes文件夹下<code>git clone &lt;url&gt; themes/&lt;file&gt;</code></li>
-<li class="lvl-7">修改Blog文件下的_config.yml文件，<code>theme: &lt;file&gt;</code></li>
-<li class="lvl-7">运行hexo server</li>
-</ol>
-</li>
-<li class="lvl-5">
-<p>利用GitHub Pages来部署博客：</p>
-<ol>
-<li class="lvl-9">
-<p>新建一个&lt;<a href="http://userName.github.io">userName.github.io</a>&gt;的仓库</p>
-</li>
-<li class="lvl-9">
-<p>配置ssh密钥</p>
-<ol>
-<li class="lvl-14">如果之前配置过别的ssh密钥，需要加一个config配置文件</li>
-</ol>
-  	<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> # github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_github</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li class="lvl-14">
-<p>没配置过，直接<code>ssh key-gen -t rsa  -C &quot;your_email@email.com&quot;</code>生成一个，将公钥复制到GitHub上即可😄</p>
-</li>
-</ol>
-</li>
-<li class="lvl-9">
-<p>输入<code>ssh -T git@github.com</code>测试ssh连接是否成功</p>
-</li>
-<li class="lvl-9">
-<p>修改配置文件，将remote repository的ssh链接复制</p>
-  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">      type: git</span><br><span class="line">      repo: 你复制的地址</span><br><span class="line">      branch: main</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-9">
-<p>安装插件 Hexo Deployer Git <code>npm install hexo-deployer-git --save</code></p>
-</li>
-<li class="lvl-9">
-<p>运行hexo g -d生成静态文件并部署</p>
-</li>
-</ol>
-</li>
-</ol>
-<h2 id="Hexo-Deployer-Git介绍">Hexo Deployer Git介绍</h2>
-<h3 id="项目简介">项目简介</h3>
-<p><code>hexo-deployer-git</code> 是Hexo生态系统的一部分，它允许你在每次更新博客内容后，自动将生成的静态文件推送到如GitHub、GitLab或Bitbucket等支持Git的平台。</p>
-<h3 id="技术优势">技术优势</h3>
-<p>此项目的核心在于集成Git命令与Hexo的生命周期。当执行 hexo deploy 命令时，它会：</p>
-<ol>
-<li class="lvl-3">
-<p>构建 - 首先，Hexo会编译你的Markdown等内容成HTML。</p>
-</li>
-<li class="lvl-3">
-<p>添加 - 然后，将所有新的和已修改的文件添加到本地Git仓库中。</p>
-</li>
-<li class="lvl-3">
-<p>提交 - 创建一个新的提交，附带上自定义的提交信息。</p>
-</li>
-<li class="lvl-3">
-<p>推送 - 最后，将这些改动推送到你指定的远程仓库。</p>
-</li>
-</ol>
-<p>整个过程自动化处理，无需手动操作，减少了出错的可能性。</p>
-<h3 id="使用方法">使用方法</h3>
-<p>安装这个插件后，在_config.yml配置文件中添加deploy的相关配置信息。这样在运行hexo deploy的时候就会把静态文件推送到Github.</p>
-<h2 id="创建新的帖子和页面">创建新的帖子和页面</h2>
-<ol>
-<li class="lvl-3">
-<p>command: hexo new <layout> “title”(layout: post、drafts、page)</p>
-</li>
-<li class="lvl-3">
-<p>在/_post下找到创建的帖子，更新front-matter，比如cover、top_img、update_date等等</p>
-</li>
-<li class="lvl-3">
-<p>利用markdown尽情开始创作吧😎</p>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>完成CS61b proj0记录</title>
     <url>/2024/08/06/%E5%AE%8C%E6%88%90CS61b-proj0%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<h2 id="综述">综述</h2>
@@ -220,6 +220,79 @@
       <tags>
         <tag>CS61B</tag>
         <tag>recording</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习概述</title>
+    <url>/2024/08/08/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<blockquote>
+<h2 id="简要复习">简要复习</h2>
+<p>本篇内容主要是对机器学习初步知识的概述。</p>
+</blockquote>
+<h2 id="人工智能概述">人工智能概述</h2>
+<p>人工智能发展必备三要素<strong>数据</strong> <strong>算法</strong> <strong>计算力（算力）</strong>，其中算力分为cpu(central processing unit)计算gpu(graphics processing unit)计算tpu计算，cpu主要适合<strong>I/O密集型</strong>任务，gpu主要适合<strong>计算密集型</strong>任务。<a href="https://www.sohu.com/a/201309334_468740">cpu和gpu的区别</a> 简单来说gpu的计算单元远远超过cpu，且排布更“并行”，所以gpu很利于处理易于并行的程序。tpu是Google研究的一种ai芯片，<a href="https://buzzorange.com/techorange/2017/09/27/what-intel-google-nvidia-microsoft-do-for-ai-chips/">Google tpu</a></p>
+<h2 id="人工智能和机器学习、深度学习的关系">人工智能和机器学习、深度学习的关系</h2>
+<p>机器学习是人工智能的一个实现途径，深度学习是机器学习的一个方法发展而来的。</p>
+<h2 id="发展历程">发展历程</h2>
+<p>图灵测试：超过30%的测试者不能确定被测试者是人还是机器，则这台机器被认为是具有人工智能的。</p>
+<p>达特茅斯会议：将该会议的研究内容定义为“人工智能”，1956年被定为<strong>人工智能元年</strong>。</p>
+<h2 id="人工智能主要分支">人工智能主要分支</h2>
+<p>计算机视觉（CV）、自然语言处理（NLP）、机器人</p>
+<p>自然语言处理包括 语音识别 文本挖掘/分类 机器翻译</p>
+<h2 id="机器学习的工作流程">机器学习的工作流程</h2>
+<p>从数据中自动分析获得模型，并利用模型对未知数据进行预测。</p>
+<ol>
+<li class="lvl-3">
+<p>获取数据：样本（一行数据），特征（一列数据），划分训练集、测试集，目标值特征值是否成对出现</p>
+</li>
+<li class="lvl-3">
+<p>数据基本处理：处理缺失值、异常值</p>
+</li>
+<li class="lvl-3">
+<p><mark>特征工程</mark>：使用<strong>专业背景知识和技巧处理数据</strong>，<strong>使得特征能在机器学习算法上发挥更好的作用的过程</strong>。</p>
+<ol>
+<li class="lvl-7">特征提取</li>
+<li class="lvl-7">特征预处理</li>
+<li class="lvl-7">特征降维</li>
+</ol>
+</li>
+<li class="lvl-3">
+<p>机器学习（模型训练）</p>
+</li>
+<li class="lvl-3">
+<p>模型评估</p>
+</li>
+</ol>
+<h2 id="机器学习算法分类（依据数据集组成不同）">机器学习算法分类（依据数据集组成不同）</h2>
+<ol>
+<li class="lvl-3">
+<p>监督学习：输入数据是由  特征值和目标值组成</p>
+</li>
+<li class="lvl-3">
+<p>无监督学习：输入数据只有特征值，无目标值</p>
+</li>
+<li class="lvl-3">
+<p>半监督学习：输入数据同时包含标记样本数据集和未标记样本数据集</p>
+</li>
+<li class="lvl-3">
+<p>强化学习：实质是make decisions 问题，即自动进行决策，并且可以做连续决策。同时伴有奖励，目标是累计获取最大奖励。下棋就是一个典型的强化学习例子。</p>
+</li>
+</ol>
+<h2 id="模型评估">模型评估</h2>
+<p>分类模型评估、回归模型评估。过拟合、欠拟合</p>
+<h2 id="深度学习">深度学习</h2>
+<p>深度学习是机器学习下的一个分支，主要利用的是神经网络，整体上分为 输入层、隐藏层、输出层。其中隐藏层包含多个层次，每一层负责特定的特征提取，而每一层又由多个神经元组成，这些神经元互不干扰完成该层所需完成的工作的某个部分。</p>
+<p>一般来说，神经网络层数越多，提取的特征就更多，效果会更好，但绝不是层数越多越好。</p>
+]]></content>
+      <categories>
+        <category>learning</category>
+        <category>machine learning</category>
+        <category>概述</category>
+      </categories>
+      <tags>
+        <tag>recording</tag>
+        <tag>machine learning</tag>
+        <tag>learning</tag>
       </tags>
   </entry>
 </search>
