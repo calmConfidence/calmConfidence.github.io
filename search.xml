@@ -1,102 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>利用hexo和butterfly搭建静态博客</title>
-    <url>/2024/08/01/%E5%88%A9%E7%94%A8hexo%E5%92%8Cbutterfly%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h2 id="安装Hexo并进行博客配置">安装Hexo并进行博客配置</h2>
-<ol>
-<li class="lvl-3">
-<p><code>npm install hexo-cli -g</code> <strong>全局安装hexo博客框架，就类似vue的脚手架一样</strong></p>
-</li>
-<li class="lvl-3">
-<p>初始化博客： <code>hexo init &lt;directory&gt;</code> or <code>cd &lt;directory&gt;;hexo init</code></p>
-</li>
-<li class="lvl-3">
-<p>预览博客：<code>hexo server</code></p>
-</li>
-<li class="lvl-3">
-<p>更换主题：</p>
-<ol>
-<li class="lvl-7"><a href="https://hexo.io/themes/">所有主题</a></li>
-<li class="lvl-7">将主题代码拷贝到本地themes文件夹下<code>git clone &lt;url&gt; themes/&lt;file&gt;</code></li>
-<li class="lvl-7">修改Blog文件下的_config.yml文件，<code>theme: &lt;file&gt;</code></li>
-<li class="lvl-7">运行hexo server</li>
-</ol>
-</li>
-<li class="lvl-5">
-<p>利用GitHub Pages来部署博客：</p>
-<ol>
-<li class="lvl-9">
-<p>新建一个&lt;<a href="http://userName.github.io">userName.github.io</a>&gt;的仓库</p>
-</li>
-<li class="lvl-9">
-<p>配置ssh密钥</p>
-<ol>
-<li class="lvl-14">如果之前配置过别的ssh密钥，需要加一个config配置文件</li>
-</ol>
-  	<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> # github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_github</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li class="lvl-14">
-<p>没配置过，直接<code>ssh key-gen -t rsa  -C &quot;your_email@email.com&quot;</code>生成一个，将公钥复制到GitHub上即可😄</p>
-</li>
-</ol>
-</li>
-<li class="lvl-9">
-<p>输入<code>ssh -T git@github.com</code>测试ssh连接是否成功</p>
-</li>
-<li class="lvl-9">
-<p>修改配置文件，将remote repository的ssh链接复制</p>
-  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">      type: git</span><br><span class="line">      repo: 你复制的地址</span><br><span class="line">      branch: main</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-9">
-<p>安装插件 Hexo Deployer Git <code>npm install hexo-deployer-git --save</code></p>
-</li>
-<li class="lvl-9">
-<p>运行hexo g -d生成静态文件并部署</p>
-</li>
-</ol>
-</li>
-</ol>
-<h2 id="Hexo-Deployer-Git介绍">Hexo Deployer Git介绍</h2>
-<h3 id="项目简介">项目简介</h3>
-<p><code>hexo-deployer-git</code> 是Hexo生态系统的一部分，它允许你在每次更新博客内容后，自动将生成的静态文件推送到如GitHub、GitLab或Bitbucket等支持Git的平台。</p>
-<h3 id="技术优势">技术优势</h3>
-<p>此项目的核心在于集成Git命令与Hexo的生命周期。当执行 hexo deploy 命令时，它会：</p>
-<ol>
-<li class="lvl-3">
-<p>构建 - 首先，Hexo会编译你的Markdown等内容成HTML。</p>
-</li>
-<li class="lvl-3">
-<p>添加 - 然后，将所有新的和已修改的文件添加到本地Git仓库中。</p>
-</li>
-<li class="lvl-3">
-<p>提交 - 创建一个新的提交，附带上自定义的提交信息。</p>
-</li>
-<li class="lvl-3">
-<p>推送 - 最后，将这些改动推送到你指定的远程仓库。</p>
-</li>
-</ol>
-<p>整个过程自动化处理，无需手动操作，减少了出错的可能性。</p>
-<h3 id="使用方法">使用方法</h3>
-<p>安装这个插件后，在_config.yml配置文件中添加deploy的相关配置信息。这样在运行hexo deploy的时候就会把静态文件推送到Github.</p>
-<h2 id="创建新的帖子和页面">创建新的帖子和页面</h2>
-<ol>
-<li class="lvl-3">
-<p>command: hexo new <layout> “title”(layout: post、drafts、page)</p>
-</li>
-<li class="lvl-3">
-<p>在/_post下找到创建的帖子，更新front-matter，比如cover、top_img、update_date等等</p>
-</li>
-<li class="lvl-3">
-<p>利用markdown尽情开始创作吧😎</p>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>How to use git and github?</title>
     <url>/2024/08/01/How-to-use-git-and-github/</url>
     <content><![CDATA[<h2 id="Basic-Concepts">Basic Concepts</h2>
@@ -202,6 +106,102 @@
       </tags>
   </entry>
   <entry>
+    <title>利用hexo和butterfly搭建静态博客</title>
+    <url>/2024/08/01/%E5%88%A9%E7%94%A8hexo%E5%92%8Cbutterfly%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h2 id="安装Hexo并进行博客配置">安装Hexo并进行博客配置</h2>
+<ol>
+<li class="lvl-3">
+<p><code>npm install hexo-cli -g</code> <strong>全局安装hexo博客框架，就类似vue的脚手架一样</strong></p>
+</li>
+<li class="lvl-3">
+<p>初始化博客： <code>hexo init &lt;directory&gt;</code> or <code>cd &lt;directory&gt;;hexo init</code></p>
+</li>
+<li class="lvl-3">
+<p>预览博客：<code>hexo server</code></p>
+</li>
+<li class="lvl-3">
+<p>更换主题：</p>
+<ol>
+<li class="lvl-7"><a href="https://hexo.io/themes/">所有主题</a></li>
+<li class="lvl-7">将主题代码拷贝到本地themes文件夹下<code>git clone &lt;url&gt; themes/&lt;file&gt;</code></li>
+<li class="lvl-7">修改Blog文件下的_config.yml文件，<code>theme: &lt;file&gt;</code></li>
+<li class="lvl-7">运行hexo server</li>
+</ol>
+</li>
+<li class="lvl-5">
+<p>利用GitHub Pages来部署博客：</p>
+<ol>
+<li class="lvl-9">
+<p>新建一个&lt;<a href="http://userName.github.io">userName.github.io</a>&gt;的仓库</p>
+</li>
+<li class="lvl-9">
+<p>配置ssh密钥</p>
+<ol>
+<li class="lvl-14">如果之前配置过别的ssh密钥，需要加一个config配置文件</li>
+</ol>
+  	<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> # github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_github</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li class="lvl-14">
+<p>没配置过，直接<code>ssh key-gen -t rsa  -C &quot;your_email@email.com&quot;</code>生成一个，将公钥复制到GitHub上即可😄</p>
+</li>
+</ol>
+</li>
+<li class="lvl-9">
+<p>输入<code>ssh -T git@github.com</code>测试ssh连接是否成功</p>
+</li>
+<li class="lvl-9">
+<p>修改配置文件，将remote repository的ssh链接复制</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">      type: git</span><br><span class="line">      repo: 你复制的地址</span><br><span class="line">      branch: main</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-9">
+<p>安装插件 Hexo Deployer Git <code>npm install hexo-deployer-git --save</code></p>
+</li>
+<li class="lvl-9">
+<p>运行hexo g -d生成静态文件并部署</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="Hexo-Deployer-Git介绍">Hexo Deployer Git介绍</h2>
+<h3 id="项目简介">项目简介</h3>
+<p><code>hexo-deployer-git</code> 是Hexo生态系统的一部分，它允许你在每次更新博客内容后，自动将生成的静态文件推送到如GitHub、GitLab或Bitbucket等支持Git的平台。</p>
+<h3 id="技术优势">技术优势</h3>
+<p>此项目的核心在于集成Git命令与Hexo的生命周期。当执行 hexo deploy 命令时，它会：</p>
+<ol>
+<li class="lvl-3">
+<p>构建 - 首先，Hexo会编译你的Markdown等内容成HTML。</p>
+</li>
+<li class="lvl-3">
+<p>添加 - 然后，将所有新的和已修改的文件添加到本地Git仓库中。</p>
+</li>
+<li class="lvl-3">
+<p>提交 - 创建一个新的提交，附带上自定义的提交信息。</p>
+</li>
+<li class="lvl-3">
+<p>推送 - 最后，将这些改动推送到你指定的远程仓库。</p>
+</li>
+</ol>
+<p>整个过程自动化处理，无需手动操作，减少了出错的可能性。</p>
+<h3 id="使用方法">使用方法</h3>
+<p>安装这个插件后，在_config.yml配置文件中添加deploy的相关配置信息。这样在运行hexo deploy的时候就会把静态文件推送到Github.</p>
+<h2 id="创建新的帖子和页面">创建新的帖子和页面</h2>
+<ol>
+<li class="lvl-3">
+<p>command: hexo new <layout> “title”(layout: post、drafts、page)</p>
+</li>
+<li class="lvl-3">
+<p>在/_post下找到创建的帖子，更新front-matter，比如cover、top_img、update_date等等</p>
+</li>
+<li class="lvl-3">
+<p>利用markdown尽情开始创作吧😎</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>完成CS61b proj0记录</title>
     <url>/2024/08/06/%E5%AE%8C%E6%88%90CS61b-proj0%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<h2 id="综述">综述</h2>
@@ -220,6 +220,100 @@
       <tags>
         <tag>CS61B</tag>
         <tag>recording</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>科学计算库之matplotlib</title>
+    <url>/2024/08/08/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/</url>
+    <content><![CDATA[<h2 id="基础绘制过程">基础绘制过程</h2>
+<p>首先导入包，然后创建画布，选择想要绘制的图像输入数据绘制，最后显示绘制结果</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 0. 创建数据</span></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"><span class="comment"># 1. 创建画布</span></span><br><span class="line">plt.figure(figsize=(<span class="number">20</span>, <span class="number">8</span>), dpi=<span class="number">100</span>) </span><br><span class="line"><span class="comment">#  figsize:画布大小,单位英寸（1英寸2.5厘米） dpi:分辨率（每英寸有多少像素，默认80）</span></span><br><span class="line"><span class="comment"># 2. 绘制</span></span><br><span class="line">plt.plot(x, y)</span><br><span class="line"><span class="comment"># 3. 显示</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/postsImages/01.png" alt=""></p>
+<h2 id="绘图扩展">绘图扩展</h2>
+<ol>
+<li class="lvl-3">
+<p>添加自定义x，y轴刻度</p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y_shanghai = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">5</span>), dpi=<span class="number">100</span>)</span><br><span class="line">plt.plot(x, y_shanghai)</span><br><span class="line"></span><br><span class="line">x_ticks_labels = [<span class="string">&#x27;11点&#123;&#125;分&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> x]</span><br><span class="line">y_ticks = [x*<span class="number">0.1</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line">y_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(x*<span class="number">0.1</span>) <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line"></span><br><span class="line">plt.xticks(x[::<span class="number">5</span>], x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line">plt.yticks(y_ticks, y_ticks_labels)</span><br><span class="line"></span><br><span class="line">plt.grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;-.&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line">plt.xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">plt.title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># plt.savefig(&#x27;./pic.png&#x27;)</span></span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h3 id="注意">注意</h3>
+<ul class="lvl-3">
+<li class="lvl-2">
+<p>这里添加的x，y轴刻度值和x，y本身的值没有任何关系，只是我们在定义刻度值时刚好用到了x本身的值而已。</p>
+</li>
+<li class="lvl-2">
+<p>在使用plt.xticks(x_ticks, x_ticks_labels)时，x_ticks必须是一个标量值，在添加了这个标量值后，可以修改x_ticks_labels来加上对应的字符，此时x_ticks_labels必须和x_ticks一一对应。</p>
+</li>
+<li class="lvl-2">
+<p>range只能产生整数的间隔值，当要生成小数时，可以参考上述方法 *0.1😺</p>
+</li>
+<li class="lvl-2">
+<p>当坐标轴有中文时，首先下载支持中文显示的字体，然后修改matplotlibrc的配置文件</p>
+<p><code>vi ~/.matplotlib/matplotlibrc</code></p>
+<p>以simhei字体为例</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">font.family         <span class="punctuation">:</span> sans-serif</span><br><span class="line">font.sans-serif         <span class="punctuation">:</span> SimHei</span><br><span class="line">axes.unicode_minus  <span class="punctuation">:</span> False</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+</li>
+<li class="lvl-3">
+<p>添加表格：<code>plt.grid(True, linestyle='- | -. | --', alpha=0.5, color='r')</code> alpha代表透明度</p>
+</li>
+<li class="lvl-3">
+<p>添加坐标轴描述信息和标题描述信息：<code>plt.xlabel(&quot;fjkdsjf&quot;) plt.tilte(&quot;fjdslkfj&quot;, fontsize=20)</code></p>
+</li>
+<li class="lvl-3">
+<p>保存图片：<code>plt.savefig('path')</code></p>
+</li>
+</ol>
+<p><img src="/postsImages/02.png" alt=""></p>
+<h2 id="一个坐标系中绘制多个图像">一个坐标系中绘制多个图像</h2>
+<ol>
+<li class="lvl-3">
+<p>设置两个图像的x，y的值</p>
+</li>
+<li class="lvl-3">
+<p>使用plt.plot(x, y, color=‘’, linestyle=‘’, label=‘’)进行绘图，通过添加颜色、线条来进行区分，添加label来添加图例，plt.legend(loc=‘’).loc的可选值为’best’、‘upper right’、‘lower left’、'center’等等组合</p>
+</li>
+</ol>
+<p><img src="/postsImages/03.png" alt=""></p>
+<h2 id="多个坐标系显示多个图像">多个坐标系显示多个图像</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y_shanghai = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line">y_beijing = [random.uniform(<span class="number">8</span>, <span class="number">10</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"></span><br><span class="line">fig, axes = plt.subplots(nrows=<span class="number">1</span>, ncols=<span class="number">2</span>, figsize=(<span class="number">20</span>, <span class="number">8</span>), dpi=<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].plot(x, y_shanghai, label=<span class="string">&#x27;上海&#x27;</span>)</span><br><span class="line">axes[<span class="number">1</span>].plot(x, y_beijing, label=<span class="string">&#x27;北京&#x27;</span>, color=<span class="string">&#x27;r&#x27;</span>, linestyle=<span class="string">&#x27;--&#x27;</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].legend(loc=<span class="number">0</span>)</span><br><span class="line">axes[<span class="number">1</span>].legend(loc=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">x_ticks_labels = [<span class="string">&#x27;11点&#123;&#125;分&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> x]</span><br><span class="line">axes[<span class="number">0</span>].set_xticks(x[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">0</span>].set_xticklabels(x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">1</span>].set_xticks(x[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">1</span>].set_xticklabels(x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line"></span><br><span class="line">y0_ticks = [i * <span class="number">0.1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line">y0_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> y0_ticks]</span><br><span class="line">axes[<span class="number">0</span>].set_yticks(y0_ticks)</span><br><span class="line">axes[<span class="number">0</span>].set_yticklabels(y0_ticks_labels)</span><br><span class="line"></span><br><span class="line">y1_ticks = [i * <span class="number">0.1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">80</span>, <span class="number">105</span>, <span class="number">5</span>)]</span><br><span class="line">y1_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> y1_ticks]</span><br><span class="line">axes[<span class="number">1</span>].set_yticks(y1_ticks)</span><br><span class="line">axes[<span class="number">1</span>].set_yticklabels(y1_ticks_labels)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;--&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line">axes[<span class="number">1</span>].grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;-.&#x27;</span>, alpha=<span class="number">0.8</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].set_xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">axes[<span class="number">0</span>].set_ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">axes[<span class="number">0</span>].set_title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<ol>
+<li class="lvl-3">
+<p>首先绘制的方法改为plt.subplots(nrows, ncols, figsize(), dpi) 该方法返回一个画布fig和多个坐标系axes[ ]</p>
+</li>
+<li class="lvl-3">
+<p>后续基本一样，除了在进行坐标系刻度值的变化中采用了xticks和xticklabels分开来其余都一样。</p>
+</li>
+</ol>
+<p><img src="/postsImages/04.png" alt=""></p>
+<h2 id="常见图形绘制">常见图形绘制</h2>
+<ol>
+<li class="lvl-3">
+<p>折线图  plt.plot(x, y)</p>
+</li>
+<li class="lvl-3">
+<p>散点图  plt.scatter(x, y)</p>
+</li>
+<li class="lvl-3">
+<p>柱状图  plt.bar(x, y, width)</p>
+</li>
+<li class="lvl-3">
+<p>直方图  plt.hist(x, bins=None)</p>
+</li>
+<li class="lvl-3">
+<p>饼状图  plt.pie(x, labels=,autopct=,colors)</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>machine learning</category>
+        <category>matplotlib</category>
+      </categories>
+      <tags>
+        <tag>recording</tag>
+        <tag>machine learning</tag>
+        <tag>learning</tag>
       </tags>
   </entry>
   <entry>
