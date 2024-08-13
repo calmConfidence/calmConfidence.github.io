@@ -202,6 +202,67 @@
       </tags>
   </entry>
   <entry>
+    <title>博客后续功能完善</title>
+    <url>/2024/08/01/%E5%8D%9A%E5%AE%A2%E5%90%8E%E7%BB%AD%E5%8A%9F%E8%83%BD%E5%AE%8C%E5%96%84/</url>
+    <content><![CDATA[<blockquote>
+<h2 id="说明">说明</h2>
+<p>持续更新中…</p>
+<p>由于博客整体上可玩性很高，但是时间有限所以以主要功能为主，秉持初心，博客的核心是内容，对于其他功能用到再完善。😎🕶️</p>
+</blockquote>
+<h2 id="博客加密功能">博客加密功能</h2>
+<p>详情见开源网址：<a href="https://github.com/D0n9X1n/hexo-blog-encrypt/blob/master/ReadMe.zh.md">hexo-blog-encrypt</a> 这里简单总结一下：</p>
+<ol>
+<li class="lvl-3">
+<p>安装包：<code>npm install --save hexo-blog-encrypt</code>–save 是指运行时的依赖，及上线后仍然需要该依赖</p>
+</li>
+<li class="lvl-3">
+<p>最简单使用😆: 直接在文章头中加入password选项即可</p>
+</li>
+<li class="lvl-3">
+<p>高级设置👍</p>
+</li>
+<li class="lvl-5">
+<p>配置文章信息头</p>
+</li>
+</ol>
+<pre><code><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hello World</span><br><span class="line">tags:</span><br><span class="line">- 作为日记加密</span><br><span class="line">date: 2016-03-30 21:12:21</span><br><span class="line">password: mikemessi</span><br><span class="line">abstract: 有东西被加密了, 请输入密码查看.</span><br><span class="line">message: 您好, 这里需要密码.</span><br><span class="line">theme: xray</span><br><span class="line">wrong_pass_message: 抱歉, 这个密码看着不太对, 请再试试.</span><br><span class="line">wrong_hash_message: 抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+</code></pre>
+<ol start="2">
+<li class="lvl-5">
+<p>配置_config.yml文件（<strong>注意：信息头的优先级高于配置文件</strong>）</p>
+</li>
+</ol>
+<pre><code><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Security</span><br><span class="line">encrypt: # hexo-blog-encrypt</span><br><span class="line">  abstract: 有东西被加密了, 请输入密码查看.</span><br><span class="line">  message: 您好, 这里需要密码.</span><br><span class="line">  tags:</span><br><span class="line">  - &#123;name: tagName, password: 密码A&#125;</span><br><span class="line">  - &#123;name: tagName, password: 密码B&#125;</span><br><span class="line">  wrong_pass_message: 抱歉, 这个密码看着不太对, 请再试试.</span><br><span class="line">  wrong_hash_message: 抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.</span><br></pre></td></tr></table></figure>
+</code></pre>
+<ol start="4">
+<li class="lvl-3">
+<p>配置加密主题🤔: theme: (default、blink、shrink、flip、up、surge、wave、xray）</p>
+</li>
+<li class="lvl-3">
+<p>如果配置了tag加密，在某篇想解除，直接在信息头设置password: &quot;&quot;即可</p>
+</li>
+<li class="lvl-3">
+<p><strong>注意</strong>：</p>
+<ol>
+<li class="lvl-7">
+<p>配置了标签加密，需要hexo clean清理掉缓存才能使对应标签产生加密效果</p>
+</li>
+<li class="lvl-7">
+<p>如果在信息头添加了加密信息，则其余如wrong_pass_message的信息将不会应用_config.yml文件中的配置</p>
+</li>
+</ol>
+</li>
+<li class="lvl-3">
+<p>遇到一些关于callback函数问题❓直接访问<a href="https://github.com/D0n9X1n/hexo-blog-encrypt/blob/master/ReadMe.zh.md">官网</a>解决</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>blog</tag>
+        <tag>improvement</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>完成CS61b proj0记录</title>
     <url>/2024/08/06/%E5%AE%8C%E6%88%90CS61b-proj0%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<h2 id="综述">综述</h2>
