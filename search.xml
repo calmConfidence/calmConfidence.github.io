@@ -1,913 +1,260 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>How to use git and github?</title>
-    <url>/2024/08/01/How-to-use-git-and-github/</url>
-    <content><![CDATA[<h2 id="Basic-Concepts">Basic Concepts</h2>
-<p><strong>repository</strong>：One project corresponds to one repository.The repository stores all the project codes.</p>
-<p><strong>star:</strong> If you think that project is useful or interesting, you can star it.On the one hand, that project will be more and more popular, on the other hand it’s more convenient for you to find the project.</p>
-<p><strong>fork:</strong> It means copy the project’s code in your repository which will have a mark “forked from xxxx”</p>
-<p><strong>Pull Request:</strong> Someone forked your code and add something new, they want to add their changes into your raw projects.Then they will send a <strong>PR</strong>(pull request) to you.You should review their code and do some tests, if you think there is no problem, you can merge all codes.</p>
-<p><strong>Issue:</strong> If you find some bugs or problems, you can raise in issue.</p>
-<h2 id="Basic-Operation">Basic Operation</h2>
-<p><strong>add file、change file、delete file、search file(t):</strong> excute correspond operation and commit changes.You can find all the commits in the upper right corner.</p>
-<p><strong>new a repository、delete a repository(in the setting)、fork a repository.</strong> You can also propose a pull request or raise a issue to participate contributions.</p>
-<h2 id="Git-Operation">Git Operation</h2>
-<p><strong>Git working space:</strong> repository、staging area、working directory</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>The reason why we need staging area instead of only repository is that we need somewhere to choose which file we want to track which not,like some logs file or compiled file(.o file) etc.</code></p>
-</li>
-</ul>
-<h3 id="Command">Command</h3>
-<h4 id="Basic-command">Basic command</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>git help <command>: you can get some help on specific command.</p>
-</li>
-<li class="lvl-2">
-<p>git log --all --graph --decorate: you can get all the commits in a beautiful format.</p>
-</li>
-<li class="lvl-2">
-<p>config: git config --global <a href="http://user.name">user.name</a> “xxx”、git config --global user.email “<a href="mailto:xxx@email.com">xxx@email.com</a>”</p>
-<ul class="lvl-2">
-<li class="lvl-6">With this configuration, github will display the information when you commit sth.</li>
-<li class="lvl-6">git config --list: get all the configuration informations.</li>
-</ul>
-</li>
-<li class="lvl-2">
-<p>git init: init a local repository with a .git file.After that you will get a (master) branch.</p>
-</li>
-<li class="lvl-2">
-<p>git add xxx.txt: Add some files.Pushing the xxx.txt into staging area.</p>
-</li>
-<li class="lvl-2">
-<p>git status: view current status.</p>
-</li>
-<li class="lvl-2">
-<p>git commit -m “some explainations”: commit the files in staging area to repository.</p>
-</li>
-<li class="lvl-2">
-<p>git rm xxx.txt: remove the xxx.txt from repository.</p>
-</li>
-<li class="lvl-2">
-<p>git checkout file.txt: drop the changes in your  work directory.</p>
-<ul class="lvl-2">
-<li class="lvl-6">git checkout <code>hash value</code>: switch the Head pointer.</li>
-</ul>
-</li>
-<li class="lvl-2">
-<p>git diff: you can get the differences between current directory and the commit version.</p>
-</li>
-<li class="lvl-2">
-<p>git cat-file -p <code>hash value</code>: look at the detail of the object.</p>
-</li>
-</ul>
-<h4 id="Branch-related">Branch related</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>git branch: list all your branches.</p>
-<ul class="lvl-2">
-<li class="lvl-6">git branch -vv: list more details.</li>
-<li class="lvl-6">git checkout -d “branch name”: build a new branch and switch into that branch.</li>
-</ul>
-</li>
-<li class="lvl-2">
-<p>git checkout master; git merge “other branch”: merge the branches and deal with conflicts.</p>
-</li>
-</ul>
-<h4 id="Remote-repository">Remote repository</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>git remote</p>
-</li>
-</ul>
-<h2 id="Git-underlevel">Git underlevel</h2>
-<blockquote>
-<h1>What’s Git?</h1>
-<p>Git is a sort of version control system.With git, you can track all your <a href="http://changes.At">changes.At</a> the same time you can cooperate with others in coding a same project.The basic unit is a snapshot which has tree and blobs.The whole git is composed of directed acyclic graph which is a number of snapshots.What we operate is all the references and objects.😄</p>
-<p><code>The core of understanding git.First you should know every commit is a snapshot which consists of code 1. Second you should know what you operate is the object which consists of code 2. At last you should know how can we save all the snapshots effectively which consists of code 3.Building the relation of reference and objects.</code></p>
-<figure class="highlight plaintext"><figcaption><span>1</span></figcaption><table><tr><td class="code"><pre><span class="line">&lt;root&gt; (tree)</span><br><span class="line">|</span><br><span class="line">+- foo (tree) map&lt;tree, tree |  blob&gt;</span><br><span class="line">|  |</span><br><span class="line">|  + bar.txt (blob, contents = &quot;hello world&quot;)</span><br><span class="line">|</span><br><span class="line">+- baz.txt (blob, contents = &quot;git is wonderful&quot;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">o &lt;-- o &lt;-- o &lt;-- o &lt;------- o</span><br><span class="line">          ^               /</span><br><span class="line">            \           v</span><br><span class="line">              -- o &lt;-- o</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><figcaption><span>2</span></figcaption><table><tr><td class="code"><pre><span class="line">Git的数据模型</span><br><span class="line">// 文件就是一组数据</span><br><span class="line">type blob = array&lt;byte&gt;</span><br><span class="line"></span><br><span class="line">// 一个包含文件和目录的目录</span><br><span class="line">type tree = map&lt;string, tree | blob&gt;</span><br><span class="line"></span><br><span class="line">// 每个提交都包含一个父辈，元数据和顶层树</span><br><span class="line">type commit = struct &#123;</span><br><span class="line"> parent: array&lt;commit&gt;</span><br><span class="line"> author: string</span><br><span class="line"> message: string</span><br><span class="line"> snapshot: tree</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>Git中的对象object = blob | tree | commit</code></p>
-<figure class="highlight plaintext"><figcaption><span>3</span></figcaption><table><tr><td class="code"><pre><span class="line">//  git在存储对象时，所有的对象都会基于他们的SHA-1哈希进行寻址</span><br><span class="line">objects = map&lt;string, object&gt;</span><br><span class="line"></span><br><span class="line">def store(object):</span><br><span class="line"> id = sha1(object)</span><br><span class="line"> objects[id] = object</span><br><span class="line"></span><br><span class="line">def load(id):</span><br><span class="line"> return objects[id]</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p><strong>e-book: <a href="https://git-scm.com/book/zh/v2">Pro Git - Book (git-scm.com)</a></strong></p>
-<p><strong>lecture: <a href="https://missing-semester-cn.github.io/2020/version-control/">版本控制(Git) · the missing semester of your cs education (missing-semester-cn.github.io)</a></strong></p>
-]]></content>
+<search> 
+  
+  
+    
+    <entry>
+      <title>科学计算库之pandas(第二部分）</title>
+      <link href="/2024/08/13/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%89/"/>
+      <url>/2024/08/13/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="缺失值处理">缺失值处理</h2><ol><li class="lvl-3"><p>判断缺失值是否是Nan，如果不是替换成Nan</p><ol><li class="lvl-7">data.replace(to_replace=‘?’, value=np.nan)</li></ol></li><li class="lvl-3"><p>判断是否存在缺失值</p> <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data = np.read_csv(<span class="string">&#x27;data/xxx.csv&#x27;</span>)</span><br><span class="line"><span class="comment"># 1.直接使用对象判断</span></span><br><span class="line">data.isnull()</span><br><span class="line">data.notnull()</span><br><span class="line"><span class="comment"># 2.调用方法判断</span></span><br><span class="line">pd.isnull(data)</span><br><span class="line">pd.notnull(data)</span><br><span class="line"><span class="comment"># 3.为了直接显示判断结果，可调用np.all()或np.any()方法</span></span><br><span class="line">np.<span class="built_in">any</span>(data.isnull())</span><br><span class="line">np.<span class="built_in">all</span>(data.notnull())</span><br></pre></td></tr></table></figure></li><li class="lvl-3"><p>缺失值处理方式</p> <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 直接删除，注意：这里不会直接修改原数据而是返回修改后的数据</span></span><br><span class="line">data.dropna()</span><br><span class="line"><span class="comment"># 进行替换</span></span><br><span class="line"><span class="comment"># 替换存在缺失值的样本的两列</span></span><br><span class="line"><span class="comment"># 替换填充平均值，中位数</span></span><br><span class="line">movie[<span class="string">&#x27;Revenue (Millions)&#x27;</span>].fillna(movie[<span class="string">&#x27;Revenue (Millions)&#x27;</span>].mean(), inplace=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 全部替换</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> movie.columns:</span><br><span class="line">    <span class="keyword">if</span> np.<span class="built_in">all</span>(pd.notnull(movie[i])) == <span class="literal">False</span>:</span><br><span class="line">        <span class="built_in">print</span>(i)</span><br><span class="line">        movie[i].fillna(movie[i].mean(), inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></li></ol><h2 id="数据离散化">数据离散化</h2><h3 id="为什么要离散化">为什么要离散化</h3><p>连续属性离散化的目的是为了简化数据结构，<strong>数据离散化技术可以减少给定连续属性值的个数</strong>。离散化方法经常作为数据挖掘的工具。</p><h3 id="什么是离散化">什么是离散化</h3><p>将一段连续的数据按照特定标准进行分割，每一部分代表特定的含义，以此达到离散化。</p><h3 id="离散化方法">离散化方法</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. 按照每组元素个数近似相等的方式进行分组</span></span><br><span class="line">pd.qcut(data, q) <span class="comment"># q 分组个数</span></span><br><span class="line"><span class="comment"># 2. 按用于指定区间进行分组</span></span><br><span class="line">pd.cut(data, bins) <span class="comment"># bins指定区间</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 统计组内个数</span></span><br><span class="line">xxx.value_counts()</span><br><span class="line"><span class="comment"># 转换为one-hot编码，即独热编码</span></span><br><span class="line">pd.get_dummies(xxx, prefix=<span class="string">&#x27;fjdkfj&#x27;</span>) <span class="comment"># prefix给分组名加一个前缀</span></span><br></pre></td></tr></table></figure><h2 id="数据合并">数据合并</h2><ol><li class="lvl-3"><p>通过pd.concat([table1, table2], axis=1) 当axis=0时按照列索引进行连接，当axis=1时按照行索引进行连接。这里的pd.concat更多的是两个表进行一个拼接，合成一个新的表，功能比较单一，而下面的两个表连接功能较多。</p></li><li class="lvl-3"><p>pd.merge(left, right, how, on)</p><ol><li class="lvl-7">left: DataFrame</li><li class="lvl-7">right: 另一个DataFrame</li><li class="lvl-7">on: 指定的共同键</li><li class="lvl-7">how: 按照什么方式连接(内连接、左连接、右连接、外连接)</li></ol></li></ol><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">left = pd.DataFrame(&#123;<span class="string">&#x27;key1&#x27;</span>: [<span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K1&#x27;</span>, <span class="string">&#x27;K2&#x27;</span>],</span><br><span class="line">                        <span class="string">&#x27;key2&#x27;</span>: [<span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K1&#x27;</span>, <span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K1&#x27;</span>],</span><br><span class="line">                        <span class="string">&#x27;A&#x27;</span>: [<span class="string">&#x27;A0&#x27;</span>, <span class="string">&#x27;A1&#x27;</span>, <span class="string">&#x27;A2&#x27;</span>, <span class="string">&#x27;A3&#x27;</span>],</span><br><span class="line">                        <span class="string">&#x27;B&#x27;</span>: [<span class="string">&#x27;B0&#x27;</span>, <span class="string">&#x27;B1&#x27;</span>, <span class="string">&#x27;B2&#x27;</span>, <span class="string">&#x27;B3&#x27;</span>]&#125;)</span><br><span class="line"></span><br><span class="line">right = pd.DataFrame(&#123;<span class="string">&#x27;key1&#x27;</span>: [<span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K1&#x27;</span>, <span class="string">&#x27;K1&#x27;</span>, <span class="string">&#x27;K2&#x27;</span>],</span><br><span class="line">                        <span class="string">&#x27;key2&#x27;</span>: [<span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K0&#x27;</span>],</span><br><span class="line">                        <span class="string">&#x27;C&#x27;</span>: [<span class="string">&#x27;C0&#x27;</span>, <span class="string">&#x27;C1&#x27;</span>, <span class="string">&#x27;C2&#x27;</span>, <span class="string">&#x27;C3&#x27;</span>],</span><br><span class="line">                        <span class="string">&#x27;D&#x27;</span>: [<span class="string">&#x27;D0&#x27;</span>, <span class="string">&#x27;D1&#x27;</span>, <span class="string">&#x27;D2&#x27;</span>, <span class="string">&#x27;D3&#x27;</span>]&#125;)</span><br></pre></td></tr></table></figure><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 默认内连接</span></span><br><span class="line">result = pd.merge(left, right, on=[<span class="string">&#x27;key1&#x27;</span>, <span class="string">&#x27;key2&#x27;</span>])</span><br></pre></td></tr></table></figure><p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/03.png" alt=""></p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">result = pd.merge(left, right, how=<span class="string">&#x27;left&#x27;</span>, on=[<span class="string">&#x27;key1&#x27;</span>, <span class="string">&#x27;key2&#x27;</span>])</span><br></pre></td></tr></table></figure><p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/04.png" alt=""></p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">result = pd.merge(left, right, how=<span class="string">&#x27;right&#x27;</span>, on=[<span class="string">&#x27;key1&#x27;</span>, <span class="string">&#x27;key2&#x27;</span>])</span><br></pre></td></tr></table></figure><p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/05.png" alt=""></p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">result = pd.merge(left, right, how=<span class="string">&#x27;outer&#x27;</span>, on=[<span class="string">&#x27;key1&#x27;</span>, <span class="string">&#x27;key2&#x27;</span>])</span><br></pre></td></tr></table></figure><p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/06.png" alt=""></p><h2 id="交叉表与透视表">交叉表与透视表</h2><ol><li class="lvl-3"><p><strong>交叉表</strong>：一列数据对于另一列数据的个数，统计的是个数</p></li><li class="lvl-3"><p><strong>透视表</strong>：一列数据对于另一列数据的占比，统计的是百分比</p></li></ol><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 交叉表</span></span><br><span class="line">pd.crosstab(index, columns)</span><br></pre></td></tr></table></figure><p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/07.png" alt=""></p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 透视表</span></span><br><span class="line">data.pivot_table(value, index)</span><br><span class="line"></span><br><span class="line">- value:   需要统计的字段名</span><br><span class="line">- index:  分组的字段名</span><br></pre></td></tr></table></figure><p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/08.png" alt=""></p><h2 id="分组与聚合">分组与聚合</h2><p>在pandas中抛开聚合谈分组无意义，也就是说我们分完组后紧接着就是聚合，这两个步骤一般连在一块。</p><p>data.groupby([‘columns’])[‘another_column’].sum() 实现以columns分组，聚合another_column</p>]]></content>
+      
+      
       <categories>
-        <category>Pure English</category>
-        <category>Learning note</category>
+          
+          <category> machine learning </category>
+          
+          <category> pandas </category>
+          
       </categories>
-      <tags>
-        <tag>git</tag>
-        <tag>github</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>利用hexo和butterfly搭建静态博客</title>
-    <url>/2024/08/01/%E5%88%A9%E7%94%A8hexo%E5%92%8Cbutterfly%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h2 id="安装Hexo并进行博客配置">安装Hexo并进行博客配置</h2>
-<ol>
-<li class="lvl-3">
-<p><code>npm install hexo-cli -g</code> <strong>全局安装hexo博客框架，就类似vue的脚手架一样</strong></p>
-</li>
-<li class="lvl-3">
-<p>初始化博客： <code>hexo init &lt;directory&gt;</code> or <code>cd &lt;directory&gt;;hexo init</code></p>
-</li>
-<li class="lvl-3">
-<p>预览博客：<code>hexo server</code></p>
-</li>
-<li class="lvl-3">
-<p>更换主题：</p>
-<ol>
-<li class="lvl-7"><a href="https://hexo.io/themes/">所有主题</a></li>
-<li class="lvl-7">将主题代码拷贝到本地themes文件夹下<code>git clone &lt;url&gt; themes/&lt;file&gt;</code></li>
-<li class="lvl-7">修改Blog文件下的_config.yml文件，<code>theme: &lt;file&gt;</code></li>
-<li class="lvl-7">运行hexo server</li>
-</ol>
-</li>
-<li class="lvl-5">
-<p>利用GitHub Pages来部署博客：</p>
-<ol>
-<li class="lvl-9">
-<p>新建一个&lt;<a href="http://userName.github.io">userName.github.io</a>&gt;的仓库</p>
-</li>
-<li class="lvl-9">
-<p>配置ssh密钥</p>
-<ol>
-<li class="lvl-14">如果之前配置过别的ssh密钥，需要加一个config配置文件</li>
-</ol>
-  	<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> # github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_github</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li class="lvl-14">
-<p>没配置过，直接<code>ssh key-gen -t rsa  -C &quot;your_email@email.com&quot;</code>生成一个，将公钥复制到GitHub上即可😄</p>
-</li>
-</ol>
-</li>
-<li class="lvl-9">
-<p>输入<code>ssh -T git@github.com</code>测试ssh连接是否成功</p>
-</li>
-<li class="lvl-9">
-<p>修改配置文件，将remote repository的ssh链接复制</p>
-  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">      type: git</span><br><span class="line">      repo: 你复制的地址</span><br><span class="line">      branch: main</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-9">
-<p>安装插件 Hexo Deployer Git <code>npm install hexo-deployer-git --save</code></p>
-</li>
-<li class="lvl-9">
-<p>运行hexo g -d生成静态文件并部署</p>
-</li>
-</ol>
-</li>
-</ol>
-<h2 id="Hexo-Deployer-Git介绍">Hexo Deployer Git介绍</h2>
-<h3 id="项目简介">项目简介</h3>
-<p><code>hexo-deployer-git</code> 是Hexo生态系统的一部分，它允许你在每次更新博客内容后，自动将生成的静态文件推送到如GitHub、GitLab或Bitbucket等支持Git的平台。</p>
-<h3 id="技术优势">技术优势</h3>
-<p>此项目的核心在于集成Git命令与Hexo的生命周期。当执行 hexo deploy 命令时，它会：</p>
-<ol>
-<li class="lvl-3">
-<p>构建 - 首先，Hexo会编译你的Markdown等内容成HTML。</p>
-</li>
-<li class="lvl-3">
-<p>添加 - 然后，将所有新的和已修改的文件添加到本地Git仓库中。</p>
-</li>
-<li class="lvl-3">
-<p>提交 - 创建一个新的提交，附带上自定义的提交信息。</p>
-</li>
-<li class="lvl-3">
-<p>推送 - 最后，将这些改动推送到你指定的远程仓库。</p>
-</li>
-</ol>
-<p>整个过程自动化处理，无需手动操作，减少了出错的可能性。</p>
-<h3 id="使用方法">使用方法</h3>
-<p>安装这个插件后，在_config.yml配置文件中添加deploy的相关配置信息。这样在运行hexo deploy的时候就会把静态文件推送到Github.</p>
-<h2 id="创建新的帖子和页面">创建新的帖子和页面</h2>
-<ol>
-<li class="lvl-3">
-<p>command: hexo new <layout> “title”(layout: post、drafts、page)</p>
-</li>
-<li class="lvl-3">
-<p>在/_post下找到创建的帖子，更新front-matter，比如cover、top_img、update_date等等</p>
-</li>
-<li class="lvl-3">
-<p>利用markdown尽情开始创作吧😎</p>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>博客后续功能完善</title>
-    <url>/2024/08/01/%E5%8D%9A%E5%AE%A2%E5%90%8E%E7%BB%AD%E5%8A%9F%E8%83%BD%E5%AE%8C%E5%96%84/</url>
-    <content><![CDATA[<blockquote>
-<h2 id="说明">说明</h2>
-<p>持续更新中…</p>
-<p>由于博客整体上可玩性很高，但是时间有限所以以主要功能为主，秉持初心，博客的核心是内容，对于其他功能用到再完善。😎🕶️</p>
-</blockquote>
-<h2 id="博客加密功能">博客加密功能</h2>
-<p>详情见开源网址：<a href="https://github.com/D0n9X1n/hexo-blog-encrypt/blob/master/ReadMe.zh.md">hexo-blog-encrypt</a> 这里简单总结一下：</p>
-<ol>
-<li class="lvl-3">
-<p>安装包：<code>npm install --save hexo-blog-encrypt</code>–save 是指运行时的依赖，及上线后仍然需要该依赖</p>
-</li>
-<li class="lvl-3">
-<p>最简单使用😆: 直接在文章头中加入password选项即可</p>
-</li>
-<li class="lvl-3">
-<p>高级设置👍</p>
-</li>
-<li class="lvl-5">
-<p>配置文章信息头</p>
-</li>
-</ol>
-<pre><code><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hello World</span><br><span class="line">tags:</span><br><span class="line">- 作为日记加密</span><br><span class="line">date: 2016-03-30 21:12:21</span><br><span class="line">password: mikemessi</span><br><span class="line">abstract: 有东西被加密了, 请输入密码查看.</span><br><span class="line">message: 您好, 这里需要密码.</span><br><span class="line">theme: xray</span><br><span class="line">wrong_pass_message: 抱歉, 这个密码看着不太对, 请再试试.</span><br><span class="line">wrong_hash_message: 抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-</code></pre>
-<ol start="2">
-<li class="lvl-5">
-<p>配置_config.yml文件（<strong>注意：信息头的优先级高于配置文件</strong>）</p>
-</li>
-</ol>
-<pre><code><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Security</span><br><span class="line">encrypt: # hexo-blog-encrypt</span><br><span class="line">  abstract: 有东西被加密了, 请输入密码查看.</span><br><span class="line">  message: 您好, 这里需要密码.</span><br><span class="line">  tags:</span><br><span class="line">  - &#123;name: tagName, password: 密码A&#125;</span><br><span class="line">  - &#123;name: tagName, password: 密码B&#125;</span><br><span class="line">  wrong_pass_message: 抱歉, 这个密码看着不太对, 请再试试.</span><br><span class="line">  wrong_hash_message: 抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.</span><br></pre></td></tr></table></figure>
-</code></pre>
-<ol start="4">
-<li class="lvl-3">
-<p>配置加密主题🤔: theme: (default、blink、shrink、flip、up、surge、wave、xray）</p>
-</li>
-<li class="lvl-3">
-<p>如果配置了tag加密，在某篇想解除，直接在信息头设置password: &quot;&quot;即可</p>
-</li>
-<li class="lvl-3">
-<p><strong>注意</strong>：</p>
-<ol>
-<li class="lvl-7">
-<p>配置了标签加密，需要hexo clean清理掉缓存才能使对应标签产生加密效果</p>
-</li>
-<li class="lvl-7">
-<p>如果在信息头添加了加密信息，则其余如wrong_pass_message的信息将不会应用_config.yml文件中的配置</p>
-</li>
-</ol>
-</li>
-<li class="lvl-3">
-<p>遇到一些关于callback函数问题❓直接访问<a href="https://github.com/D0n9X1n/hexo-blog-encrypt/blob/master/ReadMe.zh.md">官网</a>解决</p>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>blog</tag>
-        <tag>improvement</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>完成CS61b proj0记录</title>
-    <url>/2024/08/06/%E5%AE%8C%E6%88%90CS61b-proj0%E8%AE%B0%E5%BD%95/</url>
-    <content><![CDATA[<h2 id="综述">综述</h2>
-<p>历时5个小时左右，前三个比较简单，并未消耗太长时间，主要是在第四个tile上花费了很长时间，尤其是反复读文档，看代码中各个方法所表示的内容，中间重开了2次😫，虽然过程是痛苦的，不过真正完成了后，非常有成就感，哈哈😄，看着自己完成的2048游戏，真的非常爽😎。</p>
-<h2 id="过程">过程</h2>
-<p>在编写第四个函数时，首先看了前面和我相关的代码，理解这些代码的逻辑，然后根据需求开始想象自己代码的逻辑，一直在想文档中强调的点，努力去避开文档中的坑。比较可恶的是，代码中给定的单元测试竟然不能完全测出代码是否有问题😓，我通过了单一向上的逻辑后，后来在进行整体的测试时发现了问题，后来逐步排查，才知道是我单一向上的逻辑出了问题，我真的一整个绷不住😅，不过还好经过我痛定思痛，弥补了逻辑上的漏洞😸。</p>
-<h2 id="收获">收获</h2>
-<p>收获最大的就是实际编写代码的能力吧，在编写代码过程中逐渐变得专注，还有就是阅读文档的能力也有一定提升。</p>
-<h2 id="坑点">坑点</h2>
-<p>所有代码全部正确通过测试后，需要调整GUISource.java中的箭头表示，因为在中文的操作系统中，我们键盘中输入的上下左右箭头，系统接受到后直接转为“向上箭头”，“向右箭头”，“向左箭头”，“向下箭头”，而英文操作系统中为&quot;↑&quot;，“→”，“←”，“↓”。调整完后，就可以爽玩了🆒。</p>
-<p>cs61b代码链接：<a href="https://github.com/calmconfidence/cs61b">github</a></p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> recording </tag>
+            
+            <tag> machine learning </tag>
+            
+            <tag> learning </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>科学计算库之pandas(第一部分）</title>
+      <link href="/2024/08/12/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%89/"/>
+      <url>/2024/08/12/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="pandas简介">pandas简介</h2><p>pandas是一个综合了numpy和matplotlib两个库的科学计算库，专门用于数据挖掘。且其在数据表现效果上更加美观，且封装了文件读写的api，对一些缺失数据的处理也更好。</p><h2 id="pandas的数据类型">pandas的数据类型</h2><h3 id="Series">Series</h3><p>Series是一个类似与一维数组的数据类型，由索引和具体值两部分组成。</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">pd.Series(data=<span class="literal">None</span>, index=<span class="literal">None</span>, dtype=<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># example</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">pd.Series(np.arange(<span class="number">10</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行结果</span></span><br><span class="line"><span class="number">0</span>    <span class="number">0</span></span><br><span class="line"><span class="number">1</span>    <span class="number">1</span></span><br><span class="line"><span class="number">2</span>    <span class="number">2</span></span><br><span class="line"><span class="number">3</span>    <span class="number">3</span></span><br><span class="line"><span class="number">4</span>    <span class="number">4</span></span><br><span class="line"><span class="number">5</span>    <span class="number">5</span></span><br><span class="line"><span class="number">6</span>    <span class="number">6</span></span><br><span class="line"><span class="number">7</span>    <span class="number">7</span></span><br><span class="line"><span class="number">8</span>    <span class="number">8</span></span><br><span class="line"><span class="number">9</span>    <span class="number">9</span></span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建特定的索引</span></span><br><span class="line">color_count = pd.Series(&#123;<span class="string">&#x27;red&#x27;</span>:<span class="number">100</span>, <span class="string">&#x27;blue&#x27;</span>:<span class="number">200</span>, <span class="string">&#x27;green&#x27;</span>: <span class="number">500</span>, <span class="string">&#x27;yellow&#x27;</span>:<span class="number">1000</span>&#125;)</span><br><span class="line"><span class="comment"># 运行结果</span></span><br><span class="line">blue       <span class="number">200</span></span><br><span class="line">green      <span class="number">500</span></span><br><span class="line">red        <span class="number">100</span></span><br><span class="line">yellow    <span class="number">1000</span></span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure><p>Series的相关属性，index values</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">color_count.index</span><br><span class="line"></span><br><span class="line"><span class="comment"># 结果</span></span><br><span class="line">Index([<span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>], dtype=<span class="string">&#x27;object&#x27;</span>)</span><br><span class="line"></span><br><span class="line">color_count.values</span><br><span class="line"></span><br><span class="line"><span class="comment"># 结果</span></span><br><span class="line">array([ <span class="number">200</span>,  <span class="number">500</span>,  <span class="number">100</span>, <span class="number">1000</span>])</span><br></pre></td></tr></table></figure><h3 id="DataFrame">DataFrame</h3><p>DataFrame是一个类似于二维数组或表格的对象，既有行索引又有列索引。</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">pd.DataFrame(data=<span class="literal">None</span>, index=<span class="literal">None</span>, columms=<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 举例</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">data = np.random.randint(<span class="number">40</span>, <span class="number">100</span>, [<span class="number">10</span>, <span class="number">6</span>])</span><br><span class="line">stu = [<span class="string">&#x27;学生_&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)]</span><br><span class="line">subject = [<span class="string">&#x27;语文&#x27;</span>, <span class="string">&#x27;数学&#x27;</span>, <span class="string">&#x27;英语&#x27;</span>, <span class="string">&#x27;物理&#x27;</span>, <span class="string">&#x27;化学&#x27;</span>, <span class="string">&#x27;生物&#x27;</span>]</span><br><span class="line">pd.DataFrame(data, stu, subject)</span><br></pre></td></tr></table></figure><p>常见属性和方法：shape、index、columns、values、T   head() tail()</p><p>修改索引：data.index = new_index <strong>这里修改索引只能整体修改，不可局部修改</strong></p><p>重设索引：data.reset_index(drop=True) 当为True时，则删除原来索引，为False则保留原来索引。</p><p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/01.png" alt=""></p><p>以某一列值设为新的索引：data.set_index(keys, drop=True)</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df = pd.DataFrame(&#123;<span class="string">&#x27;month&#x27;</span>: [<span class="number">1</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">10</span>],</span><br><span class="line">                    <span class="string">&#x27;year&#x27;</span>: [<span class="number">2012</span>, <span class="number">2014</span>, <span class="number">2013</span>, <span class="number">2014</span>],</span><br><span class="line">                    <span class="string">&#x27;sale&#x27;</span>:[<span class="number">55</span>, <span class="number">40</span>, <span class="number">84</span>, <span class="number">31</span>]&#125;)</span><br><span class="line"></span><br><span class="line">   month  sale  year</span><br><span class="line"><span class="number">0</span>  <span class="number">1</span>      <span class="number">55</span>    <span class="number">2012</span></span><br><span class="line"><span class="number">1</span>  <span class="number">4</span>      <span class="number">40</span>    <span class="number">2014</span></span><br><span class="line"><span class="number">2</span>  <span class="number">7</span>      <span class="number">84</span>    <span class="number">2013</span></span><br><span class="line"><span class="number">3</span>  <span class="number">10</span>     <span class="number">31</span>    <span class="number">2014</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 以月份设置新的索引</span></span><br><span class="line">df = pd.DataFrame(&#123;<span class="string">&#x27;month&#x27;</span>: [<span class="number">1</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">10</span>],</span><br><span class="line">                    <span class="string">&#x27;year&#x27;</span>: [<span class="number">2012</span>, <span class="number">2014</span>, <span class="number">2013</span>, <span class="number">2014</span>],</span><br><span class="line">                    <span class="string">&#x27;sale&#x27;</span>:[<span class="number">55</span>, <span class="number">40</span>, <span class="number">84</span>, <span class="number">31</span>]&#125;)</span><br><span class="line"></span><br><span class="line">   month  sale  year</span><br><span class="line"><span class="number">0</span>  <span class="number">1</span>      <span class="number">55</span>    <span class="number">2012</span></span><br><span class="line"><span class="number">1</span>  <span class="number">4</span>      <span class="number">40</span>    <span class="number">2014</span></span><br><span class="line"><span class="number">2</span>  <span class="number">7</span>      <span class="number">84</span>    <span class="number">2013</span></span><br><span class="line"><span class="number">3</span>  <span class="number">10</span>     <span class="number">31</span>    <span class="number">2014</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置多个索引</span></span><br><span class="line">df = df.set_index([<span class="string">&#x27;year&#x27;</span>, <span class="string">&#x27;month&#x27;</span>])</span><br><span class="line">df</span><br><span class="line">            sale</span><br><span class="line">year  month</span><br><span class="line"><span class="number">2012</span>  <span class="number">1</span>     <span class="number">55</span></span><br><span class="line"><span class="number">2014</span>  <span class="number">4</span>     <span class="number">40</span></span><br><span class="line"><span class="number">2013</span>  <span class="number">7</span>     <span class="number">84</span></span><br><span class="line"><span class="number">2014</span>  <span class="number">10</span>    <span class="number">31</span></span><br></pre></td></tr></table></figure><h2 id="基本数据操作">基本数据操作</h2><ol><li class="lvl-3"><p>索引操作</p><ol><li class="lvl-7">直接进行选择：遵循一个先列后行 data[columns][index]</li><li class="lvl-7">通过.loc，然后根据索引名称，先行后列进行选择</li><li class="lvl-7">通过.iloc，然后根据索引数字，先行后列进行选择</li></ol></li><li class="lvl-3"><p>赋值操作：data[‘month’] = 12  data.month = 12</p><ol><li class="lvl-7">对DataFrame的赋值操作只能整体赋值，不能精确到索引来赋值</li></ol></li><li class="lvl-3"><p>排序操作</p><ol><li class="lvl-7">DateFrame：<ol><li class="lvl-11">值排序：data.sort_values(by=‘keys’, ascending=True) ascending=True升序 False降序</li><li class="lvl-11">索引排序：data.sort_index()</li></ol></li><li class="lvl-7">Series:<ol><li class="lvl-11">值排序：data.sort_values(ascending=True) 只有一列不需要keys</li><li class="lvl-11">索引排序：data.sort_index()</li></ol></li></ol></li></ol><h2 id="DateFrame的运算">DateFrame的运算</h2><h3 id="算术运算">算术运算</h3><ol><li class="lvl-3"><p>直接使用 + - * \</p></li><li class="lvl-3"><p>使用对应方法（推荐）：data.add() data.sub() data.mul() data.div()</p></li></ol><h3 id="逻辑运算">逻辑运算</h3><ol><li class="lvl-3"><p>逻辑符号&gt; &lt; &gt;= &lt;= == !=，通过使用这些逻辑符号，会返回对应数据位置的bool值</p></li><li class="lvl-3"><p>可以根据这个bool值取出对应数据</p> <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 注意这里有&amp;时，两边要加小括号</span></span><br><span class="line">data[(data[<span class="string">&quot;open&quot;</span>] &gt; <span class="number">23</span>) &amp; (data[<span class="string">&quot;open&quot;</span>] &lt; <span class="number">24</span>)].head()</span><br></pre></td></tr></table></figure></li><li class="lvl-3"><p>逻辑运算函数</p><ol><li class="lvl-7"><p>data.query(expr)</p> <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 相比上面先判断逻辑再进行取值要方便得多</span></span><br><span class="line">data.query(<span class="string">&quot;open&lt;24 &amp; open&gt;23&quot;</span>).head()</span><br></pre></td></tr></table></figure></li><li class="lvl-7"><p>data.isin(values)</p> <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 可以指定值进行一个判断，从而筛选出所需要的指定值</span></span><br><span class="line">data[data[<span class="string">&quot;open&quot;</span>].isin([<span class="number">23.53</span>, <span class="number">23.85</span>])]</span><br></pre></td></tr></table></figure></li></ol></li><li class="lvl-3"><p>统计运算</p><ol><li class="lvl-7"><p>总体的统计结果：data.describe() 计算数量、均值、标准差、最大值、最小值以及一些四分位、二分位等</p><p><img src="/postsImages/02.png" alt=""></p></li><li class="lvl-7"><p>一些统计函数（参数为axis，默认为0按行统计）</p><table><thead><tr><th>函数</th><th>作用</th></tr></thead><tbody><tr><td><code>sum</code></td><td><strong>Sum of values</strong></td></tr><tr><td><code>mean</code></td><td><strong>Mean of values</strong></td></tr><tr><td><code>median</code></td><td>Arithmetic median of values</td></tr><tr><td><code>min</code></td><td><strong>Minimum</strong></td></tr><tr><td><code>max</code></td><td><strong>Maximum</strong></td></tr><tr><td><code>count</code></td><td>Number of non-NA observations</td></tr><tr><td><code>abs</code></td><td>Absolute Value</td></tr><tr><td><code>prod</code></td><td>Product of values</td></tr><tr><td><code>std</code></td><td><strong>Bessel-corrected sample standard deviation</strong></td></tr><tr><td><code>var</code></td><td><strong>Unbiased variance</strong>（方差）</td></tr><tr><td><code>idxmax</code></td><td>compute the index labels with the maximum</td></tr><tr><td><code>idxmin</code></td><td>compute the index labels with the minimum</td></tr><tr><td><code>mode</code></td><td>Mode（众数）</td></tr></tbody></table></li><li class="lvl-7"><p>累计统计函数</p><table><thead><tr><th>函数</th><th>作用</th></tr></thead><tbody><tr><td><code>cumsum</code></td><td><strong>计算前1/2/3/…/n个数的和</strong></td></tr><tr><td><code>cummax</code></td><td>计算前1/2/3/…/n个数的最大值</td></tr><tr><td><code>cummin</code></td><td>计算前1/2/3/…/n个数的最小值</td></tr><tr><td><code>cumprod</code></td><td>计算前1/2/3/…/n个数的积</td></tr></tbody></table></li></ol></li><li class="lvl-3"><p>自定义运算 data.apply(func, axis=0, 1) 只能在dataFrame对象上用</p> <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data[[<span class="string">&#x27;open&#x27;</span>, <span class="string">&#x27;close&#x27;</span>]].apply(<span class="keyword">lambda</span> x: x.<span class="built_in">max</span>() - x.<span class="built_in">min</span>(), axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">open</span>     <span class="number">22.74</span></span><br><span class="line">close    <span class="number">22.85</span></span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure></li></ol><h2 id="Pandas画图">Pandas画图</h2><p>pandas画图封装了matplotlib，具体使用直接查看api文档即可。</p><p>DataFrame.plot(kind=‘line’)这里的kind指定了画图的种类，这里就是折线图。</p><p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html">DataFrame画图的相关参考文档</a></p><p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.plot.html">Series画图的相关参考文档</a></p><h2 id="文件读取与存储">文件读取与存储</h2><ul class="lvl-0"><li class="lvl-2"><p>CSV文件</p><ul class="lvl-2"><li class="lvl-6"><p>读取：pd.read_csv(path, sep, usecols)</p>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">filepath_or_buffer:文件路径</span><br><span class="line">sep :分隔符，默认用<span class="string">&quot;,&quot;</span>隔开</span><br><span class="line">usecols:指定读取的列名，列表形式</span><br></pre></td></tr></table></figure></li><li class="lvl-6"><p>存储：data.to_csv(path, sep, columns, header, index, mode)</p>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">path_or_buf :文件路径</span><br><span class="line">sep :分隔符，默认用<span class="string">&quot;,&quot;</span>隔开</span><br><span class="line">columns :选择需要的列索引</span><br><span class="line">header :boolean <span class="keyword">or</span> <span class="built_in">list</span> of string, default <span class="literal">True</span>,是否写进列索引值</span><br><span class="line">index:是否写进行索引</span><br><span class="line">mode:<span class="string">&#x27;w&#x27;</span>：重写, <span class="string">&#x27;a&#x27;</span> 追加</span><br></pre></td></tr></table></figure></li></ul></li><li class="lvl-2"><p>HDF5文件</p><ul class="lvl-2"><li class="lvl-6">读取：pd.read_hdf(path, key=) 读取时须制定key键一般说明文档会提供，如果该hdf5只有一个键可省略。</li><li class="lvl-6">存储：data.to_hdf(path, key=)存储时必须给定key键</li><li class="lvl-6">其他说明：pandas默认采用这种方式进行读写，因为这种方式支持压缩且跨平台，能够节省空间。</li></ul></li><li class="lvl-2"><p>JSON文件</p><ul class="lvl-2"><li class="lvl-6"><p>读取：pd.read_json(path, orient, typ, lines)</p>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">orient : string,Indication of expected JSON string <span class="built_in">format</span>.</span><br><span class="line">    <span class="string">&#x27;split&#x27;</span> : <span class="built_in">dict</span> like &#123;index -&gt; [index], columns -&gt; [columns], data -&gt; [values]&#125;</span><br><span class="line">        split 将索引总结到索引，列名到列名，数据到数据。将三部分都分开了</span><br><span class="line">    <span class="string">&#x27;records&#x27;</span> : <span class="built_in">list</span> like [&#123;column -&gt; value&#125;, ... , &#123;column -&gt; value&#125;]</span><br><span class="line">        records 以columns：values的形式输出</span><br><span class="line">    <span class="string">&#x27;index&#x27;</span> : <span class="built_in">dict</span> like &#123;index -&gt; &#123;column -&gt; value&#125;&#125;</span><br><span class="line">        index 以index：&#123;columns：values&#125;...的形式输出</span><br><span class="line">    <span class="string">&#x27;columns&#x27;</span> : <span class="built_in">dict</span> like &#123;column -&gt; &#123;index -&gt; value&#125;&#125;,默认该格式</span><br><span class="line">        colums 以columns:&#123;index:values&#125;的形式输出</span><br><span class="line">    <span class="string">&#x27;values&#x27;</span> : just the values array</span><br><span class="line">        values 直接输出值</span><br><span class="line">lines : boolean, default <span class="literal">False</span></span><br><span class="line">    按照每行读取json对象</span><br><span class="line">typ : default ‘frame’， 指定转换成的对象类型series或者dataframe</span><br></pre></td></tr></table></figure></li><li class="lvl-6"><p>存储：data.to_json(path, orient, lines)</p>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">将Pandas 对象存储为json格式</span><br><span class="line">path_or_buf=<span class="literal">None</span>：文件地址</span><br><span class="line">orient:存储的json形式，&#123;‘split’,’records’,’index’,’columns’,’values’&#125;</span><br><span class="line">lines:一个对象存储为一行</span><br></pre></td></tr></table></figure></li></ul></li></ul>]]></content>
+      
+      
       <categories>
-        <category>learning</category>
+          
+          <category> machine learning </category>
+          
+          <category> pandas </category>
+          
       </categories>
-      <tags>
-        <tag>CS61B</tag>
-        <tag>recording</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习概述</title>
-    <url>/2024/08/08/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[<blockquote>
-<h2 id="简要复习">简要复习</h2>
-<p>本篇内容主要是对机器学习初步知识的概述。</p>
-</blockquote>
-<h2 id="人工智能概述">人工智能概述</h2>
-<p>人工智能发展必备三要素<strong>数据</strong> <strong>算法</strong> <strong>计算力（算力）</strong>，其中算力分为cpu(central processing unit)计算gpu(graphics processing unit)计算tpu计算，cpu主要适合<strong>I/O密集型</strong>任务，gpu主要适合<strong>计算密集型</strong>任务。<a href="https://www.sohu.com/a/201309334_468740">cpu和gpu的区别</a> 简单来说gpu的计算单元远远超过cpu，且排布更“并行”，所以gpu很利于处理易于并行的程序。tpu是Google研究的一种ai芯片，<a href="https://buzzorange.com/techorange/2017/09/27/what-intel-google-nvidia-microsoft-do-for-ai-chips/">Google tpu</a></p>
-<h2 id="人工智能和机器学习、深度学习的关系">人工智能和机器学习、深度学习的关系</h2>
-<p>机器学习是人工智能的一个实现途径，深度学习是机器学习的一个方法发展而来的。</p>
-<h2 id="发展历程">发展历程</h2>
-<p>图灵测试：超过30%的测试者不能确定被测试者是人还是机器，则这台机器被认为是具有人工智能的。</p>
-<p>达特茅斯会议：将该会议的研究内容定义为“人工智能”，1956年被定为<strong>人工智能元年</strong>。</p>
-<h2 id="人工智能主要分支">人工智能主要分支</h2>
-<p>计算机视觉（CV）、自然语言处理（NLP）、机器人</p>
-<p>自然语言处理包括 语音识别 文本挖掘/分类 机器翻译</p>
-<h2 id="机器学习的工作流程">机器学习的工作流程</h2>
-<p>从数据中自动分析获得模型，并利用模型对未知数据进行预测。</p>
-<ol>
-<li class="lvl-3">
-<p>获取数据：样本（一行数据），特征（一列数据），划分训练集、测试集，目标值特征值是否成对出现</p>
-</li>
-<li class="lvl-3">
-<p>数据基本处理：处理缺失值、异常值</p>
-</li>
-<li class="lvl-3">
-<p><mark>特征工程</mark>：使用<strong>专业背景知识和技巧处理数据</strong>，<strong>使得特征能在机器学习算法上发挥更好的作用的过程</strong>。</p>
-<ol>
-<li class="lvl-7">特征提取</li>
-<li class="lvl-7">特征预处理</li>
-<li class="lvl-7">特征降维</li>
-</ol>
-</li>
-<li class="lvl-3">
-<p>机器学习（模型训练）</p>
-</li>
-<li class="lvl-3">
-<p>模型评估</p>
-</li>
-</ol>
-<h2 id="机器学习算法分类（依据数据集组成不同）">机器学习算法分类（依据数据集组成不同）</h2>
-<ol>
-<li class="lvl-3">
-<p>监督学习：输入数据是由  特征值和目标值组成</p>
-</li>
-<li class="lvl-3">
-<p>无监督学习：输入数据只有特征值，无目标值</p>
-</li>
-<li class="lvl-3">
-<p>半监督学习：输入数据同时包含标记样本数据集和未标记样本数据集</p>
-</li>
-<li class="lvl-3">
-<p>强化学习：实质是make decisions 问题，即自动进行决策，并且可以做连续决策。同时伴有奖励，目标是累计获取最大奖励。下棋就是一个典型的强化学习例子。</p>
-</li>
-</ol>
-<h2 id="模型评估">模型评估</h2>
-<p>分类模型评估、回归模型评估。过拟合、欠拟合</p>
-<h2 id="深度学习">深度学习</h2>
-<p>深度学习是机器学习下的一个分支，主要利用的是神经网络，整体上分为 输入层、隐藏层、输出层。其中隐藏层包含多个层次，每一层负责特定的特征提取，而每一层又由多个神经元组成，这些神经元互不干扰完成该层所需完成的工作的某个部分。</p>
-<p>一般来说，神经网络层数越多，提取的特征就更多，效果会更好，但绝不是层数越多越好。</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> recording </tag>
+            
+            <tag> machine learning </tag>
+            
+            <tag> learning </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>科学计算库之numpy</title>
+      <link href="/2024/08/11/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bnumpy/"/>
+      <url>/2024/08/11/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bnumpy/</url>
+      
+        <content type="html"><![CDATA[<h2 id="基本概念">基本概念</h2><ol><li class="lvl-3"><p>什么是numpy？numpy用来干什么的？</p><p>用于快速处理<strong>任意维度的数组</strong>，速度显著优于直接使用python来处理。</p></li><li class="lvl-3"><p>什么是ndarray?</p><p>NumPy提供了一个<strong>N维数组类型ndarray</strong>，它描述了<strong>相同类型</strong>的“items”的集合。一种新的数据类型，专门用于处理多维数组运算的。</p></li><li class="lvl-3"><p>ndarray的优势是什么？</p><ul class="lvl-2"><li class="lvl-6"><p>内存块风格</p>  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- list -- 分离式存储,存储内容多样化,只能根据一个地址找一个数据</span><br><span class="line">- ndarray -- 一体式存储,存储类型必须一样,可以直接批量取</span><br></pre></td></tr></table></figure></li><li class="lvl-6"><p>ndarray支持并行化运算（向量化运算）</p></li><li class="lvl-6"><p>ndarray底层是用C语言写的,效率更高,释放了GIL</p></li></ul></li><li class="lvl-3"><p>ndarray的属性？</p><table><thead><tr><th>ndarray.shape</th><th>数组维度的元组</th></tr></thead><tbody><tr><td>ndarray.ndim</td><td>数组维数</td></tr><tr><td>ndarray.size</td><td>数组中的元素数量</td></tr><tr><td>ndarray.itemsize</td><td>一个数组元素的长度（字节）</td></tr><tr><td>ndarray.dtype</td><td>数组元素的类型</td></tr></tbody></table></li></ol><h2 id="基本操作">基本操作</h2><h3 id="生成数组的方法">生成数组的方法</h3><h4 id="生成0和1的数组">生成0和1的数组</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">np.ones(shape, dtype)</span><br><span class="line">np.ones_like(a, dtype)</span><br><span class="line">np.zeros(shape, dtype)</span><br><span class="line">np.zeros_like(a, dtype)</span><br></pre></td></tr></table></figure><h4 id="从现有数组生成">从现有数组生成</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">np.array(<span class="built_in">object</span>, dtype) <span class="comment">#  创建另一个一摸一样的数组</span></span><br><span class="line">np.asarray(<span class="built_in">object</span>, dtype) <span class="comment"># 创建一个索引指向object数组</span></span><br></pre></td></tr></table></figure><h4 id="生成固定范围的数组">生成固定范围的数组</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">np.linspace(start, end, num, endpoint) </span><br><span class="line"><span class="comment"># start:序列的起始值</span></span><br><span class="line"><span class="comment"># stop:序列的终止值</span></span><br><span class="line"><span class="comment"># num:要生成的等间隔样例数量，默认为50</span></span><br><span class="line"><span class="comment"># endpoint:序列中是否包含stop值，默认为ture</span></span><br><span class="line"></span><br><span class="line">np.arange(start, end, step, dtype)</span><br><span class="line"><span class="comment"># step:步长</span></span><br><span class="line"></span><br><span class="line">np.logspace(start, end, num) <span class="comment"># 前两个创建的是等差数列，这个创建的是等比数列，10^start~10^end</span></span><br><span class="line"><span class="comment"># num: 数量</span></span><br></pre></td></tr></table></figure><h4 id="生成随机数组">生成随机数组</h4><p>正太分布 $\mu$代表均值 $\sigma$ 代表标准差，当$\mu$为0，$\sigma$为1时为标准正太分布，标准差反映了数据的离散程度，标准差越小分布越集中。</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">np.random.normal(loc, scale, size) <span class="comment"># loc:μ scale:σ size: shape</span></span><br></pre></td></tr></table></figure><p>均匀分布是关于定义在区间[a,b], (a&lt;b)上连续变量的简单概率分布。</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">np.random.uniform(low, high, size) <span class="comment"># 均匀分布</span></span><br><span class="line">np.random.randint(low, high, size, dtype) <span class="comment"># 整数均匀分布</span></span><br><span class="line">np.random.rand(size) <span class="comment"># 生成size个标准均匀分布（0~1）的样本</span></span><br><span class="line">np.random.randn(size) <span class="comment"># 生成size个标准正态分布的样本</span></span><br></pre></td></tr></table></figure><h3 id="数组的索引和切片">数组的索引和切片</h3><p>多维的本质上就是一种多个分组，比如说：当为一维时，我们通过每一列来寻找一个确定的数；当为两维时，原来只有一行，现在有多行，我们先确定行，再确定每个列中具体元素；当为三维时，原来的两维被装进了不同的袋子里，现在我们先选定是哪个袋子，再在这个袋子里去确定行，列来找到元素。当为四维时，原来的袋子被装进一个箱子，我们首先选定哪个箱子，再在这个箱子中去选定袋子，以此类推…</p><h3 id="其他">其他</h3><ul class="lvl-0"><li class="lvl-2"><p>改变形状：<code>array.reshape() array.resize()</code>前一个不改变array本身，后一个改变array</p></li><li class="lvl-2"><p>数组转置：<code>array.T</code></p></li><li class="lvl-2"><p>数组去重：<code>np.unique(array)</code>不管是几维的，最后统一降成一维的并把所有数组中的数据相同的去掉</p></li></ul><h2 id="运算">运算</h2><h3 id="ndarray运算">ndarray运算</h3><ol><li class="lvl-3"><p>逻辑运算，直接用该数组来进行比较，满足条件的值将被设为True，同时还可以利用这点来进行赋值。</p> <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>test_score &gt; <span class="number">60</span></span><br><span class="line">array([[ <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>, <span class="literal">False</span>,  <span class="literal">True</span>],</span><br><span class="line">       [ <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>, <span class="literal">False</span>,  <span class="literal">True</span>],</span><br><span class="line">       [ <span class="literal">True</span>,  <span class="literal">True</span>, <span class="literal">False</span>, <span class="literal">False</span>,  <span class="literal">True</span>],</span><br><span class="line">       [<span class="literal">False</span>,  <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>]])</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>test_score[test_score &gt; <span class="number">60</span>] = <span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>test_score</span><br><span class="line">array([[ <span class="number">1</span>,  <span class="number">1</span>,  <span class="number">1</span>, <span class="number">52</span>,  <span class="number">1</span>],</span><br><span class="line">       [ <span class="number">1</span>,  <span class="number">1</span>,  <span class="number">1</span>, <span class="number">59</span>,  <span class="number">1</span>],</span><br><span class="line">       [ <span class="number">1</span>,  <span class="number">1</span>, <span class="number">44</span>, <span class="number">44</span>,  <span class="number">1</span>],</span><br><span class="line">       [<span class="number">59</span>,  <span class="number">1</span>,  <span class="number">1</span>,  <span class="number">1</span>,  <span class="number">1</span>]])</span><br></pre></td></tr></table></figure></li><li class="lvl-3"><p>通用判断函数：np.all() np.any()</p> <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 判断前两名同学的成绩[0:2, :]是否全及格</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.<span class="built_in">all</span>(score[<span class="number">0</span>:<span class="number">2</span>, :] &gt; <span class="number">60</span>)</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断前两名同学的成绩[0:2, :]是否有大于90分的</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.<span class="built_in">any</span>(score[<span class="number">0</span>:<span class="number">2</span>, :] &gt; <span class="number">80</span>)</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure></li><li class="lvl-3"><p>三元运算符：np.where()</p> <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 判断前四名学生,前四门课程中，成绩中大于60且小于90的换为1，否则为0</span></span><br><span class="line">np.where(np.logical_and(temp &gt; <span class="number">60</span>, temp &lt; <span class="number">90</span>), <span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断前四名学生,前四门课程中，成绩中大于90或小于60的换为1，否则为0</span></span><br><span class="line">np.where(np.logical_or(temp &gt; <span class="number">90</span>, temp &lt; <span class="number">60</span>), <span class="number">1</span>, <span class="number">0</span>)</span><br></pre></td></tr></table></figure></li><li class="lvl-3"><p>统计运算</p> <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">np.<span class="built_in">min</span>(a, axis)</span><br><span class="line">Return the minimum of an array <span class="keyword">or</span> minimum along an axis.</span><br><span class="line">np.<span class="built_in">max</span>(a, axis)</span><br><span class="line">Return the maximum of an array <span class="keyword">or</span> maximum along an axis.</span><br><span class="line">np.median(a, axis)</span><br><span class="line">Compute the median along the specified axis.</span><br><span class="line">np.mean(a, axis, dtype)</span><br><span class="line">Compute the arithmetic mean along the specified axis.</span><br><span class="line">np.std(a, axis, dtype)</span><br><span class="line">Compute the standard deviation along the specified axis.</span><br><span class="line">np.var(a, axis, dtype)</span><br><span class="line">Compute the variance along the specified axis.</span><br><span class="line">np.argmax(a, axis)</span><br><span class="line">np.argmax(a, axis)</span><br><span class="line">Return the index of the maximum <span class="keyword">or</span> minimum of an array.</span><br></pre></td></tr></table></figure><p>实际情况中，通过测试一下就知道axis=0是代表那个维度的。</p></li></ol><h3 id="数组之间的运算">数组之间的运算</h3><h4 id="数组与数之间的运算">数组与数之间的运算</h4><p>+ - * / ** 每种运算都是该数与数组中的所有元素进行运算</p><h4 id="数组与数组的运算">数组与数组的运算</h4><p>当满足下面两个条件时，数组与数组间维度不同会发生广播机制。</p><ol><li class="lvl-3"><p>两个张量都必须不为空；</p></li><li class="lvl-3"><p>将两个张量的形状信息右对齐，从右向左观看同一维度下，张量的轴长必须相等，或者其中一个轴长为1，或者其中一个轴长为空。</p></li></ol><p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bnumpy/01.png" alt=""></p><h2 id="矩阵">矩阵</h2><p>矩阵和数组之间的区别就是，矩阵必须是二维的，而向量不限制。尽管行向量看起来像一维，但仍是二维 例如：[1, 3] -&gt; matrix = [1, 2, 3]  matrix[0] = [1, 2, 3]</p><h3 id="矩阵乘法">矩阵乘法</h3><p><code>np.dot(a, b) np.matmul(a, b)</code>前一个既可以进行矩阵和矩阵之间乘法也可以进行矩阵与标量之间乘法，后一个只能进行矩阵与矩阵之间乘法。</p>]]></content>
+      
+      
       <categories>
-        <category>learning</category>
-        <category>machine learning</category>
-        <category>概述</category>
+          
+          <category> machine learning </category>
+          
+          <category> numpy </category>
+          
       </categories>
-      <tags>
-        <tag>recording</tag>
-        <tag>machine learning</tag>
-        <tag>learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>科学计算库之matplotlib</title>
-    <url>/2024/08/08/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/</url>
-    <content><![CDATA[<h2 id="基础绘制过程">基础绘制过程</h2>
-<p>首先导入包，然后创建画布，选择想要绘制的图像输入数据绘制，最后显示绘制结果</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 0. 创建数据</span></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"><span class="comment"># 1. 创建画布</span></span><br><span class="line">plt.figure(figsize=(<span class="number">20</span>, <span class="number">8</span>), dpi=<span class="number">100</span>) </span><br><span class="line"><span class="comment">#  figsize:画布大小,单位英寸（1英寸2.5厘米） dpi:分辨率（每英寸有多少像素，默认80）</span></span><br><span class="line"><span class="comment"># 2. 绘制</span></span><br><span class="line">plt.plot(x, y)</span><br><span class="line"><span class="comment"># 3. 显示</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/01.png" alt=""></p>
-<h2 id="绘图扩展">绘图扩展</h2>
-<ol>
-<li class="lvl-3">
-<p>添加自定义x，y轴刻度</p>
- <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y_shanghai = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">5</span>), dpi=<span class="number">100</span>)</span><br><span class="line">plt.plot(x, y_shanghai)</span><br><span class="line"></span><br><span class="line">x_ticks_labels = [<span class="string">&#x27;11点&#123;&#125;分&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> x]</span><br><span class="line">y_ticks = [x*<span class="number">0.1</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line">y_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(x*<span class="number">0.1</span>) <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line"></span><br><span class="line">plt.xticks(x[::<span class="number">5</span>], x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line">plt.yticks(y_ticks, y_ticks_labels)</span><br><span class="line"></span><br><span class="line">plt.grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;-.&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line">plt.xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">plt.title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># plt.savefig(&#x27;./pic.png&#x27;)</span></span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<blockquote>
-<h3 id="注意">注意</h3>
-<ul class="lvl-3">
-<li class="lvl-2">
-<p>这里添加的x，y轴刻度值和x，y本身的值没有任何关系，只是我们在定义刻度值时刚好用到了x本身的值而已。</p>
-</li>
-<li class="lvl-2">
-<p>在使用plt.xticks(x_ticks, x_ticks_labels)时，x_ticks必须是一个标量值，在添加了这个标量值后，可以修改x_ticks_labels来加上对应的字符，此时x_ticks_labels必须和x_ticks一一对应。</p>
-</li>
-<li class="lvl-2">
-<p>range只能产生整数的间隔值，当要生成小数时，可以参考上述方法 *0.1😺</p>
-</li>
-<li class="lvl-2">
-<p>当坐标轴有中文时，首先下载支持中文显示的字体，然后修改matplotlibrc的配置文件</p>
-<p><code>vi ~/.matplotlib/matplotlibrc</code></p>
-<p>以simhei字体为例</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">font.family         <span class="punctuation">:</span> sans-serif</span><br><span class="line">font.sans-serif         <span class="punctuation">:</span> SimHei</span><br><span class="line">axes.unicode_minus  <span class="punctuation">:</span> False</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-</li>
-<li class="lvl-3">
-<p>添加表格：<code>plt.grid(True, linestyle='- | -. | --', alpha=0.5, color='r')</code> alpha代表透明度</p>
-</li>
-<li class="lvl-3">
-<p>添加坐标轴描述信息和标题描述信息：<code>plt.xlabel(&quot;fjkdsjf&quot;) plt.tilte(&quot;fjdslkfj&quot;, fontsize=20)</code></p>
-</li>
-<li class="lvl-3">
-<p>保存图片：<code>plt.savefig('path')</code></p>
-</li>
-</ol>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/02.png" alt=""></p>
-<h2 id="一个坐标系中绘制多个图像">一个坐标系中绘制多个图像</h2>
-<ol>
-<li class="lvl-3">
-<p>设置两个图像的x，y的值</p>
-</li>
-<li class="lvl-3">
-<p>使用plt.plot(x, y, color=‘’, linestyle=‘’, label=‘’)进行绘图，通过添加颜色、线条来进行区分，添加label来添加图例，plt.legend(loc=‘’).loc的可选值为’best’、‘upper right’、‘lower left’、'center’等等组合</p>
-</li>
-</ol>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/03.png" alt=""></p>
-<h2 id="多个坐标系显示多个图像">多个坐标系显示多个图像</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y_shanghai = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line">y_beijing = [random.uniform(<span class="number">8</span>, <span class="number">10</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"></span><br><span class="line">fig, axes = plt.subplots(nrows=<span class="number">1</span>, ncols=<span class="number">2</span>, figsize=(<span class="number">20</span>, <span class="number">8</span>), dpi=<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].plot(x, y_shanghai, label=<span class="string">&#x27;上海&#x27;</span>)</span><br><span class="line">axes[<span class="number">1</span>].plot(x, y_beijing, label=<span class="string">&#x27;北京&#x27;</span>, color=<span class="string">&#x27;r&#x27;</span>, linestyle=<span class="string">&#x27;--&#x27;</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].legend(loc=<span class="number">0</span>)</span><br><span class="line">axes[<span class="number">1</span>].legend(loc=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">x_ticks_labels = [<span class="string">&#x27;11点&#123;&#125;分&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> x]</span><br><span class="line">axes[<span class="number">0</span>].set_xticks(x[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">0</span>].set_xticklabels(x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">1</span>].set_xticks(x[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">1</span>].set_xticklabels(x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line"></span><br><span class="line">y0_ticks = [i * <span class="number">0.1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line">y0_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> y0_ticks]</span><br><span class="line">axes[<span class="number">0</span>].set_yticks(y0_ticks)</span><br><span class="line">axes[<span class="number">0</span>].set_yticklabels(y0_ticks_labels)</span><br><span class="line"></span><br><span class="line">y1_ticks = [i * <span class="number">0.1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">80</span>, <span class="number">105</span>, <span class="number">5</span>)]</span><br><span class="line">y1_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> y1_ticks]</span><br><span class="line">axes[<span class="number">1</span>].set_yticks(y1_ticks)</span><br><span class="line">axes[<span class="number">1</span>].set_yticklabels(y1_ticks_labels)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;--&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line">axes[<span class="number">1</span>].grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;-.&#x27;</span>, alpha=<span class="number">0.8</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].set_xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">axes[<span class="number">0</span>].set_ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">axes[<span class="number">0</span>].set_title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<ol>
-<li class="lvl-3">
-<p>首先绘制的方法改为plt.subplots(nrows, ncols, figsize(), dpi) 该方法返回一个画布fig和多个坐标系axes[ ]</p>
-</li>
-<li class="lvl-3">
-<p>后续基本一样，除了在进行坐标系刻度值的变化中采用了xticks和xticklabels分开来其余都一样。</p>
-</li>
-</ol>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/04.png" alt=""></p>
-<h2 id="常见图形绘制">常见图形绘制</h2>
-<ol>
-<li class="lvl-3">
-<p>折线图  plt.plot(x, y)</p>
-</li>
-<li class="lvl-3">
-<p>散点图  plt.scatter(x, y)</p>
-</li>
-<li class="lvl-3">
-<p>柱状图  plt.bar(x, y, width)</p>
-</li>
-<li class="lvl-3">
-<p>直方图  plt.hist(x, bins=None)</p>
-</li>
-<li class="lvl-3">
-<p>饼状图  plt.pie(x, labels=,autopct=,colors)</p>
-</li>
-</ol>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> recording </tag>
+            
+            <tag> machine learning </tag>
+            
+            <tag> learning </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>科学计算库之matplotlib</title>
+      <link href="/2024/08/08/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/"/>
+      <url>/2024/08/08/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/</url>
+      
+        <content type="html"><![CDATA[<h2 id="基础绘制过程">基础绘制过程</h2><p>首先导入包，然后创建画布，选择想要绘制的图像输入数据绘制，最后显示绘制结果</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 0. 创建数据</span></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"><span class="comment"># 1. 创建画布</span></span><br><span class="line">plt.figure(figsize=(<span class="number">20</span>, <span class="number">8</span>), dpi=<span class="number">100</span>) </span><br><span class="line"><span class="comment">#  figsize:画布大小,单位英寸（1英寸2.5厘米） dpi:分辨率（每英寸有多少像素，默认80）</span></span><br><span class="line"><span class="comment"># 2. 绘制</span></span><br><span class="line">plt.plot(x, y)</span><br><span class="line"><span class="comment"># 3. 显示</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure><p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/01.png" alt=""></p><h2 id="绘图扩展">绘图扩展</h2><ol><li class="lvl-3"><p>添加自定义x，y轴刻度</p> <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y_shanghai = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">5</span>), dpi=<span class="number">100</span>)</span><br><span class="line">plt.plot(x, y_shanghai)</span><br><span class="line"></span><br><span class="line">x_ticks_labels = [<span class="string">&#x27;11点&#123;&#125;分&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> x]</span><br><span class="line">y_ticks = [x*<span class="number">0.1</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line">y_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(x*<span class="number">0.1</span>) <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line"></span><br><span class="line">plt.xticks(x[::<span class="number">5</span>], x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line">plt.yticks(y_ticks, y_ticks_labels)</span><br><span class="line"></span><br><span class="line">plt.grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;-.&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line">plt.xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">plt.title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># plt.savefig(&#x27;./pic.png&#x27;)</span></span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure><blockquote><h3 id="注意">注意</h3><ul class="lvl-3"><li class="lvl-2"><p>这里添加的x，y轴刻度值和x，y本身的值没有任何关系，只是我们在定义刻度值时刚好用到了x本身的值而已。</p></li><li class="lvl-2"><p>在使用plt.xticks(x_ticks, x_ticks_labels)时，x_ticks必须是一个标量值，在添加了这个标量值后，可以修改x_ticks_labels来加上对应的字符，此时x_ticks_labels必须和x_ticks一一对应。</p></li><li class="lvl-2"><p>range只能产生整数的间隔值，当要生成小数时，可以参考上述方法 *0.1😺</p></li><li class="lvl-2"><p>当坐标轴有中文时，首先下载支持中文显示的字体，然后修改matplotlibrc的配置文件</p><p><code>vi ~/.matplotlib/matplotlibrc</code></p><p>以simhei字体为例</p><figure class="highlight json"><table><tr><td class="code"><pre><span class="line">font.family         <span class="punctuation">:</span> sans-serif</span><br><span class="line">font.sans-serif         <span class="punctuation">:</span> SimHei</span><br><span class="line">axes.unicode_minus  <span class="punctuation">:</span> False</span><br></pre></td></tr></table></figure></li></ul></blockquote></li><li class="lvl-3"><p>添加表格：<code>plt.grid(True, linestyle='- | -. | --', alpha=0.5, color='r')</code> alpha代表透明度</p></li><li class="lvl-3"><p>添加坐标轴描述信息和标题描述信息：<code>plt.xlabel(&quot;fjkdsjf&quot;) plt.tilte(&quot;fjdslkfj&quot;, fontsize=20)</code></p></li><li class="lvl-3"><p>保存图片：<code>plt.savefig('path')</code></p></li></ol><p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/02.png" alt=""></p><h2 id="一个坐标系中绘制多个图像">一个坐标系中绘制多个图像</h2><ol><li class="lvl-3"><p>设置两个图像的x，y的值</p></li><li class="lvl-3"><p>使用plt.plot(x, y, color=‘’, linestyle=‘’, label=‘’)进行绘图，通过添加颜色、线条来进行区分，添加label来添加图例，plt.legend(loc=‘’).loc的可选值为’best’、‘upper right’、‘lower left’、'center’等等组合</p></li></ol><p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/03.png" alt=""></p><h2 id="多个坐标系显示多个图像">多个坐标系显示多个图像</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y_shanghai = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line">y_beijing = [random.uniform(<span class="number">8</span>, <span class="number">10</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"></span><br><span class="line">fig, axes = plt.subplots(nrows=<span class="number">1</span>, ncols=<span class="number">2</span>, figsize=(<span class="number">20</span>, <span class="number">8</span>), dpi=<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].plot(x, y_shanghai, label=<span class="string">&#x27;上海&#x27;</span>)</span><br><span class="line">axes[<span class="number">1</span>].plot(x, y_beijing, label=<span class="string">&#x27;北京&#x27;</span>, color=<span class="string">&#x27;r&#x27;</span>, linestyle=<span class="string">&#x27;--&#x27;</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].legend(loc=<span class="number">0</span>)</span><br><span class="line">axes[<span class="number">1</span>].legend(loc=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">x_ticks_labels = [<span class="string">&#x27;11点&#123;&#125;分&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> x]</span><br><span class="line">axes[<span class="number">0</span>].set_xticks(x[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">0</span>].set_xticklabels(x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">1</span>].set_xticks(x[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">1</span>].set_xticklabels(x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line"></span><br><span class="line">y0_ticks = [i * <span class="number">0.1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line">y0_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> y0_ticks]</span><br><span class="line">axes[<span class="number">0</span>].set_yticks(y0_ticks)</span><br><span class="line">axes[<span class="number">0</span>].set_yticklabels(y0_ticks_labels)</span><br><span class="line"></span><br><span class="line">y1_ticks = [i * <span class="number">0.1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">80</span>, <span class="number">105</span>, <span class="number">5</span>)]</span><br><span class="line">y1_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> y1_ticks]</span><br><span class="line">axes[<span class="number">1</span>].set_yticks(y1_ticks)</span><br><span class="line">axes[<span class="number">1</span>].set_yticklabels(y1_ticks_labels)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;--&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line">axes[<span class="number">1</span>].grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;-.&#x27;</span>, alpha=<span class="number">0.8</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].set_xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">axes[<span class="number">0</span>].set_ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">axes[<span class="number">0</span>].set_title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure><ol><li class="lvl-3"><p>首先绘制的方法改为plt.subplots(nrows, ncols, figsize(), dpi) 该方法返回一个画布fig和多个坐标系axes[ ]</p></li><li class="lvl-3"><p>后续基本一样，除了在进行坐标系刻度值的变化中采用了xticks和xticklabels分开来其余都一样。</p></li></ol><p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/04.png" alt=""></p><h2 id="常见图形绘制">常见图形绘制</h2><ol><li class="lvl-3"><p>折线图  plt.plot(x, y)</p></li><li class="lvl-3"><p>散点图  plt.scatter(x, y)</p></li><li class="lvl-3"><p>柱状图  plt.bar(x, y, width)</p></li><li class="lvl-3"><p>直方图  plt.hist(x, bins=None)</p></li><li class="lvl-3"><p>饼状图  plt.pie(x, labels=,autopct=,colors)</p></li></ol>]]></content>
+      
+      
       <categories>
-        <category>machine learning</category>
-        <category>matplotlib</category>
+          
+          <category> machine learning </category>
+          
+          <category> matplotlib </category>
+          
       </categories>
-      <tags>
-        <tag>recording</tag>
-        <tag>machine learning</tag>
-        <tag>learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>科学计算库之numpy</title>
-    <url>/2024/08/11/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bnumpy/</url>
-    <content><![CDATA[<h2 id="基本概念">基本概念</h2>
-<ol>
-<li class="lvl-3">
-<p>什么是numpy？numpy用来干什么的？</p>
-<p>用于快速处理<strong>任意维度的数组</strong>，速度显著优于直接使用python来处理。</p>
-</li>
-<li class="lvl-3">
-<p>什么是ndarray?</p>
-<p>NumPy提供了一个<strong>N维数组类型ndarray</strong>，它描述了<strong>相同类型</strong>的“items”的集合。一种新的数据类型，专门用于处理多维数组运算的。</p>
-</li>
-<li class="lvl-3">
-<p>ndarray的优势是什么？</p>
-<ul class="lvl-2">
-<li class="lvl-6">
-<p>内存块风格</p>
-  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- list -- 分离式存储,存储内容多样化,只能根据一个地址找一个数据</span><br><span class="line">- ndarray -- 一体式存储,存储类型必须一样,可以直接批量取</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-6">
-<p>ndarray支持并行化运算（向量化运算）</p>
-</li>
-<li class="lvl-6">
-<p>ndarray底层是用C语言写的,效率更高,释放了GIL</p>
-</li>
-</ul>
-</li>
-<li class="lvl-3">
-<p>ndarray的属性？</p>
-<table>
-<thead>
-<tr>
-<th>ndarray.shape</th>
-<th>数组维度的元组</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ndarray.ndim</td>
-<td>数组维数</td>
-</tr>
-<tr>
-<td>ndarray.size</td>
-<td>数组中的元素数量</td>
-</tr>
-<tr>
-<td>ndarray.itemsize</td>
-<td>一个数组元素的长度（字节）</td>
-</tr>
-<tr>
-<td>ndarray.dtype</td>
-<td>数组元素的类型</td>
-</tr>
-</tbody>
-</table>
-</li>
-</ol>
-<h2 id="基本操作">基本操作</h2>
-<h3 id="生成数组的方法">生成数组的方法</h3>
-<h4 id="生成0和1的数组">生成0和1的数组</h4>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">np.ones(shape, dtype)</span><br><span class="line">np.ones_like(a, dtype)</span><br><span class="line">np.zeros(shape, dtype)</span><br><span class="line">np.zeros_like(a, dtype)</span><br></pre></td></tr></table></figure>
-<h4 id="从现有数组生成">从现有数组生成</h4>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">np.array(<span class="built_in">object</span>, dtype) <span class="comment">#  创建另一个一摸一样的数组</span></span><br><span class="line">np.asarray(<span class="built_in">object</span>, dtype) <span class="comment"># 创建一个索引指向object数组</span></span><br></pre></td></tr></table></figure>
-<h4 id="生成固定范围的数组">生成固定范围的数组</h4>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">np.linspace(start, end, num, endpoint) </span><br><span class="line"><span class="comment"># start:序列的起始值</span></span><br><span class="line"><span class="comment"># stop:序列的终止值</span></span><br><span class="line"><span class="comment"># num:要生成的等间隔样例数量，默认为50</span></span><br><span class="line"><span class="comment"># endpoint:序列中是否包含stop值，默认为ture</span></span><br><span class="line"></span><br><span class="line">np.arange(start, end, step, dtype)</span><br><span class="line"><span class="comment"># step:步长</span></span><br><span class="line"></span><br><span class="line">np.logspace(start, end, num) <span class="comment"># 前两个创建的是等差数列，这个创建的是等比数列，10^start~10^end</span></span><br><span class="line"><span class="comment"># num: 数量</span></span><br></pre></td></tr></table></figure>
-<h4 id="生成随机数组">生成随机数组</h4>
-<p>正太分布 $\mu$代表均值 $\sigma$ 代表标准差，当$\mu$为0，$\sigma$为1时为标准正太分布，标准差反映了数据的离散程度，标准差越小分布越集中。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">np.random.normal(loc, scale, size) <span class="comment"># loc:μ scale:σ size: shape</span></span><br></pre></td></tr></table></figure>
-<p>均匀分布是关于定义在区间[a,b], (a&lt;b)上连续变量的简单概率分布。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">np.random.uniform(low, high, size) <span class="comment"># 均匀分布</span></span><br><span class="line">np.random.randint(low, high, size, dtype) <span class="comment"># 整数均匀分布</span></span><br><span class="line">np.random.rand(size) <span class="comment"># 生成size个标准均匀分布（0~1）的样本</span></span><br><span class="line">np.random.randn(size) <span class="comment"># 生成size个标准正态分布的样本</span></span><br></pre></td></tr></table></figure>
-<h3 id="数组的索引和切片">数组的索引和切片</h3>
-<p>多维的本质上就是一种多个分组，比如说：当为一维时，我们通过每一列来寻找一个确定的数；当为两维时，原来只有一行，现在有多行，我们先确定行，再确定每个列中具体元素；当为三维时，原来的两维被装进了不同的袋子里，现在我们先选定是哪个袋子，再在这个袋子里去确定行，列来找到元素。当为四维时，原来的袋子被装进一个箱子，我们首先选定哪个箱子，再在这个箱子中去选定袋子，以此类推…</p>
-<h3 id="其他">其他</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>改变形状：<code>array.reshape() array.resize()</code>前一个不改变array本身，后一个改变array</p>
-</li>
-<li class="lvl-2">
-<p>数组转置：<code>array.T</code></p>
-</li>
-<li class="lvl-2">
-<p>数组去重：<code>np.unique(array)</code>不管是几维的，最后统一降成一维的并把所有数组中的数据相同的去掉</p>
-</li>
-</ul>
-<h2 id="运算">运算</h2>
-<h3 id="ndarray运算">ndarray运算</h3>
-<ol>
-<li class="lvl-3">
-<p>逻辑运算，直接用该数组来进行比较，满足条件的值将被设为True，同时还可以利用这点来进行赋值。</p>
- <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>test_score &gt; <span class="number">60</span></span><br><span class="line">array([[ <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>, <span class="literal">False</span>,  <span class="literal">True</span>],</span><br><span class="line">       [ <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>, <span class="literal">False</span>,  <span class="literal">True</span>],</span><br><span class="line">       [ <span class="literal">True</span>,  <span class="literal">True</span>, <span class="literal">False</span>, <span class="literal">False</span>,  <span class="literal">True</span>],</span><br><span class="line">       [<span class="literal">False</span>,  <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>]])</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>test_score[test_score &gt; <span class="number">60</span>] = <span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>test_score</span><br><span class="line">array([[ <span class="number">1</span>,  <span class="number">1</span>,  <span class="number">1</span>, <span class="number">52</span>,  <span class="number">1</span>],</span><br><span class="line">       [ <span class="number">1</span>,  <span class="number">1</span>,  <span class="number">1</span>, <span class="number">59</span>,  <span class="number">1</span>],</span><br><span class="line">       [ <span class="number">1</span>,  <span class="number">1</span>, <span class="number">44</span>, <span class="number">44</span>,  <span class="number">1</span>],</span><br><span class="line">       [<span class="number">59</span>,  <span class="number">1</span>,  <span class="number">1</span>,  <span class="number">1</span>,  <span class="number">1</span>]])</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-3">
-<p>通用判断函数：np.all() np.any()</p>
- <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 判断前两名同学的成绩[0:2, :]是否全及格</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.<span class="built_in">all</span>(score[<span class="number">0</span>:<span class="number">2</span>, :] &gt; <span class="number">60</span>)</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断前两名同学的成绩[0:2, :]是否有大于90分的</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.<span class="built_in">any</span>(score[<span class="number">0</span>:<span class="number">2</span>, :] &gt; <span class="number">80</span>)</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-3">
-<p>三元运算符：np.where()</p>
- <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 判断前四名学生,前四门课程中，成绩中大于60且小于90的换为1，否则为0</span></span><br><span class="line">np.where(np.logical_and(temp &gt; <span class="number">60</span>, temp &lt; <span class="number">90</span>), <span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断前四名学生,前四门课程中，成绩中大于90或小于60的换为1，否则为0</span></span><br><span class="line">np.where(np.logical_or(temp &gt; <span class="number">90</span>, temp &lt; <span class="number">60</span>), <span class="number">1</span>, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-3">
-<p>统计运算</p>
- <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">np.<span class="built_in">min</span>(a, axis)</span><br><span class="line">Return the minimum of an array <span class="keyword">or</span> minimum along an axis.</span><br><span class="line">np.<span class="built_in">max</span>(a, axis)</span><br><span class="line">Return the maximum of an array <span class="keyword">or</span> maximum along an axis.</span><br><span class="line">np.median(a, axis)</span><br><span class="line">Compute the median along the specified axis.</span><br><span class="line">np.mean(a, axis, dtype)</span><br><span class="line">Compute the arithmetic mean along the specified axis.</span><br><span class="line">np.std(a, axis, dtype)</span><br><span class="line">Compute the standard deviation along the specified axis.</span><br><span class="line">np.var(a, axis, dtype)</span><br><span class="line">Compute the variance along the specified axis.</span><br><span class="line">np.argmax(a, axis)</span><br><span class="line">np.argmax(a, axis)</span><br><span class="line">Return the index of the maximum <span class="keyword">or</span> minimum of an array.</span><br></pre></td></tr></table></figure>
-<p>实际情况中，通过测试一下就知道axis=0是代表那个维度的。</p>
-</li>
-</ol>
-<h3 id="数组之间的运算">数组之间的运算</h3>
-<h4 id="数组与数之间的运算">数组与数之间的运算</h4>
-<p>+ - * / ** 每种运算都是该数与数组中的所有元素进行运算</p>
-<h4 id="数组与数组的运算">数组与数组的运算</h4>
-<p>当满足下面两个条件时，数组与数组间维度不同会发生广播机制。</p>
-<ol>
-<li class="lvl-3">
-<p>两个张量都必须不为空；</p>
-</li>
-<li class="lvl-3">
-<p>将两个张量的形状信息右对齐，从右向左观看同一维度下，张量的轴长必须相等，或者其中一个轴长为1，或者其中一个轴长为空。</p>
-</li>
-</ol>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bnumpy/01.png" alt=""></p>
-<h2 id="矩阵">矩阵</h2>
-<p>矩阵和数组之间的区别就是，矩阵必须是二维的，而向量不限制。尽管行向量看起来像一维，但仍是二维 例如：[1, 3] -&gt; matrix = [1, 2, 3]  matrix[0] = [1, 2, 3]</p>
-<h3 id="矩阵乘法">矩阵乘法</h3>
-<p><code>np.dot(a, b) np.matmul(a, b)</code>前一个既可以进行矩阵和矩阵之间乘法也可以进行矩阵与标量之间乘法，后一个只能进行矩阵与矩阵之间乘法。</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> recording </tag>
+            
+            <tag> machine learning </tag>
+            
+            <tag> learning </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>机器学习概述</title>
+      <link href="/2024/08/08/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/"/>
+      <url>/2024/08/08/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/</url>
+      
+        <content type="html"><![CDATA[<blockquote><h2 id="简要复习">简要复习</h2><p>本篇内容主要是对机器学习初步知识的概述。</p></blockquote><h2 id="人工智能概述">人工智能概述</h2><p>人工智能发展必备三要素<strong>数据</strong> <strong>算法</strong> <strong>计算力（算力）</strong>，其中算力分为cpu(central processing unit)计算gpu(graphics processing unit)计算tpu计算，cpu主要适合<strong>I/O密集型</strong>任务，gpu主要适合<strong>计算密集型</strong>任务。<a href="https://www.sohu.com/a/201309334_468740">cpu和gpu的区别</a> 简单来说gpu的计算单元远远超过cpu，且排布更“并行”，所以gpu很利于处理易于并行的程序。tpu是Google研究的一种ai芯片，<a href="https://buzzorange.com/techorange/2017/09/27/what-intel-google-nvidia-microsoft-do-for-ai-chips/">Google tpu</a></p><h2 id="人工智能和机器学习、深度学习的关系">人工智能和机器学习、深度学习的关系</h2><p>机器学习是人工智能的一个实现途径，深度学习是机器学习的一个方法发展而来的。</p><h2 id="发展历程">发展历程</h2><p>图灵测试：超过30%的测试者不能确定被测试者是人还是机器，则这台机器被认为是具有人工智能的。</p><p>达特茅斯会议：将该会议的研究内容定义为“人工智能”，1956年被定为<strong>人工智能元年</strong>。</p><h2 id="人工智能主要分支">人工智能主要分支</h2><p>计算机视觉（CV）、自然语言处理（NLP）、机器人</p><p>自然语言处理包括 语音识别 文本挖掘/分类 机器翻译</p><h2 id="机器学习的工作流程">机器学习的工作流程</h2><p>从数据中自动分析获得模型，并利用模型对未知数据进行预测。</p><ol><li class="lvl-3"><p>获取数据：样本（一行数据），特征（一列数据），划分训练集、测试集，目标值特征值是否成对出现</p></li><li class="lvl-3"><p>数据基本处理：处理缺失值、异常值</p></li><li class="lvl-3"><p><mark>特征工程</mark>：使用<strong>专业背景知识和技巧处理数据</strong>，<strong>使得特征能在机器学习算法上发挥更好的作用的过程</strong>。</p><ol><li class="lvl-7">特征提取</li><li class="lvl-7">特征预处理</li><li class="lvl-7">特征降维</li></ol></li><li class="lvl-3"><p>机器学习（模型训练）</p></li><li class="lvl-3"><p>模型评估</p></li></ol><h2 id="机器学习算法分类（依据数据集组成不同）">机器学习算法分类（依据数据集组成不同）</h2><ol><li class="lvl-3"><p>监督学习：输入数据是由  特征值和目标值组成</p></li><li class="lvl-3"><p>无监督学习：输入数据只有特征值，无目标值</p></li><li class="lvl-3"><p>半监督学习：输入数据同时包含标记样本数据集和未标记样本数据集</p></li><li class="lvl-3"><p>强化学习：实质是make decisions 问题，即自动进行决策，并且可以做连续决策。同时伴有奖励，目标是累计获取最大奖励。下棋就是一个典型的强化学习例子。</p></li></ol><h2 id="模型评估">模型评估</h2><p>分类模型评估、回归模型评估。过拟合、欠拟合</p><h2 id="深度学习">深度学习</h2><p>深度学习是机器学习下的一个分支，主要利用的是神经网络，整体上分为 输入层、隐藏层、输出层。其中隐藏层包含多个层次，每一层负责特定的特征提取，而每一层又由多个神经元组成，这些神经元互不干扰完成该层所需完成的工作的某个部分。</p><p>一般来说，神经网络层数越多，提取的特征就更多，效果会更好，但绝不是层数越多越好。</p>]]></content>
+      
+      
       <categories>
-        <category>machine learning</category>
-        <category>numpy</category>
+          
+          <category> learning </category>
+          
+          <category> machine learning </category>
+          
+          <category> 概述 </category>
+          
       </categories>
-      <tags>
-        <tag>recording</tag>
-        <tag>machine learning</tag>
-        <tag>learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>科学计算库之pandas(第一部分）</title>
-    <url>/2024/08/12/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="pandas简介">pandas简介</h2>
-<p>pandas是一个综合了numpy和matplotlib两个库的科学计算库，专门用于数据挖掘。且其在数据表现效果上更加美观，且封装了文件读写的api，对一些缺失数据的处理也更好。</p>
-<h2 id="pandas的数据类型">pandas的数据类型</h2>
-<h3 id="Series">Series</h3>
-<p>Series是一个类似与一维数组的数据类型，由索引和具体值两部分组成。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">pd.Series(data=<span class="literal">None</span>, index=<span class="literal">None</span>, dtype=<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># example</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">pd.Series(np.arange(<span class="number">10</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行结果</span></span><br><span class="line"><span class="number">0</span>    <span class="number">0</span></span><br><span class="line"><span class="number">1</span>    <span class="number">1</span></span><br><span class="line"><span class="number">2</span>    <span class="number">2</span></span><br><span class="line"><span class="number">3</span>    <span class="number">3</span></span><br><span class="line"><span class="number">4</span>    <span class="number">4</span></span><br><span class="line"><span class="number">5</span>    <span class="number">5</span></span><br><span class="line"><span class="number">6</span>    <span class="number">6</span></span><br><span class="line"><span class="number">7</span>    <span class="number">7</span></span><br><span class="line"><span class="number">8</span>    <span class="number">8</span></span><br><span class="line"><span class="number">9</span>    <span class="number">9</span></span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建特定的索引</span></span><br><span class="line">color_count = pd.Series(&#123;<span class="string">&#x27;red&#x27;</span>:<span class="number">100</span>, <span class="string">&#x27;blue&#x27;</span>:<span class="number">200</span>, <span class="string">&#x27;green&#x27;</span>: <span class="number">500</span>, <span class="string">&#x27;yellow&#x27;</span>:<span class="number">1000</span>&#125;)</span><br><span class="line"><span class="comment"># 运行结果</span></span><br><span class="line">blue       <span class="number">200</span></span><br><span class="line">green      <span class="number">500</span></span><br><span class="line">red        <span class="number">100</span></span><br><span class="line">yellow    <span class="number">1000</span></span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure>
-<p>Series的相关属性，index values</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">	color_count.index</span><br><span class="line"></span><br><span class="line"><span class="comment"># 结果</span></span><br><span class="line">Index([<span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>], dtype=<span class="string">&#x27;object&#x27;</span>)</span><br><span class="line"></span><br><span class="line">color_count.values</span><br><span class="line"></span><br><span class="line"><span class="comment"># 结果</span></span><br><span class="line">array([ <span class="number">200</span>,  <span class="number">500</span>,  <span class="number">100</span>, <span class="number">1000</span>])</span><br></pre></td></tr></table></figure>
-<h3 id="DataFrame">DataFrame</h3>
-<p>DataFrame是一个类似于二维数组或表格的对象，既有行索引又有列索引。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">pd.DataFrame(data=<span class="literal">None</span>, index=<span class="literal">None</span>, columms=<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 举例</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">data = np.random.randint(<span class="number">40</span>, <span class="number">100</span>, [<span class="number">10</span>, <span class="number">6</span>])</span><br><span class="line">stu = [<span class="string">&#x27;学生_&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)]</span><br><span class="line">subject = [<span class="string">&#x27;语文&#x27;</span>, <span class="string">&#x27;数学&#x27;</span>, <span class="string">&#x27;英语&#x27;</span>, <span class="string">&#x27;物理&#x27;</span>, <span class="string">&#x27;化学&#x27;</span>, <span class="string">&#x27;生物&#x27;</span>]</span><br><span class="line">pd.DataFrame(data, stu, subject)</span><br></pre></td></tr></table></figure>
-<p>常见属性和方法：shape、index、columns、values、T   head() tail()</p>
-<p>修改索引：data.index = new_index <strong>这里修改索引只能整体修改，不可局部修改</strong></p>
-<p>重设索引：data.reset_index(drop=True) 当为True时，则删除原来索引，为False则保留原来索引。</p>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/01.png" alt=""></p>
-<p>以某一列值设为新的索引：data.set_index(keys, drop=True)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df = pd.DataFrame(&#123;<span class="string">&#x27;month&#x27;</span>: [<span class="number">1</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">10</span>],</span><br><span class="line">                    <span class="string">&#x27;year&#x27;</span>: [<span class="number">2012</span>, <span class="number">2014</span>, <span class="number">2013</span>, <span class="number">2014</span>],</span><br><span class="line">                    <span class="string">&#x27;sale&#x27;</span>:[<span class="number">55</span>, <span class="number">40</span>, <span class="number">84</span>, <span class="number">31</span>]&#125;)</span><br><span class="line"></span><br><span class="line">   month  sale  year</span><br><span class="line"><span class="number">0</span>  <span class="number">1</span>      <span class="number">55</span>    <span class="number">2012</span></span><br><span class="line"><span class="number">1</span>  <span class="number">4</span>      <span class="number">40</span>    <span class="number">2014</span></span><br><span class="line"><span class="number">2</span>  <span class="number">7</span>      <span class="number">84</span>    <span class="number">2013</span></span><br><span class="line"><span class="number">3</span>  <span class="number">10</span>     <span class="number">31</span>    <span class="number">2014</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 以月份设置新的索引</span></span><br><span class="line">df = pd.DataFrame(&#123;<span class="string">&#x27;month&#x27;</span>: [<span class="number">1</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">10</span>],</span><br><span class="line">                    <span class="string">&#x27;year&#x27;</span>: [<span class="number">2012</span>, <span class="number">2014</span>, <span class="number">2013</span>, <span class="number">2014</span>],</span><br><span class="line">                    <span class="string">&#x27;sale&#x27;</span>:[<span class="number">55</span>, <span class="number">40</span>, <span class="number">84</span>, <span class="number">31</span>]&#125;)</span><br><span class="line"></span><br><span class="line">   month  sale  year</span><br><span class="line"><span class="number">0</span>  <span class="number">1</span>      <span class="number">55</span>    <span class="number">2012</span></span><br><span class="line"><span class="number">1</span>  <span class="number">4</span>      <span class="number">40</span>    <span class="number">2014</span></span><br><span class="line"><span class="number">2</span>  <span class="number">7</span>      <span class="number">84</span>    <span class="number">2013</span></span><br><span class="line"><span class="number">3</span>  <span class="number">10</span>     <span class="number">31</span>    <span class="number">2014</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置多个索引</span></span><br><span class="line">df = df.set_index([<span class="string">&#x27;year&#x27;</span>, <span class="string">&#x27;month&#x27;</span>])</span><br><span class="line">df</span><br><span class="line">            sale</span><br><span class="line">year  month</span><br><span class="line"><span class="number">2012</span>  <span class="number">1</span>     <span class="number">55</span></span><br><span class="line"><span class="number">2014</span>  <span class="number">4</span>     <span class="number">40</span></span><br><span class="line"><span class="number">2013</span>  <span class="number">7</span>     <span class="number">84</span></span><br><span class="line"><span class="number">2014</span>  <span class="number">10</span>    <span class="number">31</span></span><br></pre></td></tr></table></figure>
-<h2 id="基本数据操作">基本数据操作</h2>
-<ol>
-<li class="lvl-3">
-<p>索引操作</p>
-<ol>
-<li class="lvl-7">直接进行选择：遵循一个先列后行 data[columns][index]</li>
-<li class="lvl-7">通过.loc，然后根据索引名称，先行后列进行选择</li>
-<li class="lvl-7">通过.iloc，然后根据索引数字，先行后列进行选择</li>
-</ol>
-</li>
-<li class="lvl-3">
-<p>赋值操作：data[‘month’] = 12  data.month = 12</p>
-<ol>
-<li class="lvl-7">对DataFrame的赋值操作只能整体赋值，不能精确到索引来赋值</li>
-</ol>
-</li>
-<li class="lvl-3">
-<p>排序操作</p>
-<ol>
-<li class="lvl-7">DateFrame：
-<ol>
-<li class="lvl-11">值排序：data.sort_values(by=‘keys’, ascending=True) ascending=True升序 False降序</li>
-<li class="lvl-11">索引排序：data.sort_index()</li>
-</ol>
-</li>
-<li class="lvl-7">Series:
-<ol>
-<li class="lvl-11">值排序：data.sort_values(ascending=True) 只有一列不需要keys</li>
-<li class="lvl-11">索引排序：data.sort_index()</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<h2 id="DateFrame的运算">DateFrame的运算</h2>
-<h3 id="算术运算">算术运算</h3>
-<ol>
-<li class="lvl-3">
-<p>直接使用 + - * \</p>
-</li>
-<li class="lvl-3">
-<p>使用对应方法（推荐）：data.add() data.sub() data.mul() data.div()</p>
-</li>
-</ol>
-<h3 id="逻辑运算">逻辑运算</h3>
-<ol>
-<li class="lvl-3">
-<p>逻辑符号&gt; &lt; &gt;= &lt;= == !=，通过使用这些逻辑符号，会返回对应数据位置的bool值</p>
-</li>
-<li class="lvl-3">
-<p>可以根据这个bool值取出对应数据</p>
- <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 注意这里有&amp;时，两边要加小括号</span></span><br><span class="line">data[(data[<span class="string">&quot;open&quot;</span>] &gt; <span class="number">23</span>) &amp; (data[<span class="string">&quot;open&quot;</span>] &lt; <span class="number">24</span>)].head()</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-3">
-<p>逻辑运算函数</p>
-<ol>
-<li class="lvl-7">
-<p>data.query(expr)</p>
- <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 相比上面先判断逻辑再进行取值要方便得多</span></span><br><span class="line">data.query(<span class="string">&quot;open&lt;24 &amp; open&gt;23&quot;</span>).head()</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-7">
-<p>data.isin(values)</p>
- <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 可以指定值进行一个判断，从而筛选出所需要的指定值</span></span><br><span class="line">data[data[<span class="string">&quot;open&quot;</span>].isin([<span class="number">23.53</span>, <span class="number">23.85</span>])]</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li class="lvl-3">
-<p>统计运算</p>
-<ol>
-<li class="lvl-7">
-<p>总体的统计结果：data.describe() 计算数量、均值、标准差、最大值、最小值以及一些四分位、二分位等</p>
-<p><img src="/postsImages/02.png" alt=""></p>
-</li>
-<li class="lvl-7">
-<p>一些统计函数（参数为axis，默认为0按行统计）</p>
-<table>
-<thead>
-<tr>
-<th>函数</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>sum</code></td>
-<td><strong>Sum of values</strong></td>
-</tr>
-<tr>
-<td><code>mean</code></td>
-<td><strong>Mean of values</strong></td>
-</tr>
-<tr>
-<td><code>median</code></td>
-<td>Arithmetic median of values</td>
-</tr>
-<tr>
-<td><code>min</code></td>
-<td><strong>Minimum</strong></td>
-</tr>
-<tr>
-<td><code>max</code></td>
-<td><strong>Maximum</strong></td>
-</tr>
-<tr>
-<td><code>count</code></td>
-<td>Number of non-NA observations</td>
-</tr>
-<tr>
-<td><code>abs</code></td>
-<td>Absolute Value</td>
-</tr>
-<tr>
-<td><code>prod</code></td>
-<td>Product of values</td>
-</tr>
-<tr>
-<td><code>std</code></td>
-<td><strong>Bessel-corrected sample standard deviation</strong></td>
-</tr>
-<tr>
-<td><code>var</code></td>
-<td><strong>Unbiased variance</strong>（方差）</td>
-</tr>
-<tr>
-<td><code>idxmax</code></td>
-<td>compute the index labels with the maximum</td>
-</tr>
-<tr>
-<td><code>idxmin</code></td>
-<td>compute the index labels with the minimum</td>
-</tr>
-<tr>
-<td><code>mode</code></td>
-<td>Mode（众数）</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li class="lvl-7">
-<p>累计统计函数</p>
-<table>
-<thead>
-<tr>
-<th>函数</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>cumsum</code></td>
-<td><strong>计算前1/2/3/…/n个数的和</strong></td>
-</tr>
-<tr>
-<td><code>cummax</code></td>
-<td>计算前1/2/3/…/n个数的最大值</td>
-</tr>
-<tr>
-<td><code>cummin</code></td>
-<td>计算前1/2/3/…/n个数的最小值</td>
-</tr>
-<tr>
-<td><code>cumprod</code></td>
-<td>计算前1/2/3/…/n个数的积</td>
-</tr>
-</tbody>
-</table>
-</li>
-</ol>
-</li>
-<li class="lvl-3">
-<p>自定义运算 data.apply(func, axis=0, 1) 只能在dataFrame对象上用</p>
- <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data[[<span class="string">&#x27;open&#x27;</span>, <span class="string">&#x27;close&#x27;</span>]].apply(<span class="keyword">lambda</span> x: x.<span class="built_in">max</span>() - x.<span class="built_in">min</span>(), axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">open</span>     <span class="number">22.74</span></span><br><span class="line">close    <span class="number">22.85</span></span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="Pandas画图">Pandas画图</h2>
-<p>pandas画图封装了matplotlib，具体使用直接查看api文档即可。</p>
-<p>DataFrame.plot(kind=‘line’)这里的kind指定了画图的种类，这里就是折线图。</p>
-<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html">DataFrame画图的相关参考文档</a></p>
-<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.plot.html">Series画图的相关参考文档</a></p>
-<h2 id="文件读取与存储">文件读取与存储</h2>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>CSV文件</p>
-<ul class="lvl-2">
-<li class="lvl-6">
-<p>读取：pd.read_csv(path, sep, usecols)</p>
-  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">filepath_or_buffer:文件路径</span><br><span class="line">sep :分隔符，默认用<span class="string">&quot;,&quot;</span>隔开</span><br><span class="line">usecols:指定读取的列名，列表形式</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-6">
-<p>存储：data.to_csv(path, sep, columns, header, index, mode)</p>
-  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">path_or_buf :文件路径</span><br><span class="line">sep :分隔符，默认用<span class="string">&quot;,&quot;</span>隔开</span><br><span class="line">columns :选择需要的列索引</span><br><span class="line">header :boolean <span class="keyword">or</span> <span class="built_in">list</span> of string, default <span class="literal">True</span>,是否写进列索引值</span><br><span class="line">index:是否写进行索引</span><br><span class="line">mode:<span class="string">&#x27;w&#x27;</span>：重写, <span class="string">&#x27;a&#x27;</span> 追加</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li class="lvl-2">
-<p>HDF5文件</p>
-<ul class="lvl-2">
-<li class="lvl-6">读取：pd.read_hdf(path, key=) 读取时须制定key键一般说明文档会提供，如果该hdf5只有一个键可省略。</li>
-<li class="lvl-6">存储：data.to_hdf(path, key=)存储时必须给定key键</li>
-<li class="lvl-6">其他说明：pandas默认采用这种方式进行读写，因为这种方式支持压缩且跨平台，能够节省空间。</li>
-</ul>
-</li>
-<li class="lvl-2">
-<p>JSON文件</p>
-<ul class="lvl-2">
-<li class="lvl-6">
-<p>读取：pd.read_json(path, orient, typ, lines)</p>
-  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">orient : string,Indication of expected JSON string <span class="built_in">format</span>.</span><br><span class="line">    <span class="string">&#x27;split&#x27;</span> : <span class="built_in">dict</span> like &#123;index -&gt; [index], columns -&gt; [columns], data -&gt; [values]&#125;</span><br><span class="line">        split 将索引总结到索引，列名到列名，数据到数据。将三部分都分开了</span><br><span class="line">    <span class="string">&#x27;records&#x27;</span> : <span class="built_in">list</span> like [&#123;column -&gt; value&#125;, ... , &#123;column -&gt; value&#125;]</span><br><span class="line">        records 以columns：values的形式输出</span><br><span class="line">    <span class="string">&#x27;index&#x27;</span> : <span class="built_in">dict</span> like &#123;index -&gt; &#123;column -&gt; value&#125;&#125;</span><br><span class="line">        index 以index：&#123;columns：values&#125;...的形式输出</span><br><span class="line">    <span class="string">&#x27;columns&#x27;</span> : <span class="built_in">dict</span> like &#123;column -&gt; &#123;index -&gt; value&#125;&#125;,默认该格式</span><br><span class="line">        colums 以columns:&#123;index:values&#125;的形式输出</span><br><span class="line">    <span class="string">&#x27;values&#x27;</span> : just the values array</span><br><span class="line">        values 直接输出值</span><br><span class="line">lines : boolean, default <span class="literal">False</span></span><br><span class="line">    按照每行读取json对象</span><br><span class="line">typ : default ‘frame’， 指定转换成的对象类型series或者dataframe</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-6">
-<p>存储：data.to_json(path, orient, lines)</p>
-  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">将Pandas 对象存储为json格式</span><br><span class="line">path_or_buf=<span class="literal">None</span>：文件地址</span><br><span class="line">orient:存储的json形式，&#123;‘split’,’records’,’index’,’columns’,’values’&#125;</span><br><span class="line">lines:一个对象存储为一行</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> recording </tag>
+            
+            <tag> machine learning </tag>
+            
+            <tag> learning </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>完成CS61b proj0记录</title>
+      <link href="/2024/08/06/%E5%AE%8C%E6%88%90CS61b-proj0%E8%AE%B0%E5%BD%95/"/>
+      <url>/2024/08/06/%E5%AE%8C%E6%88%90CS61b-proj0%E8%AE%B0%E5%BD%95/</url>
+      
+        <content type="html"><![CDATA[<h2 id="综述">综述</h2><p>历时5个小时左右，前三个比较简单，并未消耗太长时间，主要是在第四个tile上花费了很长时间，尤其是反复读文档，看代码中各个方法所表示的内容，中间重开了2次😫，虽然过程是痛苦的，不过真正完成了后，非常有成就感，哈哈😄，看着自己完成的2048游戏，真的非常爽😎。</p><h2 id="过程">过程</h2><p>在编写第四个函数时，首先看了前面和我相关的代码，理解这些代码的逻辑，然后根据需求开始想象自己代码的逻辑，一直在想文档中强调的点，努力去避开文档中的坑。比较可恶的是，代码中给定的单元测试竟然不能完全测出代码是否有问题😓，我通过了单一向上的逻辑后，后来在进行整体的测试时发现了问题，后来逐步排查，才知道是我单一向上的逻辑出了问题，我真的一整个绷不住😅，不过还好经过我痛定思痛，弥补了逻辑上的漏洞😸。</p><h2 id="收获">收获</h2><p>收获最大的就是实际编写代码的能力吧，在编写代码过程中逐渐变得专注，还有就是阅读文档的能力也有一定提升。</p><h2 id="坑点">坑点</h2><p>所有代码全部正确通过测试后，需要调整GUISource.java中的箭头表示，因为在中文的操作系统中，我们键盘中输入的上下左右箭头，系统接受到后直接转为“向上箭头”，“向右箭头”，“向左箭头”，“向下箭头”，而英文操作系统中为&quot;↑&quot;，“→”，“←”，“↓”。调整完后，就可以爽玩了🆒。</p><p>cs61b代码链接：<a href="https://github.com/calmconfidence/cs61b">github</a></p>]]></content>
+      
+      
       <categories>
-        <category>machine learning</category>
-        <category>pandas</category>
+          
+          <category> learning </category>
+          
       </categories>
-      <tags>
-        <tag>recording</tag>
-        <tag>machine learning</tag>
-        <tag>learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>科学计算库之pandas(第二部分）</title>
-    <url>/2024/08/13/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="缺失值处理">缺失值处理</h2>
-<ol>
-<li class="lvl-3">
-<p>判断缺失值是否是Nan，如果不是替换成Nan</p>
-<ol>
-<li class="lvl-7">data.replace(to_replace=‘?’, value=np.nan)</li>
-</ol>
-</li>
-<li class="lvl-3">
-<p>判断是否存在缺失值</p>
- <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data = np.read_csv(<span class="string">&#x27;data/xxx.csv&#x27;</span>)</span><br><span class="line"><span class="comment"># 1.直接使用对象判断</span></span><br><span class="line">data.isnull()</span><br><span class="line">data.notnull()</span><br><span class="line"><span class="comment"># 2.调用方法判断</span></span><br><span class="line">pd.isnull(data)</span><br><span class="line">pd.notnull(data)</span><br><span class="line"><span class="comment"># 3.为了直接显示判断结果，可调用np.all()或np.any()方法</span></span><br><span class="line">np.<span class="built_in">any</span>(data.isnull())</span><br><span class="line">np.<span class="built_in">all</span>(data.notnull())</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-3">
-<p>缺失值处理方式</p>
- <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 直接删除，注意：这里不会直接修改原数据而是返回修改后的数据</span></span><br><span class="line">data.dropna()</span><br><span class="line"><span class="comment"># 进行替换</span></span><br><span class="line"><span class="comment"># 替换存在缺失值的样本的两列</span></span><br><span class="line"><span class="comment"># 替换填充平均值，中位数</span></span><br><span class="line">movie[<span class="string">&#x27;Revenue (Millions)&#x27;</span>].fillna(movie[<span class="string">&#x27;Revenue (Millions)&#x27;</span>].mean(), inplace=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 全部替换</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> movie.columns:</span><br><span class="line">    <span class="keyword">if</span> np.<span class="built_in">all</span>(pd.notnull(movie[i])) == <span class="literal">False</span>:</span><br><span class="line">        <span class="built_in">print</span>(i)</span><br><span class="line">        movie[i].fillna(movie[i].mean(), inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="数据离散化">数据离散化</h2>
-<h3 id="为什么要离散化">为什么要离散化</h3>
-<p>连续属性离散化的目的是为了简化数据结构，<strong>数据离散化技术可以减少给定连续属性值的个数</strong>。离散化方法经常作为数据挖掘的工具。</p>
-<h3 id="什么是离散化">什么是离散化</h3>
-<p>将一段连续的数据按照特定标准进行分割，每一部分代表特定的含义，以此达到离散化。</p>
-<h3 id="离散化方法">离散化方法</h3>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. 按照每组元素个数近似相等的方式进行分组</span></span><br><span class="line">pd.qcut(data, q) <span class="comment"># q 分组个数</span></span><br><span class="line"><span class="comment"># 2. 按用于指定区间进行分组</span></span><br><span class="line">pd.cut(data, bins) <span class="comment"># bins指定区间</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 统计组内个数</span></span><br><span class="line">xxx.value_counts()</span><br><span class="line"><span class="comment"># 转换为one-hot编码，即独热编码</span></span><br><span class="line">pd.get_dummies(xxx, prefix=<span class="string">&#x27;fjdkfj&#x27;</span>) <span class="comment"># prefix给分组名加一个前缀</span></span><br></pre></td></tr></table></figure>
-<h2 id="数据合并">数据合并</h2>
-<ol>
-<li class="lvl-3">
-<p>通过pd.concat([table1, table2], axis=1) 当axis=0时按照列索引进行连接，当axis=1时按照行索引进行连接。这里的pd.concat更多的是两个表进行一个拼接，合成一个新的表，功能比较单一，而下面的两个表连接功能较多。</p>
-</li>
-<li class="lvl-3">
-<p>pd.merge(left, right, how, on)</p>
-<ol>
-<li class="lvl-7">left: DataFrame</li>
-<li class="lvl-7">right: 另一个DataFrame</li>
-<li class="lvl-7">on: 指定的共同键</li>
-<li class="lvl-7">how: 按照什么方式连接(内连接、左连接、右连接、外连接)</li>
-</ol>
-</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">left = pd.DataFrame(&#123;<span class="string">&#x27;key1&#x27;</span>: [<span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K1&#x27;</span>, <span class="string">&#x27;K2&#x27;</span>],</span><br><span class="line">                        <span class="string">&#x27;key2&#x27;</span>: [<span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K1&#x27;</span>, <span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K1&#x27;</span>],</span><br><span class="line">                        <span class="string">&#x27;A&#x27;</span>: [<span class="string">&#x27;A0&#x27;</span>, <span class="string">&#x27;A1&#x27;</span>, <span class="string">&#x27;A2&#x27;</span>, <span class="string">&#x27;A3&#x27;</span>],</span><br><span class="line">                        <span class="string">&#x27;B&#x27;</span>: [<span class="string">&#x27;B0&#x27;</span>, <span class="string">&#x27;B1&#x27;</span>, <span class="string">&#x27;B2&#x27;</span>, <span class="string">&#x27;B3&#x27;</span>]&#125;)</span><br><span class="line"></span><br><span class="line">right = pd.DataFrame(&#123;<span class="string">&#x27;key1&#x27;</span>: [<span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K1&#x27;</span>, <span class="string">&#x27;K1&#x27;</span>, <span class="string">&#x27;K2&#x27;</span>],</span><br><span class="line">                        <span class="string">&#x27;key2&#x27;</span>: [<span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K0&#x27;</span>],</span><br><span class="line">                        <span class="string">&#x27;C&#x27;</span>: [<span class="string">&#x27;C0&#x27;</span>, <span class="string">&#x27;C1&#x27;</span>, <span class="string">&#x27;C2&#x27;</span>, <span class="string">&#x27;C3&#x27;</span>],</span><br><span class="line">                        <span class="string">&#x27;D&#x27;</span>: [<span class="string">&#x27;D0&#x27;</span>, <span class="string">&#x27;D1&#x27;</span>, <span class="string">&#x27;D2&#x27;</span>, <span class="string">&#x27;D3&#x27;</span>]&#125;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 默认内连接</span></span><br><span class="line">result = pd.merge(left, right, on=[<span class="string">&#x27;key1&#x27;</span>, <span class="string">&#x27;key2&#x27;</span>])</span><br></pre></td></tr></table></figure>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/03.png" alt=""></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">result = pd.merge(left, right, how=<span class="string">&#x27;left&#x27;</span>, on=[<span class="string">&#x27;key1&#x27;</span>, <span class="string">&#x27;key2&#x27;</span>])</span><br></pre></td></tr></table></figure>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/04.png" alt=""></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">result = pd.merge(left, right, how=<span class="string">&#x27;right&#x27;</span>, on=[<span class="string">&#x27;key1&#x27;</span>, <span class="string">&#x27;key2&#x27;</span>])</span><br></pre></td></tr></table></figure>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/05.png" alt=""></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">result = pd.merge(left, right, how=<span class="string">&#x27;outer&#x27;</span>, on=[<span class="string">&#x27;key1&#x27;</span>, <span class="string">&#x27;key2&#x27;</span>])</span><br></pre></td></tr></table></figure>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/06.png" alt=""></p>
-<h2 id="交叉表与透视表">交叉表与透视表</h2>
-<ol>
-<li class="lvl-3">
-<p><strong>交叉表</strong>：一列数据对于另一列数据的个数，统计的是个数</p>
-</li>
-<li class="lvl-3">
-<p><strong>透视表</strong>：一列数据对于另一列数据的占比，统计的是百分比</p>
-</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 交叉表</span></span><br><span class="line">pd.crosstab(index, columns)</span><br></pre></td></tr></table></figure>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/07.png" alt=""></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 透视表</span></span><br><span class="line">data.pivot_table(value, index)</span><br><span class="line"></span><br><span class="line">- value:   需要统计的字段名</span><br><span class="line">- index:  分组的字段名</span><br></pre></td></tr></table></figure>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/08.png" alt=""></p>
-<h2 id="分组与聚合">分组与聚合</h2>
-<p>在pandas中抛开聚合谈分组无意义，也就是说我们分完组后紧接着就是聚合，这两个步骤一般连在一块。</p>
-<p>data.groupby([‘columns’])[‘another_column’].sum() 实现以columns分组，聚合another_column</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> CS61B </tag>
+            
+            <tag> recording </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>博客后续功能完善</title>
+      <link href="/2024/08/01/%E5%8D%9A%E5%AE%A2%E5%90%8E%E7%BB%AD%E5%8A%9F%E8%83%BD%E5%AE%8C%E5%96%84/"/>
+      <url>/2024/08/01/%E5%8D%9A%E5%AE%A2%E5%90%8E%E7%BB%AD%E5%8A%9F%E8%83%BD%E5%AE%8C%E5%96%84/</url>
+      
+        <content type="html"><![CDATA[<blockquote><h2 id="说明">说明</h2><p>持续更新中…</p><p>由于博客整体上可玩性很高，但是时间有限所以以主要功能为主，秉持初心，博客的核心是内容，对于其他功能用到再完善。😎🕶️</p></blockquote><h2 id="博客加密功能">博客加密功能</h2><p>详情见开源网址：<a href="https://github.com/D0n9X1n/hexo-blog-encrypt/blob/master/ReadMe.zh.md">hexo-blog-encrypt</a> 这里简单总结一下：</p><ol><li class="lvl-3"><p>安装包：<code>npm install --save hexo-blog-encrypt</code>–save 是指运行时的依赖，及上线后仍然需要该依赖</p></li><li class="lvl-3"><p>最简单使用😆: 直接在文章头中加入password选项即可</p></li><li class="lvl-3"><p>高级设置👍</p></li><li class="lvl-5"><p>配置文章信息头</p></li></ol><pre><code><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hello World</span><br><span class="line">tags:</span><br><span class="line">- 作为日记加密</span><br><span class="line">date: 2016-03-30 21:12:21</span><br><span class="line">password: mikemessi</span><br><span class="line">abstract: 有东西被加密了, 请输入密码查看.</span><br><span class="line">message: 您好, 这里需要密码.</span><br><span class="line">theme: xray</span><br><span class="line">wrong_pass_message: 抱歉, 这个密码看着不太对, 请再试试.</span><br><span class="line">wrong_hash_message: 抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.</span><br><span class="line">---</span><br></pre></td></tr></table></figure></code></pre><ol start="2"><li class="lvl-5"><p>配置_config.yml文件（<strong>注意：信息头的优先级高于配置文件</strong>）</p></li></ol><pre><code><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Security</span><br><span class="line">encrypt: # hexo-blog-encrypt</span><br><span class="line">  abstract: 有东西被加密了, 请输入密码查看.</span><br><span class="line">  message: 您好, 这里需要密码.</span><br><span class="line">  tags:</span><br><span class="line">  - &#123;name: tagName, password: 密码A&#125;</span><br><span class="line">  - &#123;name: tagName, password: 密码B&#125;</span><br><span class="line">  wrong_pass_message: 抱歉, 这个密码看着不太对, 请再试试.</span><br><span class="line">  wrong_hash_message: 抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.</span><br></pre></td></tr></table></figure></code></pre><ol start="4"><li class="lvl-3"><p>配置加密主题🤔: theme: (default、blink、shrink、flip、up、surge、wave、xray）</p></li><li class="lvl-3"><p>如果配置了tag加密，在某篇想解除，直接在信息头设置password: &quot;&quot;即可</p></li><li class="lvl-3"><p><strong>注意</strong>：</p><ol><li class="lvl-7"><p>配置了标签加密，需要hexo clean清理掉缓存才能使对应标签产生加密效果</p></li><li class="lvl-7"><p>如果在信息头添加了加密信息，则其余如wrong_pass_message的信息将不会应用_config.yml文件中的配置</p></li></ol></li><li class="lvl-3"><p>遇到一些关于callback函数问题❓直接访问<a href="https://github.com/D0n9X1n/hexo-blog-encrypt/blob/master/ReadMe.zh.md">官网</a>解决</p></li></ol>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> blog </tag>
+            
+            <tag> improvement </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>How to use git and github?</title>
+      <link href="/2024/08/01/How-to-use-git-and-github/"/>
+      <url>/2024/08/01/How-to-use-git-and-github/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Basic-Concepts">Basic Concepts</h2><p><strong>repository</strong>：One project corresponds to one repository.The repository stores all the project codes.</p><p><strong>star:</strong> If you think that project is useful or interesting, you can star it.On the one hand, that project will be more and more popular, on the other hand it’s more convenient for you to find the project.</p><p><strong>fork:</strong> It means copy the project’s code in your repository which will have a mark “forked from xxxx”</p><p><strong>Pull Request:</strong> Someone forked your code and add something new, they want to add their changes into your raw projects.Then they will send a <strong>PR</strong>(pull request) to you.You should review their code and do some tests, if you think there is no problem, you can merge all codes.</p><p><strong>Issue:</strong> If you find some bugs or problems, you can raise in issue.</p><h2 id="Basic-Operation">Basic Operation</h2><p><strong>add file、change file、delete file、search file(t):</strong> excute correspond operation and commit changes.You can find all the commits in the upper right corner.</p><p><strong>new a repository、delete a repository(in the setting)、fork a repository.</strong> You can also propose a pull request or raise a issue to participate contributions.</p><h2 id="Git-Operation">Git Operation</h2><p><strong>Git working space:</strong> repository、staging area、working directory</p><ul class="lvl-0"><li class="lvl-2"><p><code>The reason why we need staging area instead of only repository is that we need somewhere to choose which file we want to track which not,like some logs file or compiled file(.o file) etc.</code></p></li></ul><h3 id="Command">Command</h3><h4 id="Basic-command">Basic command</h4><ul class="lvl-0"><li class="lvl-2"><p>git help <command>: you can get some help on specific command.</p></li><li class="lvl-2"><p>git log --all --graph --decorate: you can get all the commits in a beautiful format.</p></li><li class="lvl-2"><p>config: git config --global <a href="http://user.name">user.name</a> “xxx”、git config --global user.email “<a href="mailto:xxx@email.com">xxx@email.com</a>”</p><ul class="lvl-2"><li class="lvl-6">With this configuration, github will display the information when you commit sth.</li><li class="lvl-6">git config --list: get all the configuration informations.</li></ul></li><li class="lvl-2"><p>git init: init a local repository with a .git file.After that you will get a (master) branch.</p></li><li class="lvl-2"><p>git add xxx.txt: Add some files.Pushing the xxx.txt into staging area.</p></li><li class="lvl-2"><p>git status: view current status.</p></li><li class="lvl-2"><p>git commit -m “some explainations”: commit the files in staging area to repository.</p></li><li class="lvl-2"><p>git rm xxx.txt: remove the xxx.txt from repository.</p></li><li class="lvl-2"><p>git checkout file.txt: drop the changes in your  work directory.</p><ul class="lvl-2"><li class="lvl-6">git checkout <code>hash value</code>: switch the Head pointer.</li></ul></li><li class="lvl-2"><p>git diff: you can get the differences between current directory and the commit version.</p></li><li class="lvl-2"><p>git cat-file -p <code>hash value</code>: look at the detail of the object.</p></li></ul><h4 id="Branch-related">Branch related</h4><ul class="lvl-0"><li class="lvl-2"><p>git branch: list all your branches.</p><ul class="lvl-2"><li class="lvl-6">git branch -vv: list more details.</li><li class="lvl-6">git checkout -d “branch name”: build a new branch and switch into that branch.</li></ul></li><li class="lvl-2"><p>git checkout master; git merge “other branch”: merge the branches and deal with conflicts.</p></li></ul><h4 id="Remote-repository">Remote repository</h4><ul class="lvl-0"><li class="lvl-2"><p>git remote</p></li></ul><h2 id="Git-underlevel">Git underlevel</h2><blockquote><h1>What’s Git?</h1><p>Git is a sort of version control system.With git, you can track all your <a href="http://changes.At">changes.At</a> the same time you can cooperate with others in coding a same project.The basic unit is a snapshot which has tree and blobs.The whole git is composed of directed acyclic graph which is a number of snapshots.What we operate is all the references and objects.😄</p><p><code>The core of understanding git.First you should know every commit is a snapshot which consists of code 1. Second you should know what you operate is the object which consists of code 2. At last you should know how can we save all the snapshots effectively which consists of code 3.Building the relation of reference and objects.</code></p><figure class="highlight plaintext"><figcaption><span>1</span></figcaption><table><tr><td class="code"><pre><span class="line">&lt;root&gt; (tree)</span><br><span class="line">|</span><br><span class="line">+- foo (tree) map&lt;tree, tree |  blob&gt;</span><br><span class="line">|  |</span><br><span class="line">|  + bar.txt (blob, contents = &quot;hello world&quot;)</span><br><span class="line">|</span><br><span class="line">+- baz.txt (blob, contents = &quot;git is wonderful&quot;)</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">o &lt;-- o &lt;-- o &lt;-- o &lt;------- o</span><br><span class="line">          ^               /</span><br><span class="line">            \           v</span><br><span class="line">              -- o &lt;-- o</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><figcaption><span>2</span></figcaption><table><tr><td class="code"><pre><span class="line">Git的数据模型</span><br><span class="line">// 文件就是一组数据</span><br><span class="line">type blob = array&lt;byte&gt;</span><br><span class="line"></span><br><span class="line">// 一个包含文件和目录的目录</span><br><span class="line">type tree = map&lt;string, tree | blob&gt;</span><br><span class="line"></span><br><span class="line">// 每个提交都包含一个父辈，元数据和顶层树</span><br><span class="line">type commit = struct &#123;</span><br><span class="line"> parent: array&lt;commit&gt;</span><br><span class="line"> author: string</span><br><span class="line"> message: string</span><br><span class="line"> snapshot: tree</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><code>Git中的对象object = blob | tree | commit</code></p><figure class="highlight plaintext"><figcaption><span>3</span></figcaption><table><tr><td class="code"><pre><span class="line">//  git在存储对象时，所有的对象都会基于他们的SHA-1哈希进行寻址</span><br><span class="line">objects = map&lt;string, object&gt;</span><br><span class="line"></span><br><span class="line">def store(object):</span><br><span class="line"> id = sha1(object)</span><br><span class="line"> objects[id] = object</span><br><span class="line"></span><br><span class="line">def load(id):</span><br><span class="line"> return objects[id]</span><br></pre></td></tr></table></figure></blockquote><p><strong>e-book: <a href="https://git-scm.com/book/zh/v2">Pro Git - Book (git-scm.com)</a></strong></p><p><strong>lecture: <a href="https://missing-semester-cn.github.io/2020/version-control/">版本控制(Git) · the missing semester of your cs education (missing-semester-cn.github.io)</a></strong></p>]]></content>
+      
+      
       <categories>
-        <category>machine learning</category>
-        <category>pandas</category>
+          
+          <category> Pure English </category>
+          
+          <category> Learning note </category>
+          
       </categories>
-      <tags>
-        <tag>recording</tag>
-        <tag>machine learning</tag>
-        <tag>learning</tag>
-      </tags>
-  </entry>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+            <tag> github </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>利用hexo和butterfly搭建静态博客</title>
+      <link href="/2024/08/01/%E5%88%A9%E7%94%A8hexo%E5%92%8Cbutterfly%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/"/>
+      <url>/2024/08/01/%E5%88%A9%E7%94%A8hexo%E5%92%8Cbutterfly%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</url>
+      
+        <content type="html"><![CDATA[<h2 id="安装Hexo并进行博客配置">安装Hexo并进行博客配置</h2><ol><li class="lvl-3"><p><code>npm install hexo-cli -g</code> <strong>全局安装hexo博客框架，就类似vue的脚手架一样</strong></p></li><li class="lvl-3"><p>初始化博客： <code>hexo init &lt;directory&gt;</code> or <code>cd &lt;directory&gt;;hexo init</code></p></li><li class="lvl-3"><p>预览博客：<code>hexo server</code></p></li><li class="lvl-3"><p>更换主题：</p><ol><li class="lvl-7"><a href="https://hexo.io/themes/">所有主题</a></li><li class="lvl-7">将主题代码拷贝到本地themes文件夹下<code>git clone &lt;url&gt; themes/&lt;file&gt;</code></li><li class="lvl-7">修改Blog文件下的_config.yml文件，<code>theme: &lt;file&gt;</code></li><li class="lvl-7">运行hexo server</li></ol></li><li class="lvl-5"><p>利用GitHub Pages来部署博客：</p><ol><li class="lvl-9"><p>新建一个&lt;<a href="http://userName.github.io">userName.github.io</a>&gt;的仓库</p></li><li class="lvl-9"><p>配置ssh密钥</p><ol><li class="lvl-14">如果之前配置过别的ssh密钥，需要加一个config配置文件</li></ol>  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> # github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_github</span><br></pre></td></tr></table></figure><ol start="2"><li class="lvl-14"><p>没配置过，直接<code>ssh key-gen -t rsa  -C &quot;your_email@email.com&quot;</code>生成一个，将公钥复制到GitHub上即可😄</p></li></ol></li><li class="lvl-9"><p>输入<code>ssh -T git@github.com</code>测试ssh连接是否成功</p></li><li class="lvl-9"><p>修改配置文件，将remote repository的ssh链接复制</p>  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">      type: git</span><br><span class="line">      repo: 你复制的地址</span><br><span class="line">      branch: main</span><br></pre></td></tr></table></figure></li><li class="lvl-9"><p>安装插件 Hexo Deployer Git <code>npm install hexo-deployer-git --save</code></p></li><li class="lvl-9"><p>运行hexo g -d生成静态文件并部署</p></li></ol></li></ol><h2 id="Hexo-Deployer-Git介绍">Hexo Deployer Git介绍</h2><h3 id="项目简介">项目简介</h3><p><code>hexo-deployer-git</code> 是Hexo生态系统的一部分，它允许你在每次更新博客内容后，自动将生成的静态文件推送到如GitHub、GitLab或Bitbucket等支持Git的平台。</p><h3 id="技术优势">技术优势</h3><p>此项目的核心在于集成Git命令与Hexo的生命周期。当执行 hexo deploy 命令时，它会：</p><ol><li class="lvl-3"><p>构建 - 首先，Hexo会编译你的Markdown等内容成HTML。</p></li><li class="lvl-3"><p>添加 - 然后，将所有新的和已修改的文件添加到本地Git仓库中。</p></li><li class="lvl-3"><p>提交 - 创建一个新的提交，附带上自定义的提交信息。</p></li><li class="lvl-3"><p>推送 - 最后，将这些改动推送到你指定的远程仓库。</p></li></ol><p>整个过程自动化处理，无需手动操作，减少了出错的可能性。</p><h3 id="使用方法">使用方法</h3><p>安装这个插件后，在_config.yml配置文件中添加deploy的相关配置信息。这样在运行hexo deploy的时候就会把静态文件推送到Github.</p><h2 id="创建新的帖子和页面">创建新的帖子和页面</h2><ol><li class="lvl-3"><p>command: hexo new <layout> “title”(layout: post、drafts、page)</p></li><li class="lvl-3"><p>在/_post下找到创建的帖子，更新front-matter，比如cover、top_img、update_date等等</p></li><li class="lvl-3"><p>利用markdown尽情开始创作吧😎</p></li></ol>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> blog </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
 </search>
