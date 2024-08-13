@@ -296,6 +296,100 @@
       </tags>
   </entry>
   <entry>
+    <title>科学计算库之matplotlib</title>
+    <url>/2024/08/08/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/</url>
+    <content><![CDATA[<h2 id="基础绘制过程">基础绘制过程</h2>
+<p>首先导入包，然后创建画布，选择想要绘制的图像输入数据绘制，最后显示绘制结果</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 0. 创建数据</span></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"><span class="comment"># 1. 创建画布</span></span><br><span class="line">plt.figure(figsize=(<span class="number">20</span>, <span class="number">8</span>), dpi=<span class="number">100</span>) </span><br><span class="line"><span class="comment">#  figsize:画布大小,单位英寸（1英寸2.5厘米） dpi:分辨率（每英寸有多少像素，默认80）</span></span><br><span class="line"><span class="comment"># 2. 绘制</span></span><br><span class="line">plt.plot(x, y)</span><br><span class="line"><span class="comment"># 3. 显示</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/01.png" alt=""></p>
+<h2 id="绘图扩展">绘图扩展</h2>
+<ol>
+<li class="lvl-3">
+<p>添加自定义x，y轴刻度</p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y_shanghai = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">5</span>), dpi=<span class="number">100</span>)</span><br><span class="line">plt.plot(x, y_shanghai)</span><br><span class="line"></span><br><span class="line">x_ticks_labels = [<span class="string">&#x27;11点&#123;&#125;分&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> x]</span><br><span class="line">y_ticks = [x*<span class="number">0.1</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line">y_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(x*<span class="number">0.1</span>) <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line"></span><br><span class="line">plt.xticks(x[::<span class="number">5</span>], x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line">plt.yticks(y_ticks, y_ticks_labels)</span><br><span class="line"></span><br><span class="line">plt.grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;-.&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line">plt.xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">plt.title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># plt.savefig(&#x27;./pic.png&#x27;)</span></span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h3 id="注意">注意</h3>
+<ul class="lvl-3">
+<li class="lvl-2">
+<p>这里添加的x，y轴刻度值和x，y本身的值没有任何关系，只是我们在定义刻度值时刚好用到了x本身的值而已。</p>
+</li>
+<li class="lvl-2">
+<p>在使用plt.xticks(x_ticks, x_ticks_labels)时，x_ticks必须是一个标量值，在添加了这个标量值后，可以修改x_ticks_labels来加上对应的字符，此时x_ticks_labels必须和x_ticks一一对应。</p>
+</li>
+<li class="lvl-2">
+<p>range只能产生整数的间隔值，当要生成小数时，可以参考上述方法 *0.1😺</p>
+</li>
+<li class="lvl-2">
+<p>当坐标轴有中文时，首先下载支持中文显示的字体，然后修改matplotlibrc的配置文件</p>
+<p><code>vi ~/.matplotlib/matplotlibrc</code></p>
+<p>以simhei字体为例</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">font.family         <span class="punctuation">:</span> sans-serif</span><br><span class="line">font.sans-serif         <span class="punctuation">:</span> SimHei</span><br><span class="line">axes.unicode_minus  <span class="punctuation">:</span> False</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+</li>
+<li class="lvl-3">
+<p>添加表格：<code>plt.grid(True, linestyle='- | -. | --', alpha=0.5, color='r')</code> alpha代表透明度</p>
+</li>
+<li class="lvl-3">
+<p>添加坐标轴描述信息和标题描述信息：<code>plt.xlabel(&quot;fjkdsjf&quot;) plt.tilte(&quot;fjdslkfj&quot;, fontsize=20)</code></p>
+</li>
+<li class="lvl-3">
+<p>保存图片：<code>plt.savefig('path')</code></p>
+</li>
+</ol>
+<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/02.png" alt=""></p>
+<h2 id="一个坐标系中绘制多个图像">一个坐标系中绘制多个图像</h2>
+<ol>
+<li class="lvl-3">
+<p>设置两个图像的x，y的值</p>
+</li>
+<li class="lvl-3">
+<p>使用plt.plot(x, y, color=‘’, linestyle=‘’, label=‘’)进行绘图，通过添加颜色、线条来进行区分，添加label来添加图例，plt.legend(loc=‘’).loc的可选值为’best’、‘upper right’、‘lower left’、'center’等等组合</p>
+</li>
+</ol>
+<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/03.png" alt=""></p>
+<h2 id="多个坐标系显示多个图像">多个坐标系显示多个图像</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y_shanghai = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line">y_beijing = [random.uniform(<span class="number">8</span>, <span class="number">10</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"></span><br><span class="line">fig, axes = plt.subplots(nrows=<span class="number">1</span>, ncols=<span class="number">2</span>, figsize=(<span class="number">20</span>, <span class="number">8</span>), dpi=<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].plot(x, y_shanghai, label=<span class="string">&#x27;上海&#x27;</span>)</span><br><span class="line">axes[<span class="number">1</span>].plot(x, y_beijing, label=<span class="string">&#x27;北京&#x27;</span>, color=<span class="string">&#x27;r&#x27;</span>, linestyle=<span class="string">&#x27;--&#x27;</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].legend(loc=<span class="number">0</span>)</span><br><span class="line">axes[<span class="number">1</span>].legend(loc=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">x_ticks_labels = [<span class="string">&#x27;11点&#123;&#125;分&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> x]</span><br><span class="line">axes[<span class="number">0</span>].set_xticks(x[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">0</span>].set_xticklabels(x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">1</span>].set_xticks(x[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">1</span>].set_xticklabels(x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line"></span><br><span class="line">y0_ticks = [i * <span class="number">0.1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line">y0_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> y0_ticks]</span><br><span class="line">axes[<span class="number">0</span>].set_yticks(y0_ticks)</span><br><span class="line">axes[<span class="number">0</span>].set_yticklabels(y0_ticks_labels)</span><br><span class="line"></span><br><span class="line">y1_ticks = [i * <span class="number">0.1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">80</span>, <span class="number">105</span>, <span class="number">5</span>)]</span><br><span class="line">y1_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> y1_ticks]</span><br><span class="line">axes[<span class="number">1</span>].set_yticks(y1_ticks)</span><br><span class="line">axes[<span class="number">1</span>].set_yticklabels(y1_ticks_labels)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;--&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line">axes[<span class="number">1</span>].grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;-.&#x27;</span>, alpha=<span class="number">0.8</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].set_xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">axes[<span class="number">0</span>].set_ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">axes[<span class="number">0</span>].set_title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<ol>
+<li class="lvl-3">
+<p>首先绘制的方法改为plt.subplots(nrows, ncols, figsize(), dpi) 该方法返回一个画布fig和多个坐标系axes[ ]</p>
+</li>
+<li class="lvl-3">
+<p>后续基本一样，除了在进行坐标系刻度值的变化中采用了xticks和xticklabels分开来其余都一样。</p>
+</li>
+</ol>
+<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/04.png" alt=""></p>
+<h2 id="常见图形绘制">常见图形绘制</h2>
+<ol>
+<li class="lvl-3">
+<p>折线图  plt.plot(x, y)</p>
+</li>
+<li class="lvl-3">
+<p>散点图  plt.scatter(x, y)</p>
+</li>
+<li class="lvl-3">
+<p>柱状图  plt.bar(x, y, width)</p>
+</li>
+<li class="lvl-3">
+<p>直方图  plt.hist(x, bins=None)</p>
+</li>
+<li class="lvl-3">
+<p>饼状图  plt.pie(x, labels=,autopct=,colors)</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>machine learning</category>
+        <category>matplotlib</category>
+      </categories>
+      <tags>
+        <tag>recording</tag>
+        <tag>machine learning</tag>
+        <tag>learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>科学计算库之numpy</title>
     <url>/2024/08/11/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bnumpy/</url>
     <content><![CDATA[<h2 id="基本概念">基本概念</h2>
@@ -423,100 +517,6 @@
       <categories>
         <category>machine learning</category>
         <category>numpy</category>
-      </categories>
-      <tags>
-        <tag>recording</tag>
-        <tag>machine learning</tag>
-        <tag>learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>科学计算库之matplotlib</title>
-    <url>/2024/08/08/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/</url>
-    <content><![CDATA[<h2 id="基础绘制过程">基础绘制过程</h2>
-<p>首先导入包，然后创建画布，选择想要绘制的图像输入数据绘制，最后显示绘制结果</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 0. 创建数据</span></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"><span class="comment"># 1. 创建画布</span></span><br><span class="line">plt.figure(figsize=(<span class="number">20</span>, <span class="number">8</span>), dpi=<span class="number">100</span>) </span><br><span class="line"><span class="comment">#  figsize:画布大小,单位英寸（1英寸2.5厘米） dpi:分辨率（每英寸有多少像素，默认80）</span></span><br><span class="line"><span class="comment"># 2. 绘制</span></span><br><span class="line">plt.plot(x, y)</span><br><span class="line"><span class="comment"># 3. 显示</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/01.png" alt=""></p>
-<h2 id="绘图扩展">绘图扩展</h2>
-<ol>
-<li class="lvl-3">
-<p>添加自定义x，y轴刻度</p>
- <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y_shanghai = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">5</span>), dpi=<span class="number">100</span>)</span><br><span class="line">plt.plot(x, y_shanghai)</span><br><span class="line"></span><br><span class="line">x_ticks_labels = [<span class="string">&#x27;11点&#123;&#125;分&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> x]</span><br><span class="line">y_ticks = [x*<span class="number">0.1</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line">y_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(x*<span class="number">0.1</span>) <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line"></span><br><span class="line">plt.xticks(x[::<span class="number">5</span>], x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line">plt.yticks(y_ticks, y_ticks_labels)</span><br><span class="line"></span><br><span class="line">plt.grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;-.&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line">plt.xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">plt.title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># plt.savefig(&#x27;./pic.png&#x27;)</span></span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<blockquote>
-<h3 id="注意">注意</h3>
-<ul class="lvl-3">
-<li class="lvl-2">
-<p>这里添加的x，y轴刻度值和x，y本身的值没有任何关系，只是我们在定义刻度值时刚好用到了x本身的值而已。</p>
-</li>
-<li class="lvl-2">
-<p>在使用plt.xticks(x_ticks, x_ticks_labels)时，x_ticks必须是一个标量值，在添加了这个标量值后，可以修改x_ticks_labels来加上对应的字符，此时x_ticks_labels必须和x_ticks一一对应。</p>
-</li>
-<li class="lvl-2">
-<p>range只能产生整数的间隔值，当要生成小数时，可以参考上述方法 *0.1😺</p>
-</li>
-<li class="lvl-2">
-<p>当坐标轴有中文时，首先下载支持中文显示的字体，然后修改matplotlibrc的配置文件</p>
-<p><code>vi ~/.matplotlib/matplotlibrc</code></p>
-<p>以simhei字体为例</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">font.family         <span class="punctuation">:</span> sans-serif</span><br><span class="line">font.sans-serif         <span class="punctuation">:</span> SimHei</span><br><span class="line">axes.unicode_minus  <span class="punctuation">:</span> False</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-</li>
-<li class="lvl-3">
-<p>添加表格：<code>plt.grid(True, linestyle='- | -. | --', alpha=0.5, color='r')</code> alpha代表透明度</p>
-</li>
-<li class="lvl-3">
-<p>添加坐标轴描述信息和标题描述信息：<code>plt.xlabel(&quot;fjkdsjf&quot;) plt.tilte(&quot;fjdslkfj&quot;, fontsize=20)</code></p>
-</li>
-<li class="lvl-3">
-<p>保存图片：<code>plt.savefig('path')</code></p>
-</li>
-</ol>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/02.png" alt=""></p>
-<h2 id="一个坐标系中绘制多个图像">一个坐标系中绘制多个图像</h2>
-<ol>
-<li class="lvl-3">
-<p>设置两个图像的x，y的值</p>
-</li>
-<li class="lvl-3">
-<p>使用plt.plot(x, y, color=‘’, linestyle=‘’, label=‘’)进行绘图，通过添加颜色、线条来进行区分，添加label来添加图例，plt.legend(loc=‘’).loc的可选值为’best’、‘upper right’、‘lower left’、'center’等等组合</p>
-</li>
-</ol>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/03.png" alt=""></p>
-<h2 id="多个坐标系显示多个图像">多个坐标系显示多个图像</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y_shanghai = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line">y_beijing = [random.uniform(<span class="number">8</span>, <span class="number">10</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"></span><br><span class="line">fig, axes = plt.subplots(nrows=<span class="number">1</span>, ncols=<span class="number">2</span>, figsize=(<span class="number">20</span>, <span class="number">8</span>), dpi=<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].plot(x, y_shanghai, label=<span class="string">&#x27;上海&#x27;</span>)</span><br><span class="line">axes[<span class="number">1</span>].plot(x, y_beijing, label=<span class="string">&#x27;北京&#x27;</span>, color=<span class="string">&#x27;r&#x27;</span>, linestyle=<span class="string">&#x27;--&#x27;</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].legend(loc=<span class="number">0</span>)</span><br><span class="line">axes[<span class="number">1</span>].legend(loc=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">x_ticks_labels = [<span class="string">&#x27;11点&#123;&#125;分&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> x]</span><br><span class="line">axes[<span class="number">0</span>].set_xticks(x[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">0</span>].set_xticklabels(x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">1</span>].set_xticks(x[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">1</span>].set_xticklabels(x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line"></span><br><span class="line">y0_ticks = [i * <span class="number">0.1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line">y0_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> y0_ticks]</span><br><span class="line">axes[<span class="number">0</span>].set_yticks(y0_ticks)</span><br><span class="line">axes[<span class="number">0</span>].set_yticklabels(y0_ticks_labels)</span><br><span class="line"></span><br><span class="line">y1_ticks = [i * <span class="number">0.1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">80</span>, <span class="number">105</span>, <span class="number">5</span>)]</span><br><span class="line">y1_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> y1_ticks]</span><br><span class="line">axes[<span class="number">1</span>].set_yticks(y1_ticks)</span><br><span class="line">axes[<span class="number">1</span>].set_yticklabels(y1_ticks_labels)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;--&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line">axes[<span class="number">1</span>].grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;-.&#x27;</span>, alpha=<span class="number">0.8</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].set_xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">axes[<span class="number">0</span>].set_ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">axes[<span class="number">0</span>].set_title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<ol>
-<li class="lvl-3">
-<p>首先绘制的方法改为plt.subplots(nrows, ncols, figsize(), dpi) 该方法返回一个画布fig和多个坐标系axes[ ]</p>
-</li>
-<li class="lvl-3">
-<p>后续基本一样，除了在进行坐标系刻度值的变化中采用了xticks和xticklabels分开来其余都一样。</p>
-</li>
-</ol>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/04.png" alt=""></p>
-<h2 id="常见图形绘制">常见图形绘制</h2>
-<ol>
-<li class="lvl-3">
-<p>折线图  plt.plot(x, y)</p>
-</li>
-<li class="lvl-3">
-<p>散点图  plt.scatter(x, y)</p>
-</li>
-<li class="lvl-3">
-<p>柱状图  plt.bar(x, y, width)</p>
-</li>
-<li class="lvl-3">
-<p>直方图  plt.hist(x, bins=None)</p>
-</li>
-<li class="lvl-3">
-<p>饼状图  plt.pie(x, labels=,autopct=,colors)</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>machine learning</category>
-        <category>matplotlib</category>
       </categories>
       <tags>
         <tag>recording</tag>
@@ -760,6 +760,84 @@
 </ul>
 </li>
 </ul>
+]]></content>
+      <categories>
+        <category>machine learning</category>
+        <category>pandas</category>
+      </categories>
+      <tags>
+        <tag>recording</tag>
+        <tag>machine learning</tag>
+        <tag>learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>科学计算库之pandas(第二部分）</title>
+    <url>/2024/08/13/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="缺失值处理">缺失值处理</h2>
+<ol>
+<li class="lvl-3">
+<p>判断缺失值是否是Nan，如果不是替换成Nan</p>
+<ol>
+<li class="lvl-7">data.replace(to_replace=‘?’, value=np.nan)</li>
+</ol>
+</li>
+<li class="lvl-3">
+<p>判断是否存在缺失值</p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data = np.read_csv(<span class="string">&#x27;data/xxx.csv&#x27;</span>)</span><br><span class="line"><span class="comment"># 1.直接使用对象判断</span></span><br><span class="line">data.isnull()</span><br><span class="line">data.notnull()</span><br><span class="line"><span class="comment"># 2.调用方法判断</span></span><br><span class="line">pd.isnull(data)</span><br><span class="line">pd.notnull(data)</span><br><span class="line"><span class="comment"># 3.为了直接显示判断结果，可调用np.all()或np.any()方法</span></span><br><span class="line">np.<span class="built_in">any</span>(data.isnull())</span><br><span class="line">np.<span class="built_in">all</span>(data.notnull())</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p>缺失值处理方式</p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 直接删除，注意：这里不会直接修改原数据而是返回修改后的数据</span></span><br><span class="line">data.dropna()</span><br><span class="line"><span class="comment"># 进行替换</span></span><br><span class="line"><span class="comment"># 替换存在缺失值的样本的两列</span></span><br><span class="line"><span class="comment"># 替换填充平均值，中位数</span></span><br><span class="line">movie[<span class="string">&#x27;Revenue (Millions)&#x27;</span>].fillna(movie[<span class="string">&#x27;Revenue (Millions)&#x27;</span>].mean(), inplace=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 全部替换</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> movie.columns:</span><br><span class="line">    <span class="keyword">if</span> np.<span class="built_in">all</span>(pd.notnull(movie[i])) == <span class="literal">False</span>:</span><br><span class="line">        <span class="built_in">print</span>(i)</span><br><span class="line">        movie[i].fillna(movie[i].mean(), inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="数据离散化">数据离散化</h2>
+<h3 id="为什么要离散化">为什么要离散化</h3>
+<p>连续属性离散化的目的是为了简化数据结构，<strong>数据离散化技术可以减少给定连续属性值的个数</strong>。离散化方法经常作为数据挖掘的工具。</p>
+<h3 id="什么是离散化">什么是离散化</h3>
+<p>将一段连续的数据按照特定标准进行分割，每一部分代表特定的含义，以此达到离散化。</p>
+<h3 id="离散化方法">离散化方法</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. 按照每组元素个数近似相等的方式进行分组</span></span><br><span class="line">pd.qcut(data, q) <span class="comment"># q 分组个数</span></span><br><span class="line"><span class="comment"># 2. 按用于指定区间进行分组</span></span><br><span class="line">pd.cut(data, bins) <span class="comment"># bins指定区间</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 统计组内个数</span></span><br><span class="line">xxx.value_counts()</span><br><span class="line"><span class="comment"># 转换为one-hot编码，即独热编码</span></span><br><span class="line">pd.get_dummies(xxx, prefix=<span class="string">&#x27;fjdkfj&#x27;</span>) <span class="comment"># prefix给分组名加一个前缀</span></span><br></pre></td></tr></table></figure>
+<h2 id="数据合并">数据合并</h2>
+<ol>
+<li class="lvl-3">
+<p>通过pd.concat([table1, table2], axis=1) 当axis=0时按照列索引进行连接，当axis=1时按照行索引进行连接。这里的pd.concat更多的是两个表进行一个拼接，合成一个新的表，功能比较单一，而下面的两个表连接功能较多。</p>
+</li>
+<li class="lvl-3">
+<p>pd.merge(left, right, how, on)</p>
+<ol>
+<li class="lvl-7">left: DataFrame</li>
+<li class="lvl-7">right: 另一个DataFrame</li>
+<li class="lvl-7">on: 指定的共同键</li>
+<li class="lvl-7">how: 按照什么方式连接(内连接、左连接、右连接、外连接)</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">left = pd.DataFrame(&#123;<span class="string">&#x27;key1&#x27;</span>: [<span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K1&#x27;</span>, <span class="string">&#x27;K2&#x27;</span>],</span><br><span class="line">                        <span class="string">&#x27;key2&#x27;</span>: [<span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K1&#x27;</span>, <span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K1&#x27;</span>],</span><br><span class="line">                        <span class="string">&#x27;A&#x27;</span>: [<span class="string">&#x27;A0&#x27;</span>, <span class="string">&#x27;A1&#x27;</span>, <span class="string">&#x27;A2&#x27;</span>, <span class="string">&#x27;A3&#x27;</span>],</span><br><span class="line">                        <span class="string">&#x27;B&#x27;</span>: [<span class="string">&#x27;B0&#x27;</span>, <span class="string">&#x27;B1&#x27;</span>, <span class="string">&#x27;B2&#x27;</span>, <span class="string">&#x27;B3&#x27;</span>]&#125;)</span><br><span class="line"></span><br><span class="line">right = pd.DataFrame(&#123;<span class="string">&#x27;key1&#x27;</span>: [<span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K1&#x27;</span>, <span class="string">&#x27;K1&#x27;</span>, <span class="string">&#x27;K2&#x27;</span>],</span><br><span class="line">                        <span class="string">&#x27;key2&#x27;</span>: [<span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K0&#x27;</span>, <span class="string">&#x27;K0&#x27;</span>],</span><br><span class="line">                        <span class="string">&#x27;C&#x27;</span>: [<span class="string">&#x27;C0&#x27;</span>, <span class="string">&#x27;C1&#x27;</span>, <span class="string">&#x27;C2&#x27;</span>, <span class="string">&#x27;C3&#x27;</span>],</span><br><span class="line">                        <span class="string">&#x27;D&#x27;</span>: [<span class="string">&#x27;D0&#x27;</span>, <span class="string">&#x27;D1&#x27;</span>, <span class="string">&#x27;D2&#x27;</span>, <span class="string">&#x27;D3&#x27;</span>]&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 默认内连接</span></span><br><span class="line">result = pd.merge(left, right, on=[<span class="string">&#x27;key1&#x27;</span>, <span class="string">&#x27;key2&#x27;</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/03.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">result = pd.merge(left, right, how=<span class="string">&#x27;left&#x27;</span>, on=[<span class="string">&#x27;key1&#x27;</span>, <span class="string">&#x27;key2&#x27;</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/04.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">result = pd.merge(left, right, how=<span class="string">&#x27;right&#x27;</span>, on=[<span class="string">&#x27;key1&#x27;</span>, <span class="string">&#x27;key2&#x27;</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/05.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">result = pd.merge(left, right, how=<span class="string">&#x27;outer&#x27;</span>, on=[<span class="string">&#x27;key1&#x27;</span>, <span class="string">&#x27;key2&#x27;</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/06.png" alt=""></p>
+<h2 id="交叉表与透视表">交叉表与透视表</h2>
+<ol>
+<li class="lvl-3">
+<p><strong>交叉表</strong>：一列数据对于另一列数据的个数，统计的是个数</p>
+</li>
+<li class="lvl-3">
+<p><strong>透视表</strong>：一列数据对于另一列数据的占比，统计的是百分比</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 交叉表</span></span><br><span class="line">pd.crosstab(index, columns)</span><br></pre></td></tr></table></figure>
+<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/07.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 透视表</span></span><br><span class="line">data.pivot_table(value, index)</span><br><span class="line"></span><br><span class="line">- value:   需要统计的字段名</span><br><span class="line">- index:  分组的字段名</span><br></pre></td></tr></table></figure>
+<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bpandas/08.png" alt=""></p>
+<h2 id="分组与聚合">分组与聚合</h2>
+<p>在pandas中抛开聚合谈分组无意义，也就是说我们分完组后紧接着就是聚合，这两个步骤一般连在一块。</p>
+<p>data.groupby([‘columns’])[‘another_column’].sum() 实现以columns分组，聚合another_column</p>
 ]]></content>
       <categories>
         <category>machine learning</category>
