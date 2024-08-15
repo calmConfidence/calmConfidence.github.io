@@ -456,6 +456,74 @@
       </tags>
   </entry>
   <entry>
+    <title>爬取其他页面的推荐网站并写入yml文件</title>
+    <url>/2024/08/15/%E7%88%AC%E5%8F%96%E5%85%B6%E4%BB%96%E9%A1%B5%E9%9D%A2%E7%9A%84%E6%8E%A8%E8%8D%90%E7%BD%91%E7%AB%99%E5%B9%B6%E5%86%99%E5%85%A5yml%E6%96%87%E4%BB%B6/</url>
+    <content><![CDATA[<blockquote>
+<h3 id="前言">前言</h3>
+<p>为了增添一些有意思的网站，在逛其他网页时发现他们有很多网站链接推荐，但是众多的网站链接全部都人工操作添加实在麻烦，于是我尝试利用爬虫爬取这些网页链接并将这些链接直接写入yml文件中。</p>
+</blockquote>
+<h2 id="爬取对应网址">爬取对应网址</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 爬取页面所有内容</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">spider</span>(<span class="params">url</span>):</span><br><span class="line">   response = requests.get(url)</span><br><span class="line">   encoding = response.encoding</span><br><span class="line">   apparent_encoding = response.apparent_encoding</span><br><span class="line">   response.encoding = apparent_encoding</span><br><span class="line">   text = response.text</span><br><span class="line">   <span class="keyword">return</span> text</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据正则表达式提取所需内容</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">extract</span>(<span class="params">pattern, text</span>):</span><br><span class="line">   <span class="keyword">return</span> re.findall(pattern, text)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将所需内容处理成我们需要添加的内容</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">process</span>(<span class="params">result, link, name, descr, avatar</span>):</span><br><span class="line">   <span class="keyword">for</span> r <span class="keyword">in</span> result:</span><br><span class="line">       avatar.append(r[<span class="number">0</span>] + <span class="string">&#x27;/favicon.ico&#x27;</span>)</span><br><span class="line">       link.append(r[<span class="number">0</span>])</span><br><span class="line">       name.append(r[<span class="number">1</span>])</span><br><span class="line">       descr.append(r[<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<p>这里我发现在大部分网站后面加一个/favicon.ico就是该网站的网站图标。</p>
+<h2 id="将内容写入yaml文件中">将内容写入yaml文件中</h2>
+<h3 id="yaml文件简介">yaml文件简介</h3>
+<h4 id="yaml文件基本语法">yaml文件基本语法</h4>
+<ol>
+<li class="lvl-3">
+<p>大小写敏感</p>
+</li>
+<li class="lvl-3">
+<p>使用缩进表示层级关系</p>
+</li>
+<li class="lvl-3">
+<p>缩进时候不允许使用tab键，只允许使用空格</p>
+</li>
+<li class="lvl-3">
+<p>缩进得空格数目不重要，只要相同层级的元素左侧对齐即可</p>
+</li>
+<li class="lvl-3">
+<p>#表示注释，和python注释一样</p>
+</li>
+</ol>
+<h4 id="yaml文件的三种结构">yaml文件的三种结构</h4>
+<ol>
+<li class="lvl-3">
+<p>（字典）：键值对的集合</p>
+</li>
+<li class="lvl-3">
+<p>（列表）：一组按次序排列的值</p>
+</li>
+<li class="lvl-3">
+<p>（字符串/布尔值/整数/浮点数/Null/时间/日期）：字符集</p>
+</li>
+</ol>
+<h4 id="上述三种结构演示">上述三种结构演示</h4>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 写入最普通字典</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">   <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./test.yml&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">       data = &#123;<span class="string">&#x27;user&#x27;</span>: <span class="string">&#x27;root&#x27;</span>, <span class="string">&#x27;pass&#x27;</span>: <span class="number">123</span>&#125;</span><br><span class="line">       yaml.dump(data, f, allow_unicode=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># yml文件内容</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">  pass: 123</span></span><br><span class="line"><span class="string">  user: root</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入嵌套字典</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">   <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./test.yml&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">       data = &#123;<span class="string">&#x27;login&#x27;</span>: &#123;<span class="string">&#x27;user&#x27;</span>: <span class="string">&#x27;root&#x27;</span>, <span class="string">&#x27;pass&#x27;</span>: <span class="number">123</span>&#125;&#125;</span><br><span class="line">       yaml.dump(data, f, allow_unicode=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># yml文件内容</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">  login:</span></span><br><span class="line"><span class="string">    pass: 123</span></span><br><span class="line"><span class="string">    user: root</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入列表</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">   <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./test.yml&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">       data = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">       yaml.dump(data, f, allow_unicode=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># yml文件内容</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">  - 1</span></span><br><span class="line"><span class="string">  - 2</span></span><br><span class="line"><span class="string">  - 3</span></span><br><span class="line"><span class="string">  - 4</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入带有字典的列表</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">   <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./test.yml&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">       data = [&#123;<span class="string">&#x27;login&#x27;</span>: &#123;<span class="string">&#x27;user&#x27;</span>: <span class="string">&#x27;root&#x27;</span>, <span class="string">&#x27;pass&#x27;</span>: <span class="number">123</span>&#125;&#125;, &#123;<span class="string">&#x27;logout&#x27;</span>: &#123;<span class="string">&#x27;user&#x27;</span>: <span class="string">&#x27;root&#x27;</span>, <span class="string">&#x27;pass&#x27;</span>: <span class="number">456</span>&#125;&#125;]</span><br><span class="line">       yaml.dump(data, f, allow_unicode=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># yml文件内容</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">  - login:</span></span><br><span class="line"><span class="string">      pass: 123</span></span><br><span class="line"><span class="string">      user: root</span></span><br><span class="line"><span class="string">  - logout:</span></span><br><span class="line"><span class="string">      pass: 456</span></span><br><span class="line"><span class="string">      user: root</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="详细使用">详细使用</h4>
+<ol>
+<li class="lvl-3">
+<p>读取yaml文件</p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./data_yaml.yaml&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">           <span class="comment"># 加载文件： 文件流、加载方式</span></span><br><span class="line">           data = yaml.load(stream=f, Loader=yaml.FullLoader)</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p>写入yaml文件</p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./data_yaml.yaml&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">   <span class="comment"># 写入文件 &#x27;a&#x27;追加 &#x27;w&#x27;写</span></span><br><span class="line">   yaml.dump(data=data, stream=f, allow_unicode=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p>修改yaml文件</p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 先读取yaml文件，然后修改，再写入</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取yaml文件（这个函数是读取yaml函数，可以看上面的）</span></span><br><span class="line">old_data = <span class="variable language_">self</span>.read_yaml(path)</span><br><span class="line"><span class="comment"># 修改读取的数据（key存在就修改对应值，key不存在就新增一组键值对）</span></span><br><span class="line">old_data[key] = value</span><br><span class="line"><span class="comment"># 将修改后的字典写入yaml：（allow_unicode=True）用于处理写入中文时乱码问题</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(path, <span class="string">&quot;w&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>, allow_unicode=<span class="literal">True</span>) <span class="keyword">as</span> f:</span><br><span class="line">   yaml.dump(old_data, f)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="最终写入">最终写入</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">write_yml</span>(<span class="params">path, link, name, descr, avatar</span>):</span><br><span class="line">   data = &#123;<span class="string">&#x27;class_name&#x27;</span>: <span class="string">&#x27;网站&#x27;</span>, <span class="string">&#x27;class_desc&#x27;</span>: <span class="string">&#x27;值得推荐的网站&#x27;</span>, <span class="string">&#x27;link_list&#x27;</span>: []&#125;</span><br><span class="line">   <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(link)):</span><br><span class="line">       data[<span class="string">&#x27;link_list&#x27;</span>].append(&#123;<span class="string">&#x27;name&#x27;</span>: name[i], <span class="string">&#x27;link&#x27;</span>: link[i], <span class="string">&#x27;avatar&#x27;</span>: avatar[i], <span class="string">&#x27;descr&#x27;</span>: descr[i]&#125;)</span><br><span class="line">   <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./link.yml&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">       yaml.dump(data, f, allow_unicode=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>不过这里写入是采用追加的方式，由于源文件中link.yml文件中的两段是采用列表形式放进去的所以后续还需做一定的微调。</p>
+]]></content>
+      <tags>
+        <tag>blog</tag>
+        <tag>improvement</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>科学计算库之numpy</title>
     <url>/2024/08/11/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bnumpy/</url>
     <content><![CDATA[<h2 id="基本概念">基本概念</h2>
