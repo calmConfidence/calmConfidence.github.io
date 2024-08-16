@@ -1,6 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>利用hexo和butterfly搭建静态博客</title>
+    <url>/2024/08/01/%E5%88%A9%E7%94%A8hexo%E5%92%8Cbutterfly%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h2 id="安装Hexo并进行博客配置">安装Hexo并进行博客配置</h2>
+<ol>
+<li class="lvl-3">
+<p><code>npm install hexo-cli -g</code> <strong>全局安装hexo博客框架，就类似vue的脚手架一样</strong></p>
+</li>
+<li class="lvl-3">
+<p>初始化博客： <code>hexo init &lt;directory&gt;</code> or <code>cd &lt;directory&gt;;hexo init</code></p>
+</li>
+<li class="lvl-3">
+<p>预览博客：<code>hexo server</code></p>
+</li>
+<li class="lvl-3">
+<p>更换主题：</p>
+<ol>
+<li class="lvl-7"><a href="https://hexo.io/themes/">所有主题</a></li>
+<li class="lvl-7">将主题代码拷贝到本地themes文件夹下<code>git clone &lt;url&gt; themes/&lt;file&gt;</code></li>
+<li class="lvl-7">修改Blog文件下的_config.yml文件，<code>theme: &lt;file&gt;</code></li>
+<li class="lvl-7">运行hexo server</li>
+</ol>
+</li>
+<li class="lvl-5">
+<p>利用GitHub Pages来部署博客：</p>
+<ol>
+<li class="lvl-9">
+<p>新建一个&lt;<a href="http://userName.github.io">userName.github.io</a>&gt;的仓库</p>
+</li>
+<li class="lvl-9">
+<p>配置ssh密钥</p>
+<ol>
+<li class="lvl-14">如果之前配置过别的ssh密钥，需要加一个config配置文件</li>
+</ol>
+  	<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> # github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_github</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li class="lvl-14">
+<p>没配置过，直接<code>ssh key-gen -t rsa  -C &quot;your_email@email.com&quot;</code>生成一个，将公钥复制到GitHub上即可😄</p>
+</li>
+</ol>
+</li>
+<li class="lvl-9">
+<p>输入<code>ssh -T git@github.com</code>测试ssh连接是否成功</p>
+</li>
+<li class="lvl-9">
+<p>修改配置文件，将remote repository的ssh链接复制</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">      type: git</span><br><span class="line">      repo: 你复制的地址</span><br><span class="line">      branch: main</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-9">
+<p>安装插件 Hexo Deployer Git <code>npm install hexo-deployer-git --save</code></p>
+</li>
+<li class="lvl-9">
+<p>运行hexo g -d生成静态文件并部署</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="Hexo-Deployer-Git介绍">Hexo Deployer Git介绍</h2>
+<h3 id="项目简介">项目简介</h3>
+<p><code>hexo-deployer-git</code> 是Hexo生态系统的一部分，它允许你在每次更新博客内容后，自动将生成的静态文件推送到如GitHub、GitLab或Bitbucket等支持Git的平台。</p>
+<h3 id="技术优势">技术优势</h3>
+<p>此项目的核心在于集成Git命令与Hexo的生命周期。当执行 hexo deploy 命令时，它会：</p>
+<ol>
+<li class="lvl-3">
+<p>构建 - 首先，Hexo会编译你的Markdown等内容成HTML。</p>
+</li>
+<li class="lvl-3">
+<p>添加 - 然后，将所有新的和已修改的文件添加到本地Git仓库中。</p>
+</li>
+<li class="lvl-3">
+<p>提交 - 创建一个新的提交，附带上自定义的提交信息。</p>
+</li>
+<li class="lvl-3">
+<p>推送 - 最后，将这些改动推送到你指定的远程仓库。</p>
+</li>
+</ol>
+<p>整个过程自动化处理，无需手动操作，减少了出错的可能性。</p>
+<h3 id="使用方法">使用方法</h3>
+<p>安装这个插件后，在_config.yml配置文件中添加deploy的相关配置信息。这样在运行hexo deploy的时候就会把静态文件推送到Github.</p>
+<h2 id="创建新的帖子和页面">创建新的帖子和页面</h2>
+<ol>
+<li class="lvl-3">
+<p>command: hexo new <layout> “title”(layout: post、drafts、page)</p>
+</li>
+<li class="lvl-3">
+<p>在/_post下找到创建的帖子，更新front-matter，比如cover、top_img、update_date等等</p>
+</li>
+<li class="lvl-3">
+<p>利用markdown尽情开始创作吧😎</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>博客后续功能完善</title>
+    <url>/2024/08/01/%E5%8D%9A%E5%AE%A2%E5%90%8E%E7%BB%AD%E5%8A%9F%E8%83%BD%E5%AE%8C%E5%96%84/</url>
+    <content><![CDATA[<blockquote>
+<h2 id="说明">说明</h2>
+<p>持续更新中…</p>
+<p>由于博客整体上可玩性很高，但是时间有限所以以主要功能为主，秉持初心，博客的核心是内容，对于其他功能用到再完善。😎🕶️</p>
+</blockquote>
+<h2 id="博客加密功能">博客加密功能</h2>
+<p>详情见开源网址：<a href="https://github.com/D0n9X1n/hexo-blog-encrypt/blob/master/ReadMe.zh.md">hexo-blog-encrypt</a> 这里简单总结一下：</p>
+<ol>
+<li class="lvl-3">
+<p>安装包：<code>npm install --save hexo-blog-encrypt</code>–save 是指运行时的依赖，及上线后仍然需要该依赖</p>
+</li>
+<li class="lvl-3">
+<p>最简单使用😆: 直接在文章头中加入password选项即可</p>
+</li>
+<li class="lvl-3">
+<p>高级设置👍</p>
+</li>
+<li class="lvl-5">
+<p>配置文章信息头</p>
+</li>
+</ol>
+<pre><code><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hello World</span><br><span class="line">tags:</span><br><span class="line">- 作为日记加密</span><br><span class="line">date: 2016-03-30 21:12:21</span><br><span class="line">password: mikemessi</span><br><span class="line">abstract: 有东西被加密了, 请输入密码查看.</span><br><span class="line">message: 您好, 这里需要密码.</span><br><span class="line">theme: xray</span><br><span class="line">wrong_pass_message: 抱歉, 这个密码看着不太对, 请再试试.</span><br><span class="line">wrong_hash_message: 抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+2. 配置_config.yml文件（**注意：信息头的优先级高于配置文件**）
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Security</span><br><span class="line">encrypt: # hexo-blog-encrypt</span><br><span class="line">  abstract: 有东西被加密了, 请输入密码查看.</span><br><span class="line">  message: 您好, 这里需要密码.</span><br><span class="line">  tags:</span><br><span class="line">  - &#123;name: tagName, password: 密码A&#125;</span><br><span class="line">  - &#123;name: tagName, password: 密码B&#125;</span><br><span class="line">  wrong_pass_message: 抱歉, 这个密码看着不太对, 请再试试.</span><br><span class="line">  wrong_hash_message: 抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.</span><br></pre></td></tr></table></figure>
+</code></pre>
+<ol start="4">
+<li class="lvl-3">
+<p>配置加密主题🤔: theme: (default、blink、shrink、flip、up、surge、wave、xray）</p>
+</li>
+<li class="lvl-3">
+<p>如果配置了tag加密，在某篇想解除，直接在信息头设置password: &quot;&quot;即可</p>
+</li>
+<li class="lvl-3">
+<p><strong>注意</strong>：</p>
+<ol>
+<li class="lvl-7">
+<p>配置了标签加密，需要hexo clean清理掉缓存才能使对应标签产生加密效果</p>
+</li>
+<li class="lvl-7">
+<p>如果在信息头添加了加密信息，则其余如wrong_pass_message的信息将不会应用_config.yml文件中的配置</p>
+</li>
+</ol>
+</li>
+<li class="lvl-3">
+<p>遇到一些关于callback函数问题❓直接访问<a href="https://github.com/D0n9X1n/hexo-blog-encrypt/blob/master/ReadMe.zh.md">官网</a>解决</p>
+</li>
+</ol>
+<h2 id="博客本地搜索功能">博客本地搜索功能</h2>
+<p>这里使用的是hexo-generator-search插件，注意，当给文章加密后，搜索时是会避免搜索加密文章的。</p>
+<p><strong>默认情况，搜索图标是在最左边的，通过调整导航栏的配置文件可以实现修改到右边</strong></p>
+<p>路径：blog\themes\butterfly\layout\includes\header\nav.pug</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#menus</span><br><span class="line">  if (theme.algolia_search.enable || theme.local_search.enable || theme.docsearch.enable)</span><br><span class="line">    #search-button</span><br><span class="line">      a.site-page.social-icon.search(href=&quot;javascript:void(0);&quot;,style=&quot;float:right;top:6px;left:14px;&quot;)</span><br><span class="line">        i.fas.fa-search.fa-fw</span><br><span class="line">        span=&#x27;  Search&#x27;</span><br><span class="line">  !=partial(&#x27;includes/header/menu_item&#x27;, &#123;&#125;, &#123;cache: true&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="添加访客位置信息功能">添加访客位置信息功能</h2>
+<p>这里参考“铭心石刻”的方案，采用腾讯位置的api，相应教程如下：<a href="https://blog.kouseki.cn/posts/da2a.html">在侧边栏添加个性定位欢迎信息 | 铭心石刻 (kouseki.cn)</a></p>
+<p>这里唯一的坑点：腾讯位置api注册完后并不能直接使用，需要手动去配置额度后才能正常使用。</p>
+<p>标记一下腾讯位置的网页：<a href="https://lbs.qq.com/dev/console/quota/account">腾讯位置key</a></p>
+<h2 id="为主页文章卡片添加擦亮动画效果">为主页文章卡片添加擦亮动画效果</h2>
+<p>主要就是添加一个css文件，这里将这个文件放到/source/css/home.css下，并在head中inject</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#recent-posts</span> &gt; <span class="selector-class">.recent-post-item</span><span class="selector-pseudo">:not</span>(<span class="selector-tag">a</span>)<span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200%</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(to right, transparent, white, transparent);</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">translateX</span>(-<span class="number">200%</span>);</span><br><span class="line">  <span class="attribute">transition</span>: transform <span class="number">0.5s</span> linear;</span><br><span class="line">  <span class="attribute">z-index</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#recent-posts</span> &gt; <span class="selector-class">.recent-post-item</span><span class="selector-pseudo">:not</span>(<span class="selector-tag">a</span>)<span class="selector-pseudo">:hover</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">translateX</span>(<span class="number">100%</span>) <span class="built_in">skewX</span>(-<span class="number">60deg</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>blog</tag>
+        <tag>improvement</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>How to use git and github?</title>
     <url>/2024/08/01/How-to-use-git-and-github/</url>
     <content><![CDATA[<h2 id="Basic-Concepts">Basic Concepts</h2>
@@ -106,102 +272,6 @@
       </tags>
   </entry>
   <entry>
-    <title>利用hexo和butterfly搭建静态博客</title>
-    <url>/2024/08/01/%E5%88%A9%E7%94%A8hexo%E5%92%8Cbutterfly%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h2 id="安装Hexo并进行博客配置">安装Hexo并进行博客配置</h2>
-<ol>
-<li class="lvl-3">
-<p><code>npm install hexo-cli -g</code> <strong>全局安装hexo博客框架，就类似vue的脚手架一样</strong></p>
-</li>
-<li class="lvl-3">
-<p>初始化博客： <code>hexo init &lt;directory&gt;</code> or <code>cd &lt;directory&gt;;hexo init</code></p>
-</li>
-<li class="lvl-3">
-<p>预览博客：<code>hexo server</code></p>
-</li>
-<li class="lvl-3">
-<p>更换主题：</p>
-<ol>
-<li class="lvl-7"><a href="https://hexo.io/themes/">所有主题</a></li>
-<li class="lvl-7">将主题代码拷贝到本地themes文件夹下<code>git clone &lt;url&gt; themes/&lt;file&gt;</code></li>
-<li class="lvl-7">修改Blog文件下的_config.yml文件，<code>theme: &lt;file&gt;</code></li>
-<li class="lvl-7">运行hexo server</li>
-</ol>
-</li>
-<li class="lvl-5">
-<p>利用GitHub Pages来部署博客：</p>
-<ol>
-<li class="lvl-9">
-<p>新建一个&lt;<a href="http://userName.github.io">userName.github.io</a>&gt;的仓库</p>
-</li>
-<li class="lvl-9">
-<p>配置ssh密钥</p>
-<ol>
-<li class="lvl-14">如果之前配置过别的ssh密钥，需要加一个config配置文件</li>
-</ol>
-  	<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> # github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_github</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li class="lvl-14">
-<p>没配置过，直接<code>ssh key-gen -t rsa  -C &quot;your_email@email.com&quot;</code>生成一个，将公钥复制到GitHub上即可😄</p>
-</li>
-</ol>
-</li>
-<li class="lvl-9">
-<p>输入<code>ssh -T git@github.com</code>测试ssh连接是否成功</p>
-</li>
-<li class="lvl-9">
-<p>修改配置文件，将remote repository的ssh链接复制</p>
-  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">      type: git</span><br><span class="line">      repo: 你复制的地址</span><br><span class="line">      branch: main</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-9">
-<p>安装插件 Hexo Deployer Git <code>npm install hexo-deployer-git --save</code></p>
-</li>
-<li class="lvl-9">
-<p>运行hexo g -d生成静态文件并部署</p>
-</li>
-</ol>
-</li>
-</ol>
-<h2 id="Hexo-Deployer-Git介绍">Hexo Deployer Git介绍</h2>
-<h3 id="项目简介">项目简介</h3>
-<p><code>hexo-deployer-git</code> 是Hexo生态系统的一部分，它允许你在每次更新博客内容后，自动将生成的静态文件推送到如GitHub、GitLab或Bitbucket等支持Git的平台。</p>
-<h3 id="技术优势">技术优势</h3>
-<p>此项目的核心在于集成Git命令与Hexo的生命周期。当执行 hexo deploy 命令时，它会：</p>
-<ol>
-<li class="lvl-3">
-<p>构建 - 首先，Hexo会编译你的Markdown等内容成HTML。</p>
-</li>
-<li class="lvl-3">
-<p>添加 - 然后，将所有新的和已修改的文件添加到本地Git仓库中。</p>
-</li>
-<li class="lvl-3">
-<p>提交 - 创建一个新的提交，附带上自定义的提交信息。</p>
-</li>
-<li class="lvl-3">
-<p>推送 - 最后，将这些改动推送到你指定的远程仓库。</p>
-</li>
-</ol>
-<p>整个过程自动化处理，无需手动操作，减少了出错的可能性。</p>
-<h3 id="使用方法">使用方法</h3>
-<p>安装这个插件后，在_config.yml配置文件中添加deploy的相关配置信息。这样在运行hexo deploy的时候就会把静态文件推送到Github.</p>
-<h2 id="创建新的帖子和页面">创建新的帖子和页面</h2>
-<ol>
-<li class="lvl-3">
-<p>command: hexo new <layout> “title”(layout: post、drafts、page)</p>
-</li>
-<li class="lvl-3">
-<p>在/_post下找到创建的帖子，更新front-matter，比如cover、top_img、update_date等等</p>
-</li>
-<li class="lvl-3">
-<p>利用markdown尽情开始创作吧😎</p>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>完成CS61b proj0记录</title>
     <url>/2024/08/06/%E5%AE%8C%E6%88%90CS61b-proj0%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<h2 id="综述">综述</h2>
@@ -220,72 +290,6 @@
       <tags>
         <tag>CS61B</tag>
         <tag>recording</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>博客后续功能完善</title>
-    <url>/2024/08/01/%E5%8D%9A%E5%AE%A2%E5%90%8E%E7%BB%AD%E5%8A%9F%E8%83%BD%E5%AE%8C%E5%96%84/</url>
-    <content><![CDATA[<blockquote>
-<h2 id="说明">说明</h2>
-<p>持续更新中…</p>
-<p>由于博客整体上可玩性很高，但是时间有限所以以主要功能为主，秉持初心，博客的核心是内容，对于其他功能用到再完善。😎🕶️</p>
-</blockquote>
-<h2 id="博客加密功能">博客加密功能</h2>
-<p>详情见开源网址：<a href="https://github.com/D0n9X1n/hexo-blog-encrypt/blob/master/ReadMe.zh.md">hexo-blog-encrypt</a> 这里简单总结一下：</p>
-<ol>
-<li class="lvl-3">
-<p>安装包：<code>npm install --save hexo-blog-encrypt</code>–save 是指运行时的依赖，及上线后仍然需要该依赖</p>
-</li>
-<li class="lvl-3">
-<p>最简单使用😆: 直接在文章头中加入password选项即可</p>
-</li>
-<li class="lvl-3">
-<p>高级设置👍</p>
-</li>
-<li class="lvl-5">
-<p>配置文章信息头</p>
-</li>
-</ol>
-<pre><code><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hello World</span><br><span class="line">tags:</span><br><span class="line">- 作为日记加密</span><br><span class="line">date: 2016-03-30 21:12:21</span><br><span class="line">password: mikemessi</span><br><span class="line">abstract: 有东西被加密了, 请输入密码查看.</span><br><span class="line">message: 您好, 这里需要密码.</span><br><span class="line">theme: xray</span><br><span class="line">wrong_pass_message: 抱歉, 这个密码看着不太对, 请再试试.</span><br><span class="line">wrong_hash_message: 抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-</code></pre>
-<ol start="2">
-<li class="lvl-5">
-<p>配置_config.yml文件（<strong>注意：信息头的优先级高于配置文件</strong>）</p>
-</li>
-</ol>
-<pre><code><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Security</span><br><span class="line">encrypt: # hexo-blog-encrypt</span><br><span class="line">  abstract: 有东西被加密了, 请输入密码查看.</span><br><span class="line">  message: 您好, 这里需要密码.</span><br><span class="line">  tags:</span><br><span class="line">  - &#123;name: tagName, password: 密码A&#125;</span><br><span class="line">  - &#123;name: tagName, password: 密码B&#125;</span><br><span class="line">  wrong_pass_message: 抱歉, 这个密码看着不太对, 请再试试.</span><br><span class="line">  wrong_hash_message: 抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.</span><br></pre></td></tr></table></figure>
-</code></pre>
-<ol start="4">
-<li class="lvl-3">
-<p>配置加密主题🤔: theme: (default、blink、shrink、flip、up、surge、wave、xray）</p>
-</li>
-<li class="lvl-3">
-<p>如果配置了tag加密，在某篇想解除，直接在信息头设置password: &quot;&quot;即可</p>
-</li>
-<li class="lvl-3">
-<p><strong>注意</strong>：</p>
-<ol>
-<li class="lvl-7">
-<p>配置了标签加密，需要hexo clean清理掉缓存才能使对应标签产生加密效果</p>
-</li>
-<li class="lvl-7">
-<p>如果在信息头添加了加密信息，则其余如wrong_pass_message的信息将不会应用_config.yml文件中的配置</p>
-</li>
-</ol>
-</li>
-<li class="lvl-3">
-<p>遇到一些关于callback函数问题❓直接访问<a href="https://github.com/D0n9X1n/hexo-blog-encrypt/blob/master/ReadMe.zh.md">官网</a>解决</p>
-</li>
-</ol>
-<h2 id="博客本地搜索功能">博客本地搜索功能</h2>
-<p>这里使用的是hexo-generator-search插件，注意，当给文章加密后，搜索时是会避免搜索加密文章的。</p>
-<p><strong>默认情况，搜索图标是在最左边的，通过调整导航栏的配置文件可以实现修改到右边</strong></p>
-<p>路径：blog\themes\butterfly\layout\includes\header\nav.pug</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#menus</span><br><span class="line">  if (theme.algolia_search.enable || theme.local_search.enable || theme.docsearch.enable)</span><br><span class="line">    #search-button</span><br><span class="line">      a.site-page.social-icon.search(href=&quot;javascript:void(0);&quot;,style=&quot;float:right;top:6px;left:14px;&quot;)</span><br><span class="line">        i.fas.fa-search.fa-fw</span><br><span class="line">        span=&#x27;  Search&#x27;</span><br><span class="line">  !=partial(&#x27;includes/header/menu_item&#x27;, &#123;&#125;, &#123;cache: true&#125;)</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>blog</tag>
-        <tag>improvement</tag>
       </tags>
   </entry>
   <entry>
@@ -359,6 +363,74 @@
         <tag>recording</tag>
         <tag>machine learning</tag>
         <tag>learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>爬取其他页面的推荐网站并写入yml文件</title>
+    <url>/2024/08/15/%E7%88%AC%E5%8F%96%E5%85%B6%E4%BB%96%E9%A1%B5%E9%9D%A2%E7%9A%84%E6%8E%A8%E8%8D%90%E7%BD%91%E7%AB%99%E5%B9%B6%E5%86%99%E5%85%A5yml%E6%96%87%E4%BB%B6/</url>
+    <content><![CDATA[<blockquote>
+<h3 id="前言">前言</h3>
+<p>为了增添一些有意思的网站，在逛其他网页时发现他们有很多网站链接推荐，但是众多的网站链接全部都人工操作添加实在麻烦，于是我尝试利用爬虫爬取这些网页链接并将这些链接直接写入yml文件中。</p>
+</blockquote>
+<h2 id="爬取对应网址">爬取对应网址</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 爬取页面所有内容</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">spider</span>(<span class="params">url</span>):</span><br><span class="line">   response = requests.get(url)</span><br><span class="line">   encoding = response.encoding</span><br><span class="line">   apparent_encoding = response.apparent_encoding</span><br><span class="line">   response.encoding = apparent_encoding</span><br><span class="line">   text = response.text</span><br><span class="line">   <span class="keyword">return</span> text</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据正则表达式提取所需内容</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">extract</span>(<span class="params">pattern, text</span>):</span><br><span class="line">   <span class="keyword">return</span> re.findall(pattern, text)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将所需内容处理成我们需要添加的内容</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">process</span>(<span class="params">result, link, name, descr, avatar</span>):</span><br><span class="line">   <span class="keyword">for</span> r <span class="keyword">in</span> result:</span><br><span class="line">       avatar.append(r[<span class="number">0</span>] + <span class="string">&#x27;/favicon.ico&#x27;</span>)</span><br><span class="line">       link.append(r[<span class="number">0</span>])</span><br><span class="line">       name.append(r[<span class="number">1</span>])</span><br><span class="line">       descr.append(r[<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<p>这里我发现在大部分网站后面加一个/favicon.ico就是该网站的网站图标。</p>
+<h2 id="将内容写入yaml文件中">将内容写入yaml文件中</h2>
+<h3 id="yaml文件简介">yaml文件简介</h3>
+<h4 id="yaml文件基本语法">yaml文件基本语法</h4>
+<ol>
+<li class="lvl-3">
+<p>大小写敏感</p>
+</li>
+<li class="lvl-3">
+<p>使用缩进表示层级关系</p>
+</li>
+<li class="lvl-3">
+<p>缩进时候不允许使用tab键，只允许使用空格</p>
+</li>
+<li class="lvl-3">
+<p>缩进得空格数目不重要，只要相同层级的元素左侧对齐即可</p>
+</li>
+<li class="lvl-3">
+<p>#表示注释，和python注释一样</p>
+</li>
+</ol>
+<h4 id="yaml文件的三种结构">yaml文件的三种结构</h4>
+<ol>
+<li class="lvl-3">
+<p>（字典）：键值对的集合</p>
+</li>
+<li class="lvl-3">
+<p>（列表）：一组按次序排列的值</p>
+</li>
+<li class="lvl-3">
+<p>（字符串/布尔值/整数/浮点数/Null/时间/日期）：字符集</p>
+</li>
+</ol>
+<h4 id="上述三种结构演示">上述三种结构演示</h4>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 写入最普通字典</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">   <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./test.yml&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">       data = &#123;<span class="string">&#x27;user&#x27;</span>: <span class="string">&#x27;root&#x27;</span>, <span class="string">&#x27;pass&#x27;</span>: <span class="number">123</span>&#125;</span><br><span class="line">       yaml.dump(data, f, allow_unicode=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># yml文件内容</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">  pass: 123</span></span><br><span class="line"><span class="string">  user: root</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入嵌套字典</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">   <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./test.yml&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">       data = &#123;<span class="string">&#x27;login&#x27;</span>: &#123;<span class="string">&#x27;user&#x27;</span>: <span class="string">&#x27;root&#x27;</span>, <span class="string">&#x27;pass&#x27;</span>: <span class="number">123</span>&#125;&#125;</span><br><span class="line">       yaml.dump(data, f, allow_unicode=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># yml文件内容</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">  login:</span></span><br><span class="line"><span class="string">    pass: 123</span></span><br><span class="line"><span class="string">    user: root</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入列表</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">   <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./test.yml&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">       data = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">       yaml.dump(data, f, allow_unicode=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># yml文件内容</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">  - 1</span></span><br><span class="line"><span class="string">  - 2</span></span><br><span class="line"><span class="string">  - 3</span></span><br><span class="line"><span class="string">  - 4</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入带有字典的列表</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">   <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./test.yml&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">       data = [&#123;<span class="string">&#x27;login&#x27;</span>: &#123;<span class="string">&#x27;user&#x27;</span>: <span class="string">&#x27;root&#x27;</span>, <span class="string">&#x27;pass&#x27;</span>: <span class="number">123</span>&#125;&#125;, &#123;<span class="string">&#x27;logout&#x27;</span>: &#123;<span class="string">&#x27;user&#x27;</span>: <span class="string">&#x27;root&#x27;</span>, <span class="string">&#x27;pass&#x27;</span>: <span class="number">456</span>&#125;&#125;]</span><br><span class="line">       yaml.dump(data, f, allow_unicode=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># yml文件内容</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">  - login:</span></span><br><span class="line"><span class="string">      pass: 123</span></span><br><span class="line"><span class="string">      user: root</span></span><br><span class="line"><span class="string">  - logout:</span></span><br><span class="line"><span class="string">      pass: 456</span></span><br><span class="line"><span class="string">      user: root</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="详细使用">详细使用</h4>
+<ol>
+<li class="lvl-3">
+<p>读取yaml文件</p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./data_yaml.yaml&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">           <span class="comment"># 加载文件： 文件流、加载方式</span></span><br><span class="line">           data = yaml.load(stream=f, Loader=yaml.FullLoader)</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p>写入yaml文件</p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./data_yaml.yaml&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">   <span class="comment"># 写入文件 &#x27;a&#x27;追加 &#x27;w&#x27;写</span></span><br><span class="line">   yaml.dump(data=data, stream=f, allow_unicode=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p>修改yaml文件</p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 先读取yaml文件，然后修改，再写入</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取yaml文件（这个函数是读取yaml函数，可以看上面的）</span></span><br><span class="line">old_data = <span class="variable language_">self</span>.read_yaml(path)</span><br><span class="line"><span class="comment"># 修改读取的数据（key存在就修改对应值，key不存在就新增一组键值对）</span></span><br><span class="line">old_data[key] = value</span><br><span class="line"><span class="comment"># 将修改后的字典写入yaml：（allow_unicode=True）用于处理写入中文时乱码问题</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(path, <span class="string">&quot;w&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>, allow_unicode=<span class="literal">True</span>) <span class="keyword">as</span> f:</span><br><span class="line">   yaml.dump(old_data, f)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="最终写入">最终写入</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">write_yml</span>(<span class="params">path, link, name, descr, avatar</span>):</span><br><span class="line">   data = &#123;<span class="string">&#x27;class_name&#x27;</span>: <span class="string">&#x27;网站&#x27;</span>, <span class="string">&#x27;class_desc&#x27;</span>: <span class="string">&#x27;值得推荐的网站&#x27;</span>, <span class="string">&#x27;link_list&#x27;</span>: []&#125;</span><br><span class="line">   <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(link)):</span><br><span class="line">       data[<span class="string">&#x27;link_list&#x27;</span>].append(&#123;<span class="string">&#x27;name&#x27;</span>: name[i], <span class="string">&#x27;link&#x27;</span>: link[i], <span class="string">&#x27;avatar&#x27;</span>: avatar[i], <span class="string">&#x27;descr&#x27;</span>: descr[i]&#125;)</span><br><span class="line">   <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./link.yml&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">       yaml.dump(data, f, allow_unicode=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>不过这里写入是采用追加的方式，由于源文件中link.yml文件中的两段是采用列表形式放进去的所以后续还需做一定的微调。</p>
+]]></content>
+      <tags>
+        <tag>blog</tag>
+        <tag>improvement</tag>
       </tags>
   </entry>
   <entry>
@@ -453,74 +525,6 @@
         <tag>recording</tag>
         <tag>machine learning</tag>
         <tag>learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>爬取其他页面的推荐网站并写入yml文件</title>
-    <url>/2024/08/15/%E7%88%AC%E5%8F%96%E5%85%B6%E4%BB%96%E9%A1%B5%E9%9D%A2%E7%9A%84%E6%8E%A8%E8%8D%90%E7%BD%91%E7%AB%99%E5%B9%B6%E5%86%99%E5%85%A5yml%E6%96%87%E4%BB%B6/</url>
-    <content><![CDATA[<blockquote>
-<h3 id="前言">前言</h3>
-<p>为了增添一些有意思的网站，在逛其他网页时发现他们有很多网站链接推荐，但是众多的网站链接全部都人工操作添加实在麻烦，于是我尝试利用爬虫爬取这些网页链接并将这些链接直接写入yml文件中。</p>
-</blockquote>
-<h2 id="爬取对应网址">爬取对应网址</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 爬取页面所有内容</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">spider</span>(<span class="params">url</span>):</span><br><span class="line">   response = requests.get(url)</span><br><span class="line">   encoding = response.encoding</span><br><span class="line">   apparent_encoding = response.apparent_encoding</span><br><span class="line">   response.encoding = apparent_encoding</span><br><span class="line">   text = response.text</span><br><span class="line">   <span class="keyword">return</span> text</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据正则表达式提取所需内容</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">extract</span>(<span class="params">pattern, text</span>):</span><br><span class="line">   <span class="keyword">return</span> re.findall(pattern, text)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将所需内容处理成我们需要添加的内容</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">process</span>(<span class="params">result, link, name, descr, avatar</span>):</span><br><span class="line">   <span class="keyword">for</span> r <span class="keyword">in</span> result:</span><br><span class="line">       avatar.append(r[<span class="number">0</span>] + <span class="string">&#x27;/favicon.ico&#x27;</span>)</span><br><span class="line">       link.append(r[<span class="number">0</span>])</span><br><span class="line">       name.append(r[<span class="number">1</span>])</span><br><span class="line">       descr.append(r[<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
-<p>这里我发现在大部分网站后面加一个/favicon.ico就是该网站的网站图标。</p>
-<h2 id="将内容写入yaml文件中">将内容写入yaml文件中</h2>
-<h3 id="yaml文件简介">yaml文件简介</h3>
-<h4 id="yaml文件基本语法">yaml文件基本语法</h4>
-<ol>
-<li class="lvl-3">
-<p>大小写敏感</p>
-</li>
-<li class="lvl-3">
-<p>使用缩进表示层级关系</p>
-</li>
-<li class="lvl-3">
-<p>缩进时候不允许使用tab键，只允许使用空格</p>
-</li>
-<li class="lvl-3">
-<p>缩进得空格数目不重要，只要相同层级的元素左侧对齐即可</p>
-</li>
-<li class="lvl-3">
-<p>#表示注释，和python注释一样</p>
-</li>
-</ol>
-<h4 id="yaml文件的三种结构">yaml文件的三种结构</h4>
-<ol>
-<li class="lvl-3">
-<p>（字典）：键值对的集合</p>
-</li>
-<li class="lvl-3">
-<p>（列表）：一组按次序排列的值</p>
-</li>
-<li class="lvl-3">
-<p>（字符串/布尔值/整数/浮点数/Null/时间/日期）：字符集</p>
-</li>
-</ol>
-<h4 id="上述三种结构演示">上述三种结构演示</h4>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 写入最普通字典</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">   <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./test.yml&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">       data = &#123;<span class="string">&#x27;user&#x27;</span>: <span class="string">&#x27;root&#x27;</span>, <span class="string">&#x27;pass&#x27;</span>: <span class="number">123</span>&#125;</span><br><span class="line">       yaml.dump(data, f, allow_unicode=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># yml文件内容</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">  pass: 123</span></span><br><span class="line"><span class="string">  user: root</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入嵌套字典</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">   <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./test.yml&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">       data = &#123;<span class="string">&#x27;login&#x27;</span>: &#123;<span class="string">&#x27;user&#x27;</span>: <span class="string">&#x27;root&#x27;</span>, <span class="string">&#x27;pass&#x27;</span>: <span class="number">123</span>&#125;&#125;</span><br><span class="line">       yaml.dump(data, f, allow_unicode=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># yml文件内容</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">  login:</span></span><br><span class="line"><span class="string">    pass: 123</span></span><br><span class="line"><span class="string">    user: root</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入列表</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">   <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./test.yml&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">       data = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">       yaml.dump(data, f, allow_unicode=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># yml文件内容</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">  - 1</span></span><br><span class="line"><span class="string">  - 2</span></span><br><span class="line"><span class="string">  - 3</span></span><br><span class="line"><span class="string">  - 4</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入带有字典的列表</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">   <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./test.yml&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">       data = [&#123;<span class="string">&#x27;login&#x27;</span>: &#123;<span class="string">&#x27;user&#x27;</span>: <span class="string">&#x27;root&#x27;</span>, <span class="string">&#x27;pass&#x27;</span>: <span class="number">123</span>&#125;&#125;, &#123;<span class="string">&#x27;logout&#x27;</span>: &#123;<span class="string">&#x27;user&#x27;</span>: <span class="string">&#x27;root&#x27;</span>, <span class="string">&#x27;pass&#x27;</span>: <span class="number">456</span>&#125;&#125;]</span><br><span class="line">       yaml.dump(data, f, allow_unicode=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># yml文件内容</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">  - login:</span></span><br><span class="line"><span class="string">      pass: 123</span></span><br><span class="line"><span class="string">      user: root</span></span><br><span class="line"><span class="string">  - logout:</span></span><br><span class="line"><span class="string">      pass: 456</span></span><br><span class="line"><span class="string">      user: root</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="详细使用">详细使用</h4>
-<ol>
-<li class="lvl-3">
-<p>读取yaml文件</p>
- <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./data_yaml.yaml&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">           <span class="comment"># 加载文件： 文件流、加载方式</span></span><br><span class="line">           data = yaml.load(stream=f, Loader=yaml.FullLoader)</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-3">
-<p>写入yaml文件</p>
- <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./data_yaml.yaml&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">   <span class="comment"># 写入文件 &#x27;a&#x27;追加 &#x27;w&#x27;写</span></span><br><span class="line">   yaml.dump(data=data, stream=f, allow_unicode=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-3">
-<p>修改yaml文件</p>
- <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 先读取yaml文件，然后修改，再写入</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取yaml文件（这个函数是读取yaml函数，可以看上面的）</span></span><br><span class="line">old_data = <span class="variable language_">self</span>.read_yaml(path)</span><br><span class="line"><span class="comment"># 修改读取的数据（key存在就修改对应值，key不存在就新增一组键值对）</span></span><br><span class="line">old_data[key] = value</span><br><span class="line"><span class="comment"># 将修改后的字典写入yaml：（allow_unicode=True）用于处理写入中文时乱码问题</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(path, <span class="string">&quot;w&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>, allow_unicode=<span class="literal">True</span>) <span class="keyword">as</span> f:</span><br><span class="line">   yaml.dump(old_data, f)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="最终写入">最终写入</h3>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">write_yml</span>(<span class="params">path, link, name, descr, avatar</span>):</span><br><span class="line">   data = &#123;<span class="string">&#x27;class_name&#x27;</span>: <span class="string">&#x27;网站&#x27;</span>, <span class="string">&#x27;class_desc&#x27;</span>: <span class="string">&#x27;值得推荐的网站&#x27;</span>, <span class="string">&#x27;link_list&#x27;</span>: []&#125;</span><br><span class="line">   <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(link)):</span><br><span class="line">       data[<span class="string">&#x27;link_list&#x27;</span>].append(&#123;<span class="string">&#x27;name&#x27;</span>: name[i], <span class="string">&#x27;link&#x27;</span>: link[i], <span class="string">&#x27;avatar&#x27;</span>: avatar[i], <span class="string">&#x27;descr&#x27;</span>: descr[i]&#125;)</span><br><span class="line">   <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./link.yml&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">       yaml.dump(data, f, allow_unicode=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-<p>不过这里写入是采用追加的方式，由于源文件中link.yml文件中的两段是采用列表形式放进去的所以后续还需做一定的微调。</p>
-]]></content>
-      <tags>
-        <tag>blog</tag>
-        <tag>improvement</tag>
       </tags>
   </entry>
   <entry>
