@@ -1,6 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>How to use git and github?</title>
+    <url>/2024/08/01/How-to-use-git-and-github/</url>
+    <content><![CDATA[<h2 id="Basic-Concepts">Basic Concepts</h2>
+<p><strong>repository</strong>：One project corresponds to one repository.The repository stores all the project codes.</p>
+<p><strong>star:</strong> If you think that project is useful or interesting, you can star it.On the one hand, that project will be more and more popular, on the other hand it’s more convenient for you to find the project.</p>
+<p><strong>fork:</strong> It means copy the project’s code in your repository which will have a mark “forked from xxxx”</p>
+<p><strong>Pull Request:</strong> Someone forked your code and add something new, they want to add their changes into your raw projects.Then they will send a <strong>PR</strong>(pull request) to you.You should review their code and do some tests, if you think there is no problem, you can merge all codes.</p>
+<p><strong>Issue:</strong> If you find some bugs or problems, you can raise in issue.</p>
+<h2 id="Basic-Operation">Basic Operation</h2>
+<p><strong>add file、change file、delete file、search file(t):</strong> excute correspond operation and commit changes.You can find all the commits in the upper right corner.</p>
+<p><strong>new a repository、delete a repository(in the setting)、fork a repository.</strong> You can also propose a pull request or raise a issue to participate contributions.</p>
+<h2 id="Git-Operation">Git Operation</h2>
+<p><strong>Git working space:</strong> repository、staging area、working directory</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>The reason why we need staging area instead of only repository is that we need somewhere to choose which file we want to track which not,like some logs file or compiled file(.o file) etc.</code></p>
+</li>
+</ul>
+<h3 id="Command">Command</h3>
+<h4 id="Basic-command">Basic command</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>git help <command>: you can get some help on specific command.</p>
+</li>
+<li class="lvl-2">
+<p>git log --all --graph --decorate: you can get all the commits in a beautiful format.</p>
+</li>
+<li class="lvl-2">
+<p>config: git config --global <a href="http://user.name">user.name</a> “xxx”、git config --global user.email “<a href="mailto:xxx@email.com">xxx@email.com</a>”</p>
+<ul class="lvl-2">
+<li class="lvl-6">With this configuration, github will display the information when you commit sth.</li>
+<li class="lvl-6">git config --list: get all the configuration informations.</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>git init: init a local repository with a .git file.After that you will get a (master) branch.</p>
+</li>
+<li class="lvl-2">
+<p>git add xxx.txt: Add some files.Pushing the xxx.txt into staging area.</p>
+</li>
+<li class="lvl-2">
+<p>git status: view current status.</p>
+</li>
+<li class="lvl-2">
+<p>git commit -m “some explainations”: commit the files in staging area to repository.</p>
+</li>
+<li class="lvl-2">
+<p>git rm xxx.txt: remove the xxx.txt from repository.</p>
+</li>
+<li class="lvl-2">
+<p>git checkout file.txt: drop the changes in your  work directory.</p>
+<ul class="lvl-2">
+<li class="lvl-6">git checkout <code>hash value</code>: switch the Head pointer.</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>git diff: you can get the differences between current directory and the commit version.</p>
+</li>
+<li class="lvl-2">
+<p>git cat-file -p <code>hash value</code>: look at the detail of the object.</p>
+</li>
+</ul>
+<h4 id="Branch-related">Branch related</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>git branch: list all your branches.</p>
+<ul class="lvl-2">
+<li class="lvl-6">git branch -vv: list more details.</li>
+<li class="lvl-6">git checkout -d “branch name”: build a new branch and switch into that branch.</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>git checkout master; git merge “other branch”: merge the branches and deal with conflicts.</p>
+</li>
+</ul>
+<h4 id="Remote-repository">Remote repository</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>git remote</p>
+</li>
+</ul>
+<h2 id="Git-underlevel">Git underlevel</h2>
+<blockquote>
+<h1>What’s Git?</h1>
+<p>Git is a sort of version control system.With git, you can track all your <a href="http://changes.At">changes.At</a> the same time you can cooperate with others in coding a same project.The basic unit is a snapshot which has tree and blobs.The whole git is composed of directed acyclic graph which is a number of snapshots.What we operate is all the references and objects.😄</p>
+<p><code>The core of understanding git.First you should know every commit is a snapshot which consists of code 1. Second you should know what you operate is the object which consists of code 2. At last you should know how can we save all the snapshots effectively which consists of code 3.Building the relation of reference and objects.</code></p>
+<figure class="highlight plaintext"><figcaption><span>1</span></figcaption><table><tr><td class="code"><pre><span class="line">&lt;root&gt; (tree)</span><br><span class="line">|</span><br><span class="line">+- foo (tree) map&lt;tree, tree |  blob&gt;</span><br><span class="line">|  |</span><br><span class="line">|  + bar.txt (blob, contents = &quot;hello world&quot;)</span><br><span class="line">|</span><br><span class="line">+- baz.txt (blob, contents = &quot;git is wonderful&quot;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">o &lt;-- o &lt;-- o &lt;-- o &lt;------- o</span><br><span class="line">          ^               /</span><br><span class="line">            \           v</span><br><span class="line">              -- o &lt;-- o</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><figcaption><span>2</span></figcaption><table><tr><td class="code"><pre><span class="line">Git的数据模型</span><br><span class="line">// 文件就是一组数据</span><br><span class="line">type blob = array&lt;byte&gt;</span><br><span class="line"></span><br><span class="line">// 一个包含文件和目录的目录</span><br><span class="line">type tree = map&lt;string, tree | blob&gt;</span><br><span class="line"></span><br><span class="line">// 每个提交都包含一个父辈，元数据和顶层树</span><br><span class="line">type commit = struct &#123;</span><br><span class="line"> parent: array&lt;commit&gt;</span><br><span class="line"> author: string</span><br><span class="line"> message: string</span><br><span class="line"> snapshot: tree</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Git中的对象object = blob | tree | commit</code></p>
+<figure class="highlight plaintext"><figcaption><span>3</span></figcaption><table><tr><td class="code"><pre><span class="line">//  git在存储对象时，所有的对象都会基于他们的SHA-1哈希进行寻址</span><br><span class="line">objects = map&lt;string, object&gt;</span><br><span class="line"></span><br><span class="line">def store(object):</span><br><span class="line"> id = sha1(object)</span><br><span class="line"> objects[id] = object</span><br><span class="line"></span><br><span class="line">def load(id):</span><br><span class="line"> return objects[id]</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>e-book: <a href="https://git-scm.com/book/zh/v2">Pro Git - Book (git-scm.com)</a></strong></p>
+<p><strong>lecture: <a href="https://missing-semester-cn.github.io/2020/version-control/">版本控制(Git) · the missing semester of your cs education (missing-semester-cn.github.io)</a></strong></p>
+]]></content>
+      <categories>
+        <category>Pure English</category>
+        <category>Learning note</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>github</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>利用hexo和butterfly搭建静态博客</title>
     <url>/2024/08/01/%E5%88%A9%E7%94%A8hexo%E5%92%8Cbutterfly%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h2 id="安装Hexo并进行博客配置">安装Hexo并进行博客配置</h2>
@@ -155,7 +260,7 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#menus</span><br><span class="line">  if (theme.algolia_search.enable || theme.local_search.enable || theme.docsearch.enable)</span><br><span class="line">    #search-button</span><br><span class="line">      a.site-page.social-icon.search(href=&quot;javascript:void(0);&quot;,style=&quot;float:right;top:6px;left:14px;&quot;)</span><br><span class="line">        i.fas.fa-search.fa-fw</span><br><span class="line">        span=&#x27;  Search&#x27;</span><br><span class="line">  !=partial(&#x27;includes/header/menu_item&#x27;, &#123;&#125;, &#123;cache: true&#125;)</span><br></pre></td></tr></table></figure>
 <h2 id="添加访客位置信息功能">添加访客位置信息功能</h2>
 <p>这里参考“铭心石刻”的方案，采用腾讯位置的api，相应教程如下：<a href="https://blog.kouseki.cn/posts/da2a.html">在侧边栏添加个性定位欢迎信息 | 铭心石刻 (kouseki.cn)</a></p>
-<p>这里唯一的坑点：腾讯位置api注册完后并不能直接使用，需要手动去配置额度后才能正常使用。</p>
+<p>这里唯一的坑点：腾讯位置api注册完后并不能直接使用，需要手动去配置额度后才能正常使用。同时记得添加域名白名单，本博客白名单为：calmconfidence.github.io没有前面的https://</p>
 <p>标记一下腾讯位置的网页：<a href="https://lbs.qq.com/dev/console/quota/account">腾讯位置key</a></p>
 <h2 id="为主页文章卡片添加擦亮动画效果">为主页文章卡片添加擦亮动画效果</h2>
 <p>主要就是添加一个css文件，这里将这个文件放到/source/css/home.css下，并在head中inject</p>
@@ -164,111 +269,6 @@
       <tags>
         <tag>blog</tag>
         <tag>improvement</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>How to use git and github?</title>
-    <url>/2024/08/01/How-to-use-git-and-github/</url>
-    <content><![CDATA[<h2 id="Basic-Concepts">Basic Concepts</h2>
-<p><strong>repository</strong>：One project corresponds to one repository.The repository stores all the project codes.</p>
-<p><strong>star:</strong> If you think that project is useful or interesting, you can star it.On the one hand, that project will be more and more popular, on the other hand it’s more convenient for you to find the project.</p>
-<p><strong>fork:</strong> It means copy the project’s code in your repository which will have a mark “forked from xxxx”</p>
-<p><strong>Pull Request:</strong> Someone forked your code and add something new, they want to add their changes into your raw projects.Then they will send a <strong>PR</strong>(pull request) to you.You should review their code and do some tests, if you think there is no problem, you can merge all codes.</p>
-<p><strong>Issue:</strong> If you find some bugs or problems, you can raise in issue.</p>
-<h2 id="Basic-Operation">Basic Operation</h2>
-<p><strong>add file、change file、delete file、search file(t):</strong> excute correspond operation and commit changes.You can find all the commits in the upper right corner.</p>
-<p><strong>new a repository、delete a repository(in the setting)、fork a repository.</strong> You can also propose a pull request or raise a issue to participate contributions.</p>
-<h2 id="Git-Operation">Git Operation</h2>
-<p><strong>Git working space:</strong> repository、staging area、working directory</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>The reason why we need staging area instead of only repository is that we need somewhere to choose which file we want to track which not,like some logs file or compiled file(.o file) etc.</code></p>
-</li>
-</ul>
-<h3 id="Command">Command</h3>
-<h4 id="Basic-command">Basic command</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>git help <command>: you can get some help on specific command.</p>
-</li>
-<li class="lvl-2">
-<p>git log --all --graph --decorate: you can get all the commits in a beautiful format.</p>
-</li>
-<li class="lvl-2">
-<p>config: git config --global <a href="http://user.name">user.name</a> “xxx”、git config --global user.email “<a href="mailto:xxx@email.com">xxx@email.com</a>”</p>
-<ul class="lvl-2">
-<li class="lvl-6">With this configuration, github will display the information when you commit sth.</li>
-<li class="lvl-6">git config --list: get all the configuration informations.</li>
-</ul>
-</li>
-<li class="lvl-2">
-<p>git init: init a local repository with a .git file.After that you will get a (master) branch.</p>
-</li>
-<li class="lvl-2">
-<p>git add xxx.txt: Add some files.Pushing the xxx.txt into staging area.</p>
-</li>
-<li class="lvl-2">
-<p>git status: view current status.</p>
-</li>
-<li class="lvl-2">
-<p>git commit -m “some explainations”: commit the files in staging area to repository.</p>
-</li>
-<li class="lvl-2">
-<p>git rm xxx.txt: remove the xxx.txt from repository.</p>
-</li>
-<li class="lvl-2">
-<p>git checkout file.txt: drop the changes in your  work directory.</p>
-<ul class="lvl-2">
-<li class="lvl-6">git checkout <code>hash value</code>: switch the Head pointer.</li>
-</ul>
-</li>
-<li class="lvl-2">
-<p>git diff: you can get the differences between current directory and the commit version.</p>
-</li>
-<li class="lvl-2">
-<p>git cat-file -p <code>hash value</code>: look at the detail of the object.</p>
-</li>
-</ul>
-<h4 id="Branch-related">Branch related</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>git branch: list all your branches.</p>
-<ul class="lvl-2">
-<li class="lvl-6">git branch -vv: list more details.</li>
-<li class="lvl-6">git checkout -d “branch name”: build a new branch and switch into that branch.</li>
-</ul>
-</li>
-<li class="lvl-2">
-<p>git checkout master; git merge “other branch”: merge the branches and deal with conflicts.</p>
-</li>
-</ul>
-<h4 id="Remote-repository">Remote repository</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>git remote</p>
-</li>
-</ul>
-<h2 id="Git-underlevel">Git underlevel</h2>
-<blockquote>
-<h1>What’s Git?</h1>
-<p>Git is a sort of version control system.With git, you can track all your <a href="http://changes.At">changes.At</a> the same time you can cooperate with others in coding a same project.The basic unit is a snapshot which has tree and blobs.The whole git is composed of directed acyclic graph which is a number of snapshots.What we operate is all the references and objects.😄</p>
-<p><code>The core of understanding git.First you should know every commit is a snapshot which consists of code 1. Second you should know what you operate is the object which consists of code 2. At last you should know how can we save all the snapshots effectively which consists of code 3.Building the relation of reference and objects.</code></p>
-<figure class="highlight plaintext"><figcaption><span>1</span></figcaption><table><tr><td class="code"><pre><span class="line">&lt;root&gt; (tree)</span><br><span class="line">|</span><br><span class="line">+- foo (tree) map&lt;tree, tree |  blob&gt;</span><br><span class="line">|  |</span><br><span class="line">|  + bar.txt (blob, contents = &quot;hello world&quot;)</span><br><span class="line">|</span><br><span class="line">+- baz.txt (blob, contents = &quot;git is wonderful&quot;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">o &lt;-- o &lt;-- o &lt;-- o &lt;------- o</span><br><span class="line">          ^               /</span><br><span class="line">            \           v</span><br><span class="line">              -- o &lt;-- o</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><figcaption><span>2</span></figcaption><table><tr><td class="code"><pre><span class="line">Git的数据模型</span><br><span class="line">// 文件就是一组数据</span><br><span class="line">type blob = array&lt;byte&gt;</span><br><span class="line"></span><br><span class="line">// 一个包含文件和目录的目录</span><br><span class="line">type tree = map&lt;string, tree | blob&gt;</span><br><span class="line"></span><br><span class="line">// 每个提交都包含一个父辈，元数据和顶层树</span><br><span class="line">type commit = struct &#123;</span><br><span class="line"> parent: array&lt;commit&gt;</span><br><span class="line"> author: string</span><br><span class="line"> message: string</span><br><span class="line"> snapshot: tree</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>Git中的对象object = blob | tree | commit</code></p>
-<figure class="highlight plaintext"><figcaption><span>3</span></figcaption><table><tr><td class="code"><pre><span class="line">//  git在存储对象时，所有的对象都会基于他们的SHA-1哈希进行寻址</span><br><span class="line">objects = map&lt;string, object&gt;</span><br><span class="line"></span><br><span class="line">def store(object):</span><br><span class="line"> id = sha1(object)</span><br><span class="line"> objects[id] = object</span><br><span class="line"></span><br><span class="line">def load(id):</span><br><span class="line"> return objects[id]</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p><strong>e-book: <a href="https://git-scm.com/book/zh/v2">Pro Git - Book (git-scm.com)</a></strong></p>
-<p><strong>lecture: <a href="https://missing-semester-cn.github.io/2020/version-control/">版本控制(Git) · the missing semester of your cs education (missing-semester-cn.github.io)</a></strong></p>
-]]></content>
-      <categories>
-        <category>Pure English</category>
-        <category>Learning note</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
-        <tag>github</tag>
       </tags>
   </entry>
   <entry>
@@ -434,97 +434,32 @@
       </tags>
   </entry>
   <entry>
-    <title>科学计算库之matplotlib</title>
-    <url>/2024/08/08/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/</url>
-    <content><![CDATA[<h2 id="基础绘制过程">基础绘制过程</h2>
-<p>首先导入包，然后创建画布，选择想要绘制的图像输入数据绘制，最后显示绘制结果</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 0. 创建数据</span></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"><span class="comment"># 1. 创建画布</span></span><br><span class="line">plt.figure(figsize=(<span class="number">20</span>, <span class="number">8</span>), dpi=<span class="number">100</span>) </span><br><span class="line"><span class="comment">#  figsize:画布大小,单位英寸（1英寸2.5厘米） dpi:分辨率（每英寸有多少像素，默认80）</span></span><br><span class="line"><span class="comment"># 2. 绘制</span></span><br><span class="line">plt.plot(x, y)</span><br><span class="line"><span class="comment"># 3. 显示</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/01.png" alt=""></p>
-<h2 id="绘图扩展">绘图扩展</h2>
-<ol>
-<li class="lvl-3">
-<p>添加自定义x，y轴刻度</p>
- <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y_shanghai = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">5</span>), dpi=<span class="number">100</span>)</span><br><span class="line">plt.plot(x, y_shanghai)</span><br><span class="line"></span><br><span class="line">x_ticks_labels = [<span class="string">&#x27;11点&#123;&#125;分&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> x]</span><br><span class="line">y_ticks = [x*<span class="number">0.1</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line">y_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(x*<span class="number">0.1</span>) <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line"></span><br><span class="line">plt.xticks(x[::<span class="number">5</span>], x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line">plt.yticks(y_ticks, y_ticks_labels)</span><br><span class="line"></span><br><span class="line">plt.grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;-.&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line">plt.xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">plt.title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># plt.savefig(&#x27;./pic.png&#x27;)</span></span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<blockquote>
-<h3 id="注意">注意</h3>
-<ul class="lvl-3">
-<li class="lvl-2">
-<p>这里添加的x，y轴刻度值和x，y本身的值没有任何关系，只是我们在定义刻度值时刚好用到了x本身的值而已。</p>
-</li>
-<li class="lvl-2">
-<p>在使用plt.xticks(x_ticks, x_ticks_labels)时，x_ticks必须是一个标量值，在添加了这个标量值后，可以修改x_ticks_labels来加上对应的字符，此时x_ticks_labels必须和x_ticks一一对应。</p>
-</li>
-<li class="lvl-2">
-<p>range只能产生整数的间隔值，当要生成小数时，可以参考上述方法 *0.1😺</p>
-</li>
-<li class="lvl-2">
-<p>当坐标轴有中文时，首先下载支持中文显示的字体，然后修改matplotlibrc的配置文件</p>
-<p><code>vi ~/.matplotlib/matplotlibrc</code></p>
-<p>以simhei字体为例</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">font.family         <span class="punctuation">:</span> sans-serif</span><br><span class="line">font.sans-serif         <span class="punctuation">:</span> SimHei</span><br><span class="line">axes.unicode_minus  <span class="punctuation">:</span> False</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-</li>
-<li class="lvl-3">
-<p>添加表格：<code>plt.grid(True, linestyle='- | -. | --', alpha=0.5, color='r')</code> alpha代表透明度</p>
-</li>
-<li class="lvl-3">
-<p>添加坐标轴描述信息和标题描述信息：<code>plt.xlabel(&quot;fjkdsjf&quot;) plt.tilte(&quot;fjdslkfj&quot;, fontsize=20)</code></p>
-</li>
-<li class="lvl-3">
-<p>保存图片：<code>plt.savefig('path')</code></p>
-</li>
-</ol>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/02.png" alt=""></p>
-<h2 id="一个坐标系中绘制多个图像">一个坐标系中绘制多个图像</h2>
-<ol>
-<li class="lvl-3">
-<p>设置两个图像的x，y的值</p>
-</li>
-<li class="lvl-3">
-<p>使用plt.plot(x, y, color=‘’, linestyle=‘’, label=‘’)进行绘图，通过添加颜色、线条来进行区分，添加label来添加图例，plt.legend(loc=‘’).loc的可选值为’best’、‘upper right’、‘lower left’、'center’等等组合</p>
-</li>
-</ol>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/03.png" alt=""></p>
-<h2 id="多个坐标系显示多个图像">多个坐标系显示多个图像</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y_shanghai = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line">y_beijing = [random.uniform(<span class="number">8</span>, <span class="number">10</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"></span><br><span class="line">fig, axes = plt.subplots(nrows=<span class="number">1</span>, ncols=<span class="number">2</span>, figsize=(<span class="number">20</span>, <span class="number">8</span>), dpi=<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].plot(x, y_shanghai, label=<span class="string">&#x27;上海&#x27;</span>)</span><br><span class="line">axes[<span class="number">1</span>].plot(x, y_beijing, label=<span class="string">&#x27;北京&#x27;</span>, color=<span class="string">&#x27;r&#x27;</span>, linestyle=<span class="string">&#x27;--&#x27;</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].legend(loc=<span class="number">0</span>)</span><br><span class="line">axes[<span class="number">1</span>].legend(loc=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">x_ticks_labels = [<span class="string">&#x27;11点&#123;&#125;分&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> x]</span><br><span class="line">axes[<span class="number">0</span>].set_xticks(x[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">0</span>].set_xticklabels(x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">1</span>].set_xticks(x[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">1</span>].set_xticklabels(x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line"></span><br><span class="line">y0_ticks = [i * <span class="number">0.1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line">y0_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> y0_ticks]</span><br><span class="line">axes[<span class="number">0</span>].set_yticks(y0_ticks)</span><br><span class="line">axes[<span class="number">0</span>].set_yticklabels(y0_ticks_labels)</span><br><span class="line"></span><br><span class="line">y1_ticks = [i * <span class="number">0.1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">80</span>, <span class="number">105</span>, <span class="number">5</span>)]</span><br><span class="line">y1_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> y1_ticks]</span><br><span class="line">axes[<span class="number">1</span>].set_yticks(y1_ticks)</span><br><span class="line">axes[<span class="number">1</span>].set_yticklabels(y1_ticks_labels)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;--&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line">axes[<span class="number">1</span>].grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;-.&#x27;</span>, alpha=<span class="number">0.8</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].set_xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">axes[<span class="number">0</span>].set_ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">axes[<span class="number">0</span>].set_title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<ol>
-<li class="lvl-3">
-<p>首先绘制的方法改为plt.subplots(nrows, ncols, figsize(), dpi) 该方法返回一个画布fig和多个坐标系axes[ ]</p>
-</li>
-<li class="lvl-3">
-<p>后续基本一样，除了在进行坐标系刻度值的变化中采用了xticks和xticklabels分开来其余都一样。</p>
-</li>
-</ol>
-<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/04.png" alt=""></p>
-<h2 id="常见图形绘制">常见图形绘制</h2>
-<ol>
-<li class="lvl-3">
-<p>折线图  plt.plot(x, y)</p>
-</li>
-<li class="lvl-3">
-<p>散点图  plt.scatter(x, y)</p>
-</li>
-<li class="lvl-3">
-<p>柱状图  plt.bar(x, y, width)</p>
-</li>
-<li class="lvl-3">
-<p>直方图  plt.hist(x, bins=None)</p>
-</li>
-<li class="lvl-3">
-<p>饼状图  plt.pie(x, labels=,autopct=,colors)</p>
-</li>
-</ol>
-]]></content>
+    <title>研究生开学记录</title>
+    <url>/2024/09/08/%E7%A0%94%E7%A9%B6%E7%94%9F%E5%BC%80%E5%AD%A6%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="密码错误❗❗❗" data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="d5339e8f30aab7195a189c6b6a8ca9439194a0cd012ea6195365ba4e7c8b0e67">c69d458b5be806e1275b581ae7b46a5b4b1cdbf18bb8d8faf805c851b25c60903d75cb212875e4f56d8985e22dee41c34498ddbe6b2f745c2e2cf20644bd5870c418dc56792cf4339dfbae98226f7861b77e82d82851438144859ee289d43ba16ab38b3325c575e943306666bdb14549ca05d042d613a44c58178147d2a73556f7ef7126ffce6405e47d6503b189be48ff7a4308ae0f8b8c93c4f1fd3f8aa833e09051553c60b2d1d9f8578f8847e93791695ef51a2eaae98a45e0f321ed4ef5fbd12c289db3acfb7f9723c23749abea17138f0c5cf70b01b744ff4cd498c7d6472113e89ad3d0ee3436534e1ea76c47d5af55f9070f6a579701c1c138fdda6be59c50c9bc54fa725642b55099c15b0c60188405ad2bd260f2a284c3348df965e02ea59d2f6c27042007113e19a2e75af7b1b9425cf85a8ca8f181f8f3dc38be445075769fb5b8eb4545d5f404e97b6e9c89d154a766bd5343f7d389a20c2edda59862f52da101a1af817bac956d92ad10fe45b17fb640e7ab57aa3d00b4b6806c4d9cc63f0e138ba06169fe4544af65abe9a9db35e94b53c8a291cef99f69880baf7665fd175d28ac0b55283551c58dc40e298a5a96e67a5cf683c84e6c0252d24e054a982375709ea026878a8f9d6c479dc2d6627ca4cae05275245b636ea9f42bc44040c4c58df740b5a0a1232853d4875896842c80e0d7f74675d1c93e3af06c6b19040c954ca048a35f4f798a573514d0b746b7d8d75caa8563b4de782cdba583c468cbd05ff29034efdfa450ffb411f028ff6c4d2b07126270b769fa481f36acb6f1cd39ea60b70272bb7db7622825fe6ec504bda6f4c666402f7aa139b2ba304a6447cf81e1004c5c8b2585a94d9bb0e1e88ec8869221dee67566a081c278f5f5de264c629fb97e25df7fd8fc409f6485e7a8f80ef20fa4f60e7ad4510772f8253a8078549febca0753b0c93eefbc24388d49bfc9c2ee6cfed9133d4baafca87e7306529fc9168ef81c9de1da0525a7524a7895b84d1d7157cd61bc1e0a8e66c89993f05b4a27aa0ca4ceafab6b678e5a3e561d8da105f0167dc3e973833adba248f4c021b89d33d807f04ae9af3d09ddcb8eadbc39d38ec392497b3f72318aa19f04980a2134752eb421f11fa88e04355f1a584e8d976e079f3b456696b41822b6758c8050c2de49a1452205e09e412cc00a1b186c2db4f8fcd3f2cf4ff58a4dec5122150fbcfe846e9cf879abcfd52de08f61e5568de95fbcad4ea9a419da4b8fe4b22e2f5ddab5ace84bfaca65aeeff2355944073447e7f7beab3acee29a5529390fd5ab6da00da12fe3a678c724c239a63198125c0d6006a0745578c01870b6b80cf90b3d9a049f351203fad744b9e2796dcee65a48b2aab77cc509fba2e4cdda4c8bb112eb2d0fd14f0c90fe080fb4cb40a1762a0405d831874dbd189fec34b2336b3df9f05e422a53f51df6096eb3a0a69c96ff730cc889fdfa23eb456c5356516011b935779a165e2035c67ab40a11d29d801f768b483f1c3bf8eec568ea6b6dc6044a5bcf712091ebdd8260403acda335b6eba705bfa02ed5abe4a9932242c36e746d3cfa44919df596c00e6830e38c4b38416d11131ffbaadaa101679cf71ed719506e51a37dd1677eae4a83ed6256cdf03e127c4cbf20019cbc40d44099b75f77255d6f0fa68b93bea23038769db75faa3ffc7d4c2ae37acacd31fd736fad6db045b5a586fd0cabb5c3156a2bb073e7d1b652e822a77d042892291a35e4d10120c4ffbce2783e44d3dea28a8981c3c327b2285314c6b7cc91e728cd7e9e5d9f62157874081e12be00d607c8fe413d0ff1f8da117141cc34ca5e0e16dcc20d62846d8db68fae851d84cf187f0a7b8dca1a9e676af1676a6fd579cdc70f7ec6a9b29fc8845d949e1f99880d416428b57b826ef1b035e7ff5d960cbe44e519f0c46a3bb1b24159a108e6fc00b7aa21be9983a1799a336777a9a4b19064162e6c7b26811fa9209d1de59596be209c1063a37db73b093bdde0f06522159e31e53147615f8cab3ac4d62624390199a4a83636f6150306840d4651f877f5a0725c90da28f6320e7dabf229df8818cc34436501281feac6d082ef09d614234e59703a65dc8d39f85425782f3d064aa0d65745f84f058d8ba6c39bd43792c994831ec6690cfa8cd88b6c5d264b873efed7de077513fedbb48f7114c37255a043669528d887c9f847fbf6928286cd1c799f6cbf182991d479920329c08aac856cd671ea173d4ba74e7fb866184f3d2c04bbebf22b93323c6d4ddca2bfb075c37250f5abc4e096de258da53f38243f39d9ab70ba82afdff3102af3fda63076e409a1a5b709bf80ea7efc5cc00c1ebffef6fa971c9db73b75296bfb9d97b187c5933ee1f664ad3b515752d58439258fbd777ca58082b9642f0adc5c7a50babafd2dd9ddbf0066cd642d5b6822ffd675f7fab84f13caa03139d023c882407138d440a32fb04c939d0d850a8e3dd30f2dd83823e49416b2c2025529bc088b59d6c4fa16b216f7ee7b70625be242c006ce92fb8ae20020733d2091a9b01cdc57db7aed61f2c41f0b7e9c4dab18c016a52ba6ab041923bd6bf6d00dbf0d4d4e889f32ebaf9b115c186b9c5a80fdab9204748a8c5749f7011406757c3c877025a32aa1f59e18cf4b8073f238b49bf6be2eda1d0da38098af9537f9db7f1463b75431bbc7dba705518569dce5c7678c817a32d3e1e7cb37c1bd74949527c8f9641839a5b1eefe68ecefca5ec61c9d8029f580212e35fc963ed08d4a5a8ef86bc393ac76ad3a5f1039ab4acf0b62e91e830c4f3ec562a892b97910f22b653e1328c342e02f2beef71cb1d29488c1c4b03a4bc66bc74c5f2a9c66dfd2179ecd2bba4cb0e0870c346faff984259e1b1a5ceff7f3bfcd8b07855a5c282dd14be34cf2908c11219e350f39d4ec78effa8c04690a112490d8ea6855e1fed18c1dec42dd14b501d3358e57359f60f55a7db039059185974a1445df6e0bf49181ba9afa90d8650d49b981ec899563db0c5f3da6ce5d436097da74fa488b981a4211f5b316778e74ea3db7ee40d04c65e5410ffc34a4eb08bed42a95539a49e66248357cdbad55b42a32fad910a5f6dc90ff12da59f58f8c6a95fbeeec18e21203d158c7b385c21264bc211327bfc03c4aa56a008717b6f50629abf9431fee1d5fa72cf8be1d114cb04c7a4d3f0bd9bd7ea677c2c02e58ab7856d56035852cbcb739c44af7b079aef97ea7f48fb98bf22bd32293963b1d289f06ca49805c6101846d16a1f125ea12db4e8239863ac63e4add672f929a4b5a0fc140232113898b43f1c4ef63948ead90bd49b250cf9f529eab65e480e69441f12456bb36ba85cac54b3cb28acd7e7e34020a991eebefa0b4753b5e555200ce5264e540046e032033b70cabf81538dad36af33b2f2ff4cd192f69e9ea7502611cef5fd707651457d0aa1fbb9d276aefaf23d14140d414db04144b7649516be432f32677d1ce5c81391f23e7156902c2750ff3f47aa6aa7c72a7289b950c409f8622387e4d6713f102738c17eae57199e55346dda464c070bae22ee768bff56e35d07385c1b6c034a2095c06c6a5b557805d271ee5becca180d0ddc5e7bfe8e7341b36ef2aa57e5ec07c6bc931af57a39d5039cda3c452dfd4cc48e562f56de9d33dbbd727130b5151507cd01b103c8a76e4a6abf56bfb99d8cb3ca9bd0ab484308f5241eece1b1002fba8e65e6b243e07c9ded9c5e2b1a5a44aeb709d8d8a7fff91b4ca978f4ebd3bb8e7bd40258a38f43d6bbba5d79ec89b6db63afa22b0c231f2f234e4a115778a983435f2723fba98def6a0153eb5dc117770a35f597ba0f75fea32f31a6422c8c61b6fb86e1d6f3169fd9ae66136b0d86cc719b1470cea6d01c0896ee22016a0024360702b0b557576cac465eb401ec6cd3096db8b8693dc59ce7cda325c0273f0aed93a01f23ad42074b1b6f13ffbfd58fc5283083f668556c9ebf31539b7c61208a61756e66a00f1e36311e43e4ce24f0a25fbb7cafcef409c06a47b5d50f7698a62059dcbed139826c1cc8c24931e4577078cb9a7e3ecce6fc8a834123cbac5ba76b222cbad3bd70c18f8e563f6b42686277e4f2fec352a1a6a6ade69ff1d5b7ef3117b32477a7207e4ad633a8386c6eb175a230a811f69a1d68767ca74e64e7ff390a44aa7628008dc25f4d68ac262d2f8c67d89e333abe30c28acf1955252d52c3fc31e638b67d1c1624746f3bbaf7a6114cdb762930e4dedc7638c1e6433d7cf4f284c982102994fe129ca0ea64f2c7d10782228885b072347806a02bc321ee9074d2ca7c3e308924a266a35dd8a3a8cbc22be30799a0e3c0a976846fe19c42bc93478447ab2c3ea2dc922b611904400d718ffa82edcea50e5c5378db87d406e20ed4fe8d72ae88b5c201547e854ea393805fb2943ff90fa5491c44eabc904f0cdb7a64cb8d2bab0ba25327843cb890925a685ca3fe3cc57dcc620acf4a4b8d400</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-xray">
+      <input class="hbe hbe-input-field hbe-input-field-xray" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-xray" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-xray">内含机密，请输入密码🤭🤭🤭</span>
+      </label>
+      <svg class="hbe hbe-graphic hbe-graphic-xray" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+        <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>
+        <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0"></path>
+      </svg>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
-        <category>machine learning</category>
-        <category>matplotlib</category>
+        <category>diary</category>
+        <category>master</category>
       </categories>
       <tags>
-        <tag>recording</tag>
-        <tag>machine learning</tag>
-        <tag>learning</tag>
+        <tag>diary</tag>
+        <tag>master</tag>
+        <tag>life</tag>
       </tags>
   </entry>
   <entry>
@@ -655,6 +590,100 @@
       <categories>
         <category>machine learning</category>
         <category>numpy</category>
+      </categories>
+      <tags>
+        <tag>recording</tag>
+        <tag>machine learning</tag>
+        <tag>learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>科学计算库之matplotlib</title>
+    <url>/2024/08/08/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/</url>
+    <content><![CDATA[<h2 id="基础绘制过程">基础绘制过程</h2>
+<p>首先导入包，然后创建画布，选择想要绘制的图像输入数据绘制，最后显示绘制结果</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 0. 创建数据</span></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"><span class="comment"># 1. 创建画布</span></span><br><span class="line">plt.figure(figsize=(<span class="number">20</span>, <span class="number">8</span>), dpi=<span class="number">100</span>) </span><br><span class="line"><span class="comment">#  figsize:画布大小,单位英寸（1英寸2.5厘米） dpi:分辨率（每英寸有多少像素，默认80）</span></span><br><span class="line"><span class="comment"># 2. 绘制</span></span><br><span class="line">plt.plot(x, y)</span><br><span class="line"><span class="comment"># 3. 显示</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/01.png" alt=""></p>
+<h2 id="绘图扩展">绘图扩展</h2>
+<ol>
+<li class="lvl-3">
+<p>添加自定义x，y轴刻度</p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y_shanghai = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">5</span>), dpi=<span class="number">100</span>)</span><br><span class="line">plt.plot(x, y_shanghai)</span><br><span class="line"></span><br><span class="line">x_ticks_labels = [<span class="string">&#x27;11点&#123;&#125;分&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> x]</span><br><span class="line">y_ticks = [x*<span class="number">0.1</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line">y_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(x*<span class="number">0.1</span>) <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line"></span><br><span class="line">plt.xticks(x[::<span class="number">5</span>], x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line">plt.yticks(y_ticks, y_ticks_labels)</span><br><span class="line"></span><br><span class="line">plt.grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;-.&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line">plt.xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">plt.title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># plt.savefig(&#x27;./pic.png&#x27;)</span></span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h3 id="注意">注意</h3>
+<ul class="lvl-3">
+<li class="lvl-2">
+<p>这里添加的x，y轴刻度值和x，y本身的值没有任何关系，只是我们在定义刻度值时刚好用到了x本身的值而已。</p>
+</li>
+<li class="lvl-2">
+<p>在使用plt.xticks(x_ticks, x_ticks_labels)时，x_ticks必须是一个标量值，在添加了这个标量值后，可以修改x_ticks_labels来加上对应的字符，此时x_ticks_labels必须和x_ticks一一对应。</p>
+</li>
+<li class="lvl-2">
+<p>range只能产生整数的间隔值，当要生成小数时，可以参考上述方法 *0.1😺</p>
+</li>
+<li class="lvl-2">
+<p>当坐标轴有中文时，首先下载支持中文显示的字体，然后修改matplotlibrc的配置文件</p>
+<p><code>vi ~/.matplotlib/matplotlibrc</code></p>
+<p>以simhei字体为例</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">font.family         <span class="punctuation">:</span> sans-serif</span><br><span class="line">font.sans-serif         <span class="punctuation">:</span> SimHei</span><br><span class="line">axes.unicode_minus  <span class="punctuation">:</span> False</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+</li>
+<li class="lvl-3">
+<p>添加表格：<code>plt.grid(True, linestyle='- | -. | --', alpha=0.5, color='r')</code> alpha代表透明度</p>
+</li>
+<li class="lvl-3">
+<p>添加坐标轴描述信息和标题描述信息：<code>plt.xlabel(&quot;fjkdsjf&quot;) plt.tilte(&quot;fjdslkfj&quot;, fontsize=20)</code></p>
+</li>
+<li class="lvl-3">
+<p>保存图片：<code>plt.savefig('path')</code></p>
+</li>
+</ol>
+<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/02.png" alt=""></p>
+<h2 id="一个坐标系中绘制多个图像">一个坐标系中绘制多个图像</h2>
+<ol>
+<li class="lvl-3">
+<p>设置两个图像的x，y的值</p>
+</li>
+<li class="lvl-3">
+<p>使用plt.plot(x, y, color=‘’, linestyle=‘’, label=‘’)进行绘图，通过添加颜色、线条来进行区分，添加label来添加图例，plt.legend(loc=‘’).loc的可选值为’best’、‘upper right’、‘lower left’、'center’等等组合</p>
+</li>
+</ol>
+<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/03.png" alt=""></p>
+<h2 id="多个坐标系显示多个图像">多个坐标系显示多个图像</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">60</span>)</span><br><span class="line">y_shanghai = [random.uniform(<span class="number">15</span>, <span class="number">18</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line">y_beijing = [random.uniform(<span class="number">8</span>, <span class="number">10</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> x]</span><br><span class="line"></span><br><span class="line">fig, axes = plt.subplots(nrows=<span class="number">1</span>, ncols=<span class="number">2</span>, figsize=(<span class="number">20</span>, <span class="number">8</span>), dpi=<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].plot(x, y_shanghai, label=<span class="string">&#x27;上海&#x27;</span>)</span><br><span class="line">axes[<span class="number">1</span>].plot(x, y_beijing, label=<span class="string">&#x27;北京&#x27;</span>, color=<span class="string">&#x27;r&#x27;</span>, linestyle=<span class="string">&#x27;--&#x27;</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].legend(loc=<span class="number">0</span>)</span><br><span class="line">axes[<span class="number">1</span>].legend(loc=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">x_ticks_labels = [<span class="string">&#x27;11点&#123;&#125;分&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> x]</span><br><span class="line">axes[<span class="number">0</span>].set_xticks(x[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">0</span>].set_xticklabels(x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">1</span>].set_xticks(x[::<span class="number">5</span>])</span><br><span class="line">axes[<span class="number">1</span>].set_xticklabels(x_ticks_labels[::<span class="number">5</span>])</span><br><span class="line"></span><br><span class="line">y0_ticks = [i * <span class="number">0.1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">150</span>, <span class="number">185</span>, <span class="number">5</span>)]</span><br><span class="line">y0_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> y0_ticks]</span><br><span class="line">axes[<span class="number">0</span>].set_yticks(y0_ticks)</span><br><span class="line">axes[<span class="number">0</span>].set_yticklabels(y0_ticks_labels)</span><br><span class="line"></span><br><span class="line">y1_ticks = [i * <span class="number">0.1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">80</span>, <span class="number">105</span>, <span class="number">5</span>)]</span><br><span class="line">y1_ticks_labels = [<span class="string">&#x27;&#123;&#125;℃&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> y1_ticks]</span><br><span class="line">axes[<span class="number">1</span>].set_yticks(y1_ticks)</span><br><span class="line">axes[<span class="number">1</span>].set_yticklabels(y1_ticks_labels)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;--&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line">axes[<span class="number">1</span>].grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;-.&#x27;</span>, alpha=<span class="number">0.8</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].set_xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">axes[<span class="number">0</span>].set_ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">axes[<span class="number">0</span>].set_title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_xlabel(<span class="string">&quot;时间&quot;</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_ylabel(<span class="string">&quot;温度&quot;</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_title(<span class="string">&quot;中午11点--12点某城市温度变化图&quot;</span>, fontsize=<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<ol>
+<li class="lvl-3">
+<p>首先绘制的方法改为plt.subplots(nrows, ncols, figsize(), dpi) 该方法返回一个画布fig和多个坐标系axes[ ]</p>
+</li>
+<li class="lvl-3">
+<p>后续基本一样，除了在进行坐标系刻度值的变化中采用了xticks和xticklabels分开来其余都一样。</p>
+</li>
+</ol>
+<p><img src="/postsImages/%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E5%BA%93%E4%B9%8Bmatplotlib/04.png" alt=""></p>
+<h2 id="常见图形绘制">常见图形绘制</h2>
+<ol>
+<li class="lvl-3">
+<p>折线图  plt.plot(x, y)</p>
+</li>
+<li class="lvl-3">
+<p>散点图  plt.scatter(x, y)</p>
+</li>
+<li class="lvl-3">
+<p>柱状图  plt.bar(x, y, width)</p>
+</li>
+<li class="lvl-3">
+<p>直方图  plt.hist(x, bins=None)</p>
+</li>
+<li class="lvl-3">
+<p>饼状图  plt.pie(x, labels=,autopct=,colors)</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>machine learning</category>
+        <category>matplotlib</category>
       </categories>
       <tags>
         <tag>recording</tag>
