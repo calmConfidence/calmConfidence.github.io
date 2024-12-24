@@ -34,3 +34,12 @@
 #page-header {
     background: transparent !important;
 }
+
+/* 欢迎面板 */
+#welcome-info {
+    overflow: hidden;
+    border-radius: 14px;
+    --kouseki-welcome-color: #c04851;
+    --kouseki-ip-color: #c04851;
+    --kouseki-gl-size: 18px !important;
+}

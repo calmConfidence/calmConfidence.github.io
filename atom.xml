@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>calmConfidence&#39;s Blog</title>
+  <icon>https://calmconfidence.github.io/icon.png</icon>
+  <subtitle>Recording something meaningful or meaningless</subtitle>
+  <link href="https://calmconfidence.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://calmconfidence.github.io/"/>
+  <updated>2024-12-22T18:19:26.989Z</updated>
+  <id>https://calmconfidence.github.io/</id>
+  
+  <author>
+    <name>calmConfidence</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关于记录平台的反思</title>
+    <link href="https://calmconfidence.github.io/2024/12/23/%E8%AE%B0%E5%BD%95%E5%B9%B3%E5%8F%B0/"/>
+    <id>https://calmconfidence.github.io/2024/12/23/%E8%AE%B0%E5%BD%95%E5%B9%B3%E5%8F%B0/</id>
+    <published>2024-12-22T18:00:06.000Z</published>
+    <updated>2024-12-22T18:19:26.989Z</updated>
+    
+    
+    <summary type="html">最近感觉每天接触太多平台了，为了让这些平台更好为己所用，特意重新审视了一下各个平台的主要功能，并分析了今后自己该如何使用这些平台...</summary>
+    
+    
+    
+    
+    <category term="reflection" scheme="https://calmconfidence.github.io/tags/reflection/"/>
+    
+    <category term="record" scheme="https://calmconfidence.github.io/tags/record/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>利用hexo和butterfly搭建静态博客</title>
+    <link href="https://calmconfidence.github.io/2024/08/01/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://calmconfidence.github.io/2024/08/01/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</id>
+    <published>2024-08-01T02:41:30.000Z</published>
+    <updated>2024-12-22T18:10:09.938Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;Hexo介绍&quot;&gt;&lt;a href=&quot;#Hexo介绍&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="blog" scheme="https://calmconfidence.github.io/tags/blog/"/>
+    
+  </entry>
+  
+</feed>
