@@ -30,8 +30,8 @@ function getDistance(e1, n1, e2, n2) {
 function showWelcome() {
   console.log(ipLocation);
   let dist = getDistance(
-    34,
-    108,
+    108.947,
+    34.259,
     ipLocation.result.location.lng,
     ipLocation.result.location.lat
   ); //这里记得换成自己的经纬度
