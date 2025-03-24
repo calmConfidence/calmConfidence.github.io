@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Wsum25_0324_0330 | calmConfidence's Blog</title><meta name="author" content="calmConfidence"><meta name="copyright" content="calmConfidence"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1.1 前言今天是2025年3月24日，和上次一样，又停摆到周一写计划了。这周目前整体目标，时间日志打卡不少于5天；平均每日学习时长不少于5小时；   锻炼+运动  学习CS231n  读书  课内的一些必要的东西  早起加早点，5次  戒断视频号  1.2 完成情况todo……">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Wsum25_0324_0330">
+<meta property="og:url" content="https://calmconfidence.github.io/posts/3b8af5fb.html">
+<meta property="og:site_name" content="calmConfidence&#39;s Blog">
+<meta property="og:description" content="1.1 前言今天是2025年3月24日，和上次一样，又停摆到周一写计划了。这周目前整体目标，时间日志打卡不少于5天；平均每日学习时长不少于5小时；   锻炼+运动  学习CS231n  读书  课内的一些必要的东西  早起加早点，5次  戒断视频号  1.2 完成情况todo……">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://a5986be.webp.li/20250324/cover.png">
+<meta property="article:published_time" content="2025-03-24T05:15:10.000Z">
+<meta property="article:modified_time" content="2025-03-24T05:24:33.119Z">
+<meta property="article:author" content="calmConfidence">
+<meta property="article:tag" content="summary">
+<meta property="article:tag" content="Wsum">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://a5986be.webp.li/20250324/cover.png"><link rel="shortcut icon" href="https://a5986be.webp.li/blog/favicon.ico"><link rel="canonical" href="https://calmconfidence.github.io/posts/3b8af5fb.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"21GDLHMYLW","apiKey":"e62498ba0a612e38a9add03b1e467cd6","indexName":"Blog_index","hitsPerPage":6,"languages":{"input_placeholder":"Please input the key words ...","hits_empty":"No results found for: ${query}","hits_stats":"${hits} results found in ${time} ms"}},
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"Author: calmConfidence","link":"Link: ","source":"Source: calmConfidence's Blog","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Wsum25_0324_0330',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="calmConfidence's Blog" type="application/atom+xml">
+</head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/css/center-atom.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background-image: url(https://a5986be.webp.li/blog/background_day.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://a5986be.webp.li/blog/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa-solid fa-clipboard-list"></i><span> Summary</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tags/summary"><i class="fa-fw fa-solid fa-file-arrow-down"></i><span> ALL</span></a></li><li><a class="site-page child" href="/tags/Wsum/"><i class="fa-fw fa-solid fa-receipt"></i><span> Weekly</span></a></li><li><a class="site-page child" href="/tags/Msum/"><i class="fa-fw fa-solid fa-book-open"></i><span> monthly</span></a></li><li><a class="site-page child" href="/tags/Ysum/"><i class="fa-fw fa-solid fa-scroll-torah"></i><span> yearly</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/book_reads/"><i class="fa-fw fa-solid fa-book"></i><span> Book</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk"><i class="fa-fw fas fa-lightbulb"></i><span> Sentences</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://a5986be.webp.li/20250324/cover.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="https://a5986be.webp.li/blog/favicon.ico" alt="Logo"><span class="site-name">calmConfidence's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Wsum25_0324_0330</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search" href="javascript:void(0);" style="float:right;top:6px;left:14px;"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa-solid fa-clipboard-list"></i><span> Summary</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tags/summary"><i class="fa-fw fa-solid fa-file-arrow-down"></i><span> ALL</span></a></li><li><a class="site-page child" href="/tags/Wsum/"><i class="fa-fw fa-solid fa-receipt"></i><span> Weekly</span></a></li><li><a class="site-page child" href="/tags/Msum/"><i class="fa-fw fa-solid fa-book-open"></i><span> monthly</span></a></li><li><a class="site-page child" href="/tags/Ysum/"><i class="fa-fw fa-solid fa-scroll-torah"></i><span> yearly</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/book_reads/"><i class="fa-fw fa-solid fa-book"></i><span> Book</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk"><i class="fa-fw fas fa-lightbulb"></i><span> Sentences</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Wsum25_0324_0330</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-03-24T05:15:10.000Z" title="Created 2025-03-24 13:15:10">2025-03-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-03-24T05:24:33.119Z" title="Updated 2025-03-24 13:24:33">2025-03-24</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">97</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>1mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="1-1-前言"><a href="#1-1-前言" class="headerlink" title="1.1 前言"></a>1.1 前言</h2><p>今天是2025年3月24日，和上次一样，又停摆到周一写计划了。这周目前整体目标，<strong>时间日志打卡不少于5天</strong>；<strong>平均每日学习时长不少于5小时</strong>；</p>
+<ul>
+<li><input disabled="" type="checkbox"> 锻炼+运动</li>
+<li><input disabled="" type="checkbox"> 学习CS231n</li>
+<li><input disabled="" type="checkbox"> 读书</li>
+<li><input disabled="" type="checkbox"> 课内的一些必要的东西</li>
+<li><input disabled="" type="checkbox"> 早起加早点，5次</li>
+<li><input disabled="" type="checkbox"> 戒断视频号</li>
+</ul>
+<h2 id="1-2-完成情况"><a href="#1-2-完成情况" class="headerlink" title="1.2 完成情况"></a>1.2 完成情况</h2><p>todo……</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://calmConfidence.github.io">calmConfidence</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://calmconfidence.github.io/posts/3b8af5fb.html">https://calmconfidence.github.io/posts/3b8af5fb.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/summary/">summary</a><a class="post-meta__tags" href="/tags/Wsum/">Wsum</a></div><div class="post-share"><div class="social-share" data-image="https://a5986be.webp.li/20250324/cover.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/posts/4aa66ac7.html" title="Wsum25_0310_0323"><img class="cover" src="https://a5986be.webp.li/20250310/cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Wsum25_0310_0323</div></div><div class="info-2"><div class="info-item-1">1.1 前言今天是2025年3月10日，和上次一样，又停摆到周一写计划了🤣。这周目前整体目标，时间日志打卡不少于5天；平均每日学习时长不少于5小时；喂，时间很紧张，有点紧迫感啊！！戒断三天打鱼两天晒网！   英语学习，时长2h左右  锻炼+运动  读书，时长3h20min  课内的一些必要的东西  早起加早点，5次  把pytorch内容学完  OK，基本计划还是上边这些内容，就看完成度如何了。秉持客观事实，记录自己时间使用情况，任务完成情况，提高效率！！ 1.2...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/e3e13f0d.html" title="Wsum25_0303_0309"><img class="cover" src="https://a5986be.webp.li/20250303/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-03</div><div class="info-item-2">Wsum25_0303_0309</div></div><div class="info-2"><div class="info-item-1">1.1 前言今天是2025年3月3日，按道理来说应该在昨天也就是周日的时候来写的，但苦于自己的拖延，又停摆到周一了。昨日已逝，今日可期。下面制定一下下周（也就是这周）的计划。这周继续保持时间日志的打卡，始终奔着一个目标，不能造假，如果那段时间玩了，就直接记录成休息或者娱乐，要把自己的时间使用情况真实的反馈给自己。这周的目标要赶紧把pytorch部分的内容搞完了，争取推进到课程的学习。   英语学习，时长2h左右  锻炼+运动  读书，时长3h20min  课内的一些必要的东西  早起加早点，4次  把pytorch内容学完  核心点还是把pytorch部分学完，其余的尽可能实现吧，另外就是读书这周必须开始了，上周直接把他略了🙃🙃。另外，可以在周末的时候或者放假的时候，收拾收拾自己的收藏夹，别让他吃灰了。。。。 1.2...</div></div></div></a><a class="pagination-related" href="/posts/4aa66ac7.html" title="Wsum25_0310_0323"><img class="cover" src="https://a5986be.webp.li/20250310/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-10</div><div class="info-item-2">Wsum25_0310_0323</div></div><div class="info-2"><div class="info-item-1">1.1 前言今天是2025年3月10日，和上次一样，又停摆到周一写计划了🤣。这周目前整体目标，时间日志打卡不少于5天；平均每日学习时长不少于5小时；喂，时间很紧张，有点紧迫感啊！！戒断三天打鱼两天晒网！   英语学习，时长2h左右  锻炼+运动  读书，时长3h20min  课内的一些必要的东西  早起加早点，5次  把pytorch内容学完  OK，基本计划还是上边这些内容，就看完成度如何了。秉持客观事实，记录自己时间使用情况，任务完成情况，提高效率！！ 1.2...</div></div></div></a><a class="pagination-related" href="/posts/b12faccd.html" title="Wsum25_0224_0302"><img class="cover" src="https://a5986be.webp.li/20250223/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-23</div><div class="info-item-2">Wsum25_0224_0302</div></div><div class="info-2"><div class="info-item-1">1.1 前言今天是2025年2月23日，从下周开始自律🤣，好经典的话术hh。不过这次是认真的，下定决心就是干。目前打算重启时间日志进行自己时间的记录，不再给自己找借口，另外打算也参考星爷，将时间记录打卡到b站，同时配上每日总结。 这里先标记一下准备做的事情：todo list   英语学习  锻炼  读书  博客完善  课内的一些必要的东西  早起加早点  深度学习一些基础的东西  这里说的内容都比较笼统，并没有具体指定每一项要完成到什么程度。一方面是第一周刚开始，不敢抓的太紧怕直接滑铁卢了😂，另一方面一些内容还没调研，没法量化打算每天早上的时候进行计划的指定，将量化过程放在每天里。好的，千里之行始于足下，加油！！期待下周总结的时候，上面的都可以打上勾😋😋 1.2 完成情况  英语学习 -&gt; 总时长：1小时24分，总共看了2节视频  锻炼 -&gt; 总时长： 19分钟。不包括球类运动时长  读书 -&gt; 总时长： 0分钟。  博客完善 -&gt; 总时长：0分钟。  课内的一些必要的东西 -&gt; 6h54min  早起加早点 -&gt; 总共吃了三次 ...</div></div></div></a><a class="pagination-related" href="/posts/d79ecae9.html" title="年度总结及未来计划"><img class="cover" src="https://a5986be.webp.li/20250213/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-13</div><div class="info-item-2">年度总结及未来计划</div></div><div class="info-2"><div class="info-item-1"> 这是我的第一次年终总结，说是年终总结，其实更多是对自己之前的反思，以及对未来自己的期盼.  1.1 前言想来想去还是先加个前言比较好，一方面是之前自己并没有真的认真总结自己，到年底也不知道该怎么总结；另一方面，想着如果按照对过去的反思和对未来的期盼两个角度写的话，有些话不知道该放在哪里，索性就把自己还想写的内容就放到前言这里了。 今天是2025年2月13日，农历正月十六，按照传统意义上，过了元宵节就算是真的过完年了。其实，按理说应该在过年时，或者元旦时写的，可能是所谓仪式感和拖延症的双重buff下，一直拖到现在了。虽然我也不知道写这些内容有什么意义，但我还是想把想到的都写出来😂😂，也许多一些细节，在今后回忆时就会多一些感受吧 挺有意思的，高中以前最烦的就是写作文了，现在倒是主动写了起来🤔🤔，或许这就是成长吧：不再是所谓的完成任务，而是转去寻找真正的自己吧。 1.2...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://a5986be.webp.li/blog/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">calmConfidence</div><div class="author-info-description">风雪压我两三年，我笑风轻雪又棉。</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" href="https://calmConfidence.github.io/atom.xml"><i class="fa-solid fa-rss"></i><span>🤩点个订阅🤩</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/calmConfidence" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1570613642@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://space.bilibili.com/495116960?spm_id_from=333.1007.0.0" target="_blank" title="Bilibili"><i class="fa-brands fa-bilibili" style="color: #00aee8;"></i></a><a class="social-icon" href="https://juejin.cn/user/2047768313210251" target="_blank" title="Juejin"><i class="fa-brands fa-audible" style="color: #1e80ff;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Blog reconstructing ... <br><div id="welcome-info"></div></br></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">1.1 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E5%AE%8C%E6%88%90%E6%83%85%E5%86%B5"><span class="toc-number">2.</span> <span class="toc-text">1.2 完成情况</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/3b8af5fb.html" title="Wsum25_0324_0330"><img src="https://a5986be.webp.li/20250324/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Wsum25_0324_0330"/></a><div class="content"><a class="title" href="/posts/3b8af5fb.html" title="Wsum25_0324_0330">Wsum25_0324_0330</a><time datetime="2025-03-24T05:15:10.000Z" title="Created 2025-03-24 13:15:10">2025-03-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4aa66ac7.html" title="Wsum25_0310_0323"><img src="https://a5986be.webp.li/20250310/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Wsum25_0310_0323"/></a><div class="content"><a class="title" href="/posts/4aa66ac7.html" title="Wsum25_0310_0323">Wsum25_0310_0323</a><time datetime="2025-03-10T00:31:16.000Z" title="Created 2025-03-10 08:31:16">2025-03-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/e3e13f0d.html" title="Wsum25_0303_0309"><img src="https://a5986be.webp.li/20250303/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Wsum25_0303_0309"/></a><div class="content"><a class="title" href="/posts/e3e13f0d.html" title="Wsum25_0303_0309">Wsum25_0303_0309</a><time datetime="2025-03-03T09:01:24.000Z" title="Created 2025-03-03 17:01:24">2025-03-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/b12faccd.html" title="Wsum25_0224_0302"><img src="https://a5986be.webp.li/20250223/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Wsum25_0224_0302"/></a><div class="content"><a class="title" href="/posts/b12faccd.html" title="Wsum25_0224_0302">Wsum25_0224_0302</a><time datetime="2025-02-23T14:41:05.000Z" title="Created 2025-02-23 22:41:05">2025-02-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/d79ecae9.html" title="年度总结及未来计划"><img src="https://a5986be.webp.li/20250213/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="年度总结及未来计划"/></a><div class="content"><a class="title" href="/posts/d79ecae9.html" title="年度总结及未来计划">年度总结及未来计划</a><time datetime="2025-02-13T15:36:31.000Z" title="Created 2025-02-13 23:36:31">2025-02-13</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By calmConfidence</div><div class="footer_custom_text">It's you yourself that makes you confident not yours your ownings.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23liJF31Q9PILlxxRH',
+      clientSecret: '995b67bc3211730b8da02cb1a51c3dea4e594288',
+      repo: 'calmConfidence.github.io',
+      owner: 'calmConfidence',
+      admin: ['calmConfidence'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '8af60b50b73359876cdaadd099f9160c'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><canvas id="snow"></canvas><script async src="/js/snow.js"></script><script type="text/javascript" src="https://unpkg.zhimg.com/jquery@latest/dist/jquery.min.js"></script><script defer="true" src="/js/welcome.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/lite/builds/browser.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></div></body></html>
