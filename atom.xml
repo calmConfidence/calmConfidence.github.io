@@ -6,7 +6,7 @@
   <link href="https://calmconfidence.github.io/atom.xml" rel="self"/>
   
   <link href="https://calmconfidence.github.io/"/>
-  <updated>2025-03-24T05:24:33.119Z</updated>
+  <updated>2025-04-14T12:26:35.204Z</updated>
   <id>https://calmconfidence.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vscode中python包引入问题</title>
+    <link href="https://calmconfidence.github.io/posts/3f2d3791.html"/>
+    <id>https://calmconfidence.github.io/posts/3f2d3791.html</id>
+    <published>2025-04-14T10:53:00.000Z</published>
+    <updated>2025-04-14T12:26:35.204Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1-python中包的引入&quot;&gt;&lt;a href=&quot;#1-python中包的引入&quot; class=&quot;headerlink&quot; title=&quot;1 python中包的引入&quot;&gt;&lt;/a&gt;1</summary>
+        
+      
+    
+    
+    
+    
+    <category term="vscode" scheme="https://calmconfidence.github.io/tags/vscode/"/>
+    
+  </entry>
   
   <entry>
     <title>Wsum25_0324_0330</title>
